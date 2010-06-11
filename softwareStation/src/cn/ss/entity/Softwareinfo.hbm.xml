@@ -46,13 +46,13 @@
 				<comment>下载次数</comment>
 			</column>
 		</property>
-		<bag name="phonemodelList">
+		<bag name="phoneOsList">
 			<key>
 				<column name="softwareInfoId">
-					<comment>支持机型</comment>
+					<comment>支持操作系统</comment>
 				</column>
 			</key>
-			<many-to-many class="cn.ss.entity.Phonemodel"></many-to-many>
+			<many-to-many class="cn.ss.entity.Phoneos" column="phoneOsId"></many-to-many>
 		</bag>
 		<property name="downloadPath" type="java.lang.String">
 			<column name="downloadPath" length="200">

@@ -34,10 +34,6 @@ public class Phonemodel implements java.io.Serializable {
 	 * 创建时间
 	 */
 	private Date createTime;
-	/**
-	 * 支持的软件
-	 */
-	private List<Softwareinfo> softwareinfoList = new ArrayList<Softwareinfo>();
 
 	// Constructors
 
@@ -81,14 +77,6 @@ public class Phonemodel implements java.io.Serializable {
 
 	public void setCreateTime(Date createTime) {
 		this.createTime = createTime;
-	}
-
-	public List<Softwareinfo> getSoftwareinfoList() {
-		return softwareinfoList;
-	}
-
-	public void setSoftwareinfoList(List<Softwareinfo> softwareinfoList) {
-		this.softwareinfoList = softwareinfoList;
 	}
 
 }

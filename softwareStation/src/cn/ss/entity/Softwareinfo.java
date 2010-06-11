@@ -23,7 +23,7 @@ public class Softwareinfo implements java.io.Serializable {
 	/**
 	 * 支持机型
 	 */
-	private List<Phonemodel> phonemodelList = new ArrayList<Phonemodel>();
+	private List<Phoneos> phoneOsList = new ArrayList<Phoneos>();
 
 	private String description;
 
@@ -193,12 +193,12 @@ public class Softwareinfo implements java.io.Serializable {
 		this.softearetype = softearetype;
 	}
 
-	public List<Phonemodel> getPhonemodelList() {
-		return phonemodelList;
+	public List<Phoneos> getPhoneOsList() {
+		return phoneOsList;
 	}
 
-	public void setPhonemodelList(List<Phonemodel> phonemodelList) {
-		this.phonemodelList = phonemodelList;
+	public void setPhoneOsList(List<Phoneos> phoneOsList) {
+		this.phoneOsList = phoneOsList;
 	}
 
 }

@@ -30,8 +30,20 @@ public class Phoneos implements java.io.Serializable {
 	 * 系列
 	 */
 	private List<Phoneseries> phoneseriesList = new ArrayList<Phoneseries>();
+	/**
+	 * 支持的软件
+	 */
+	private List<Softwareinfo> softwareinfoList = new ArrayList<Softwareinfo>();
 
 	// Constructors
+
+	public List<Softwareinfo> getSoftwareinfoList() {
+		return softwareinfoList;
+	}
+
+	public void setSoftwareinfoList(List<Softwareinfo> softwareinfoList) {
+		this.softwareinfoList = softwareinfoList;
+	}
 
 	public List<Phoneseries> getPhoneseriesList() {
 		return phoneseriesList;

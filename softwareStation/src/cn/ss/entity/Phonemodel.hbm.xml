@@ -30,13 +30,5 @@
                 <comment>创建时间</comment>
             </column>
         </property>
-        <bag name="softwareinfoList">
-			<key>
-				<column name="phoneModelId">
-					<comment>软件信息</comment>
-				</column>
-			</key>
-			<many-to-many class="cn.ss.entity.Softwareinfo"></many-to-many>
-		</bag>
     </class>
 </hibernate-mapping>
