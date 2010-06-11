@@ -29,7 +29,7 @@
 			<ul>
 				<li class="closed"><span class="folder">操作系统管理</span>
 					<ul>
-						<li><span class="file"><a href="phone/osList.jsp">操作系统列表</a></span></li>
+						<li><span class="file"><a href="phoneos!list.action">操作系统列表</a></span></li>
 						<li><span class="file"><a href="phone/osUpdate.jsp">增加操作系统</a></span></li>
 					</ul>
 				</li>

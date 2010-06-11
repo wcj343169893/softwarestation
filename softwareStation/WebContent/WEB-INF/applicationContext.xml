@@ -23,18 +23,24 @@
 		</bean>
 	-->
 
-	<!-- Hibernate SessionFactory -->
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+		<property name="configLocation">
+			<value>classpath:hibernate.cfg.xml</value>
+		</property>
+	</bean>
+	<!-- Hibernate SessionFactory 
 	<bean id="sessionFactory"
 		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
 		<property name="mappingResources">
 			<list>
-				<value>cn/ss/entity/Softwareinfo.hbm.xml</value>
-				<value>cn/ss/entity/Phonemodel.hbm.xml</value>
-				<value>cn/ss/entity/Phoneseries.hbm.xml</value>
-				<value>cn/ss/entity/Softwaretype.hbm.xml</value>
-				<value>cn/ss/entity/Phoneos.hbm.xml</value>
-				<value>cn/ss/entity/Phonebrand.hbm.xml</value>
+				<value>cn/ss/entity/PhoneModel.hbm.xml</value>
+				<value>cn/ss/entity/SoftwareInfo.hbm.xml</value>
+				<value>cn/ss/entity/PhoneSeries.hbm.xml</value>
+				<value>cn/ss/entity/SoftwareType.hbm.xml</value>
+				<value>cn/ss/entity/PhoneOs.hbm.xml</value>
+				<value>cn/ss/entity/PhoneBrand.hbm.xml</value>
 				<value>cn/ss/entity/SoftwareOs.hbm.xml</value>
 			</list>
 		</property>
@@ -52,7 +58,7 @@
 				</entry>
 			</map>
 		</property>
-	</bean>
+	</bean>-->
 	<!-- transactionManager -->
 	<bean id="transactionManager"
 		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
