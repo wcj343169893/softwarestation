@@ -35,6 +35,7 @@
 				<value>cn/ss/entity/Softwaretype.hbm.xml</value>
 				<value>cn/ss/entity/Phoneos.hbm.xml</value>
 				<value>cn/ss/entity/Phonebrand.hbm.xml</value>
+				<value>cn/ss/entity/SoftwareOs.hbm.xml</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">
