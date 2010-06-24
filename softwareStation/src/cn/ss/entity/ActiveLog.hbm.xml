@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+	<!-- Generated 2010-6-21 8:51:34 by Hibernate Tools 3.2.4.GA -->
+<hibernate-mapping>
+	<class name="cn.ss.entity.ActiveLog" table="activeLog" catalog="softwareStation">
+		<id name="id" type="java.lang.Integer">
+			<column name="id" />
+			<generator class="identity" />
+		</id>
+		<many-to-one name="softwareInfo" class="cn.ss.entity.SoftwareInfo">
+			<column name="softwareId">
+				<comment>&#228;&#184;?&#189;&#189;??&#189;&#175;&#228;&#187;?</comment>
+			</column>
+		</many-to-one>
+		<property name="number" type="java.lang.Integer">
+			<column name="number">
+				<comment>&#230;&#191;?&#180;&#187;??</comment>
+			</column>
+		</property>
+		<property name="activeTime" type="timestamp">
+			<column name="activeTime" length="19">
+				<comment>?&#165;&#231;??&#182;&#233;?</comment>
+			</column>
+		</property>
+		<property name="price" type="java.lang.Double">
+			<column name="price" precision="22" scale="0">
+				<comment>激活价格</comment>
+			</column>
+		</property>
+	</class>
+</hibernate-mapping>

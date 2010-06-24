@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.0.dtd" >
+<struts>
+	<constant name="struts.enable.DynamicMethodInvocation" value="true" />
+	<constant name="struts.objectFactory" value="spring" />
+	 <constant name="struts.devMode" value="true" />
+	<package name="phone"  extends="struts-default">
+		<action name="phoneOs" class="PhoneOsAction">
+			<result name="success">/index.jsp</result>
+			<result name="input">/index.jsp</result>
+			<result name="list">/admin/phone/phoneOsList.jsp</result>
+			<result name="detail">/admin/phone/phoneOsUpdate.jsp</result>
+		</action>
+		<action name="extension" class="ExtensionAction">
+			<result name="success">/index.jsp</result>
+			<result name="input">/index.jsp</result>
+			<result name="list">/admin/phone/extentionList.jsp</result>
+			<result name="detail">/admin/phone/extentionUpdate.jsp</result>
+		</action>
+		<action name="phoneBrand" class="PhoneBrandAction">
+			<result name="success">/index.jsp</result>
+			<result name="input">/index.jsp</result>
+			<result name="list">/admin/phone/phoneBrandList.jsp</result>
+			<result name="detail">/admin/phone/phoneBrandUpdate.jsp</result>
+		</action>
+		<action name="phoneSeries" class="PhoneSeriesAction">
+			<result name="success">/index.jsp</result>
+			<result name="input">/index.jsp</result>
+			<result name="list">/admin/phone/phoneSeriesList.jsp</result>
+			<result name="detail">/admin/phone/phoneSeriesUpdate.jsp</result>
+		</action>
+	</package>
+	<package name="software"  extends="struts-default">
+		<action name="softwareType" class="SoftwareTypeAction">
+			<result name="success">/index.jsp</result>
+			<result name="input">/index.jsp</result>
+			<result name="list">/admin/software/softwareTypeList.jsp</result>
+			<result name="detail">/admin/software/softwareTypeUpdate.jsp</result>
+		</action>
+		<action name="softwareInfo" class="SoftwareInfoAction">
+			<result name="success">/index.jsp</result>
+			<result name="input">/index.jsp</result>
+			<result name="list">/admin/software/softwareInfoList.jsp</result>
+			<result name="detail">/admin/software/softwareInfoUpdate.jsp</result>
+		</action>
+		<action name="software" class="SoftwareAction">
+			<result name="success" type="redirectAction">softwareInfo!list.action</result>
+			<result name="delete" type="redirect">softwareInfo!detail.action?id=${id2 }</result>
+			<result name="input">/index.jsp</result>
+		</action>
+	</package>
+	<package name="data"  extends="struts-default">
+		<action name="account" class="AccountAction">
+			<result name="success">/index.jsp</result>
+			<result name="input">/index.jsp</result>
+			<result name="list">/admin/data/accountList.jsp</result>
+			<result name="detail">/admin/data/accountUpdate.jsp</result>
+		</action>
+		<action name="accountType" class="AccountTypeAction">
+			<result name="success">/index.jsp</result>
+			<result name="input">/index.jsp</result>
+			<result name="list">/admin/data/accountTypeList.jsp</result>
+			<result name="detail">/admin/data/accountTypeUpdate.jsp</result>
+		</action>
+		<action name="activeLog" class="ActiveLogAction">
+			<result name="success">/index.jsp</result>
+			<result name="input">/index.jsp</result>
+			<result name="list">/admin/data/activeLogList.jsp</result>
+			<result name="detail">/admin/data/activeLogAdd.jsp</result>
+			<result name="add" type="redirect">softwareInfo!list.action?showData=1</result>
+		</action>
+	</package>
+</struts>

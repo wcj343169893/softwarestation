@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+	<!-- Generated 2010-6-21 8:51:34 by Hibernate Tools 3.2.4.GA -->
+<hibernate-mapping>
+	<class name="cn.ss.entity.Account" table="account" catalog="softwareStation">
+		<id name="id" type="java.lang.Integer">
+			<column name="id" />
+			<generator class="identity" />
+		</id>
+		<property name="price" type="java.lang.Double">
+			<column name="price" precision="22" scale="0">
+				<comment>???</comment>
+			</column>
+		</property>
+		<many-to-one name="accType" class="cn.ss.entity.AccountType">
+			<column name="accType">
+				<comment>&#232;&#180;??&#231;&#177;&#187;&#229;?</comment>
+			</column>
+		</many-to-one>
+		<property name="explanation" type="string">
+			<column name="explanation" length="200">
+				<comment>&#229;&#164;?&#179;&#168;&#232;&#175;&#180;&#230;?</comment>
+			</column>
+		</property>
+		<property name="createTime" type="timestamp">
+			<column name="createTime" length="19">
+				<comment>??&#187;&#186;?&#182;&#233;?</comment>
+			</column>
+		</property>
+	</class>
+</hibernate-mapping>

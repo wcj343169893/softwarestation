@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="cn.ss.entity.Extension" table="extension" catalog="softwarestation">
+		<id name="id" type="java.lang.Integer">
+			<column name="id" />
+			<generator class="native" />
+		</id>
+		<property name="name" type="java.lang.String">
+			<column name="name" length="20">
+				<comment>名称</comment>
+			</column>
+		</property>
+		<bag name="phoneOsList" table="extensionOs">
+			<key column="extension"></key>
+			<many-to-many class="cn.ss.entity.PhoneOs" column="phoneOs"></many-to-many>
+		</bag>
+	</class>
+</hibernate-mapping>
