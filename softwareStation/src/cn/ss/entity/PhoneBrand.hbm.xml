@@ -28,5 +28,13 @@
         	</key>
         	<one-to-many class="cn.ss.entity.PhoneSeries"/>
         </bag>
+        <bag name="phoneModelList">
+        	<key>
+        		<column name="brandId">
+        			<comment>手机机型</comment>
+        		</column>
+        	</key>
+        	<one-to-many class="cn.ss.entity.PhoneModel"/>
+        </bag>
     </class>
 </hibernate-mapping>
