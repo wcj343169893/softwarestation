@@ -99,7 +99,7 @@
 	<bean id="extensionService" class="cn.ss.service.ExtensionService">
 		<property name="dao" ref="commonDAO"></property>
 	</bean>
-	
+
 	<!-- action	 -->
 	<bean id="PhoneOsAction" class="cn.ss.action.PhoneOsAction">
 		<property name="phoneOsService" ref="phoneOsService"></property>
@@ -141,10 +141,16 @@
 		<property name="activeLogService" ref="activeLogService"></property>
 		<property name="softwareInfoService" ref="softwareInfoService"></property>
 	</bean>
-	<bean id="ExtensionAction" class="cn.ss.action.ExtensionAction" scope="prototype">
+	<bean id="ExtensionAction" class="cn.ss.action.ExtensionAction"
+		scope="prototype">
 		<property name="extensionService" ref="extensionService"></property>
 	</bean>
-	
+	<bean id="PhoneModelAction" class="cn.ss.action.PhoneModelAction"
+		scope="prototype">
+		<property name="phoneBrandService" ref="phoneBrandService"></property>
+		<property name="phoneModelService" ref="phoneModelService"></property>
+	</bean>
+
 	<!-- 事物管理 -->
 	<tx:advice id="txAdvice" transaction-manager="transactionManager">
 		<tx:attributes>

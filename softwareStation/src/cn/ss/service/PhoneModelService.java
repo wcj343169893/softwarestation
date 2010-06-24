@@ -10,11 +10,15 @@ public class PhoneModelService extends BasicService {
 	 * 
 	 * @param pageResult
 	 * @param phoneModel
+	 * @param bid
+	 *            Æ·ÅÆid
 	 */
-	public void findAll(PageResult<PhoneModel> pageResult, PhoneModel phoneModel) {
+	public void findAll(PageResult<PhoneModel> pageResult,
+			PhoneModel phoneModel, int bid) {
 		StringBuffer hql = new StringBuffer("from PhoneModel ps where 1=1");
 		if (null != phoneModel) {
 		}
+		hql.append(" and ps.phonebrand.id=" + bid);
 		hql.append(" order by ps.id desc");
 		dao.listByPage(hql.toString(), pageResult);
 	}

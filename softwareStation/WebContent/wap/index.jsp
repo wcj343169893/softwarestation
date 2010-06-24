@@ -1,10 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <%@page contentType="text/vnd.wap.wml;charset=UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE wml PUBLIC "-//WAPFORUM//DTD WML 1.3//EN" "http://www.wapforum.org/DTD/wml13.dtd">
 <wml>
 <card title="软件站">
 <p>
-我的机型 -诺基亚N70更改机型<br />
+<c:choose>
+	<c:when test="${mid>0 }">
+	我的机型 -${mid }<a href="setmodel.php?mid=${mid }">更改机型</a> <br />
+	</c:when>
+	<c:otherwise>
+	未设置机型<a href="setmodel.php">设置机型</a> <br />
+	</c:otherwise>
+</c:choose>
 <img src="/img/logo.png" alt="软件站" /><br />
 软件|游戏|主题|必备|品牌<br />
 免费|世博|资讯|在线咨询<br />
