@@ -75,5 +75,8 @@
 			<result name="list">/wap/phoneModel.jsp</result>
 			<result name="detail">/wap/setModel.jsp</result>
 		</action>
+		<action name="index" class="IndexAction">
+			<result name="success">/wap/index.jsp</result>
+		</action>
 	</package>
 </struts>

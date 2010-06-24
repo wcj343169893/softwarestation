@@ -63,6 +63,9 @@
 	<bean id="commonDAO" class="cn.common.dao.hibImpl.CommonDAOHibImpl">
 		<property name="sessionFactory" ref="sessionFactory"></property>
 	</bean>
+	<bean id="softwareInfoDao" class="cn.ss.dao.SoftwareInfoDao">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
 	<!-- form -->
 	<bean id="softwareForm" class="cn.ss.form.SoftwareForm" scope="prototype"></bean>
 	<!-- service 	-->
@@ -83,6 +86,7 @@
 	</bean>
 	<bean id="softwareInfoService" class="cn.ss.service.SoftwareInfoService">
 		<property name="dao" ref="commonDAO"></property>
+		<property name="softwareInfoDao" ref="softwareInfoDao"></property>
 	</bean>
 	<bean id="softwareService" class="cn.ss.service.SoftwareService">
 		<property name="dao" ref="commonDAO"></property>
@@ -148,6 +152,11 @@
 	<bean id="PhoneModelAction" class="cn.ss.action.PhoneModelAction"
 		scope="prototype">
 		<property name="phoneBrandService" ref="phoneBrandService"></property>
+		<property name="phoneModelService" ref="phoneModelService"></property>
+	</bean>
+	<bean id="IndexAction" class="cn.ss.action.IndexAction" scope="prototype">
+		<property name="phoneBrandService" ref="phoneBrandService"></property>
+		<property name="softwareInfoService" ref="softwareInfoService"></property>
 		<property name="phoneModelService" ref="phoneModelService"></property>
 	</bean>
 

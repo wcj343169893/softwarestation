@@ -1,11 +1,17 @@
 package cn.ss.service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import cn.common.service.BasicService;
 import cn.common.util.PageResult;
 import cn.common.util.Tool;
+import cn.ss.dao.SoftwareInfoDao;
 import cn.ss.entity.SoftwareInfo;
 
 public class SoftwareInfoService extends BasicService {
+	private SoftwareInfoDao softwareInfoDao;
+
 	/**
 	 * 查询所有
 	 * 
@@ -40,7 +46,7 @@ public class SoftwareInfoService extends BasicService {
 			producer = producer.replace("'", "");
 			hql.append(" and si.producer like '%" + producer + "%'");
 		}
-		if (promotionWay ==3) {
+		if (promotionWay == 3) {
 			hql.append(" and si.promotionWay = 0");
 		}
 
@@ -94,6 +100,27 @@ public class SoftwareInfoService extends BasicService {
 	}
 
 	/**
+	 * 查询(按照条件wap)
+	 * 
+	 * @param mid
+	 *            机型id 可以为0:没有设置机型
+	 * @param plusFine
+	 *            加精0:否,1:是
+	 * @param recommend
+	 *            推荐0:否,1:是
+	 * @return
+	 */
+	public List<SoftwareInfo> findAll(int mid, int plusFine, int recommend) {
+		List<SoftwareInfo> softwareInfoList = new ArrayList<SoftwareInfo>();
+		StringBuffer hql = new StringBuffer("FROM SoftwareInfo si where 1=1");
+		if (mid > 0) {
+			hql.append(" and ");
+		}
+
+		return softwareInfoList;
+	}
+
+	/**
 	 * 获取指定数据
 	 * 
 	 * @param id
@@ -129,4 +156,13 @@ public class SoftwareInfoService extends BasicService {
 	public void update(SoftwareInfo softwareInfo) {
 		dao.update(softwareInfo);
 	}
+
+	public SoftwareInfoDao getSoftwareInfoDao() {
+		return softwareInfoDao;
+	}
+
+	public void setSoftwareInfoDao(SoftwareInfoDao softwareInfoDao) {
+		this.softwareInfoDao = softwareInfoDao;
+	}
+
 }
