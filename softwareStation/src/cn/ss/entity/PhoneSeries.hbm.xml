@@ -31,7 +31,7 @@
 				<comment>创建时间</comment>
 			</column>
 		</property>
-		<bag name="phoneModelList">
+		<bag name="phoneModelList" cascade="all">
 			<key>
 				<column name="seriesId">
 					<comment>机型</comment>
