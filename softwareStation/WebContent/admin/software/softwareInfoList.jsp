@@ -45,9 +45,6 @@
 <input type="button" onclick="mysearch(1)" value="查询">
 </form>
 </div>
-<div class="button_bar" style="float: right;">
-<input type="button" value="新增软件" onclick="to('softwareInfo!addInit.action')"/>
-</div>
 <br/>
 <c:set value="0" var="cs"></c:set>
 <c:set value="0" var="ds"></c:set>

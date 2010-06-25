@@ -1,6 +1,7 @@
 package cn.ss.service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import cn.common.service.BasicService;
@@ -110,13 +111,27 @@ public class SoftwareInfoService extends BasicService {
 	 *            ÍÆ¼ö0:·ñ,1:ÊÇ
 	 * @return
 	 */
-	public List<SoftwareInfo> findAll(int mid, int plusFine, int recommend) {
+	public List<SoftwareInfo> findAll(int mid, int plusFine, int recommend,
+			Date date) {
 		List<SoftwareInfo> softwareInfoList = new ArrayList<SoftwareInfo>();
-		StringBuffer hql = new StringBuffer("FROM SoftwareInfo si where 1=1");
+		StringBuffer hql = new StringBuffer(
+				"FROM SoftwareInfo si where 1=1 and si.isShow=1 ");
 		if (mid > 0) {
-			hql.append(" and ");
+			hql.append("");
 		}
-
+		if (plusFine > 0) {
+			hql.append("and si.plusFine=" + plusFine);
+		}
+		if (recommend > 0) {
+			hql.append("and si.recommend=" + recommend);
+		}
+		if (date != null) {
+			hql
+					.append("and DATE_FORMAT(si.createTime ,'%Y %c %e') = DATE_FORMAT('"
+							+ Tool.dateFormatString(date, "yyyy-MM-dd")
+							+ "','%Y %c %e')");
+		}
+		softwareInfoList = dao.list(hql.toString());
 		return softwareInfoList;
 	}
 

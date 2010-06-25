@@ -4,44 +4,44 @@
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE wml PUBLIC "-//WAPFORUM//DTD WML 1.3//EN" "http://www.wapforum.org/DTD/wml13.dtd">
 <wml>
-<card title="软件站">
+<card title="最新">
 <p>
 <c:choose>
 	<c:when test="${mid>0 }">
-	我的机型 -${indexDTO.model.phonebrand.name}${indexDTO.model.name}<a href="setmodel.php?mid=${mid }">更改机型</a> <br />
+	我的机型 -${mid }<a href="setmodel.php?mid=${mid }">更改机型</a> <br />
 	</c:when>
 	<c:otherwise>
-	<a href="setmodel.php">请设定您的手机型号</a> <br />
+	未设置机型<a href="setmodel.php">设置机型</a> <br />
 	</c:otherwise>
 </c:choose>
 <img src="/img/logo.png" alt="软件站" /><br />
-<a href="new.jsp">最新</a>|<a href="commend.jsp">推荐</a>|热门|<a href="plusFine.jsp">精品</a>|分类|资讯<br />
+最新|热门|精品|分类|资讯<br />
 <c:set value="" var="plusFine"></c:set>
 <c:forEach items="${indexDTO.software_plusFineList}" var="softwareInfo">
-	<c:set value="0" var="isWrap"></c:set>
-	<c:set value="${plusFine}|${softwareInfo.name}" var="plusFine"></c:set>
-	<c:choose>
-		<c:when test="${fn:length(plusFine) > 13}">
-			<c:set value="1" var="isWrap"></c:set>
-			<c:set value="" var="plusFine"></c:set>
-		</c:when>
-		<c:otherwise><c:set value="0" var="isWrap"></c:set></c:otherwise>
-	</c:choose>
-	<a href="#">${softwareInfo.name}</a>${isWrap ==0?"|":"<br/>" }
+<a href="#">${softwareInfo.name}</a>
+<c:set value="${softwareInfo.name}|${plusFine}" var="plusFine"></c:set>
+<c:choose>
+	<c:when test="${fn:length(plusFine) > 10}">
+		<br/>
+		<c:set value="" var="plusFine"></c:set>
+	</c:when>
+	<c:otherwise>|</c:otherwise>
+</c:choose>
 </c:forEach><br />
 【今日推荐】<br />
 <c:set value="" var="recommend"></c:set>
 <c:forEach items="${indexDTO.software_recommendList}" var="softwareInfo">
-<c:set value="0" var="isWrap"></c:set>
+<a href="#">${softwareInfo.name}</a>
 <c:set value="${softwareInfo.name}|${recommend}" var="recommend"></c:set>
 <c:choose>
-	<c:when test="${fn:length(recommend) > 13}">
-		<c:set value="1" var="isWrap"></c:set>
+	<c:when test="${fn:length(recommend) > 10}">
+		<br/>
 		<c:set value="" var="recommend"></c:set>
 	</c:when>
-	<c:otherwise><c:set value="0" var="isWrap"></c:set></c:otherwise>
-</c:choose><a href="#">${softwareInfo.name}</a>${isWrap ==0?"|":"<br/>" }
+	<c:otherwise>|</c:otherwise>
+</c:choose>
 </c:forEach><br />
+【人气】<br />
 <c:set value="" var="hots"></c:set>
 <c:forEach items="${indexDTO.software_hotList}" var="softwareInfo">
 <a href="#">${softwareInfo.name}</a>

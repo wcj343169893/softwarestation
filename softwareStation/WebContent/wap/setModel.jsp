@@ -6,9 +6,13 @@
 <wml>
 <card title="设置我的手机">
 <p>
-<a href="setmodel.php">设置机型</a> &gt; &gt;  ${brand.name }<br/>
-<c:forEach items="${pageResult.list}" var="module">
-	<a href="index.jsp?mid=${module.id }">${module.name }</a>
+<a href="setmodel.php">设置机型</a> &gt; &gt;
+<c:choose>
+	<c:when test="${keyword eq null}">${brand.name }</c:when>
+	<c:otherwise>搜索结果</c:otherwise>
+</c:choose> <br/>
+<c:forEach items="${pageResult.list}" var="module" varStatus="vs">
+	${vs.count }.<a href="index.php?mid=${module.id }"><c:choose><c:when test="${keyword eq null}"></c:when><c:otherwise>${module.phonebrand.name }</c:otherwise></c:choose>${module.name }</a>
 </c:forEach>
 <c:if test="${fn:length(pageResult.list)==0}">没有可选择的机型</c:if>
 <br />

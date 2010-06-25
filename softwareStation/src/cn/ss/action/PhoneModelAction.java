@@ -22,14 +22,38 @@ public class PhoneModelAction extends BasicAction {
 	 */
 	private int mid;
 
+	/**
+	 * 搜索关键字
+	 */
+	private String keyword;
+
 	public String set() throws Exception {
 		init();
 		PageResult<PhoneModel> modelPageResult = new PageResult<PhoneModel>();
 		if (p != 0) {
 			modelPageResult.setPageNo(p);
 		}
+		if (bid != 0 || (keyword != null && !"".equals(keyword))) {// 如果没有选择品牌，则查询所有的品牌
+			phoneModelService
+					.findAll(modelPageResult, phoneModel, bid, keyword);
+			request.setAttribute("pageResult", modelPageResult);
+			request.setAttribute("brand", phoneBrandService.findById(bid));
+			return "detail";
+		} else {// 所有品牌
+			request.setAttribute("phoneBrandList", phoneBrandService.findAll());
+		}
+		return "list";
+	}
+
+	public String search() throws Exception {
+		init();
+		PageResult<PhoneModel> modelPageResult = new PageResult<PhoneModel>();
+		if (p != 0) {
+			modelPageResult.setPageNo(p);
+		}
 		if (bid != 0) {// 如果没有选择品牌，则查询所有的品牌
-			phoneModelService.findAll(modelPageResult, phoneModel, bid);
+			phoneModelService
+					.findAll(modelPageResult, phoneModel, bid, keyword);
 			request.setAttribute("pageResult", modelPageResult);
 			request.setAttribute("brand", phoneBrandService.findById(bid));
 			return "detail";
@@ -93,6 +117,14 @@ public class PhoneModelAction extends BasicAction {
 
 	public void setPhoneModel(PhoneModel phoneModel) {
 		this.phoneModel = phoneModel;
+	}
+
+	public String getKeyword() {
+		return keyword;
+	}
+
+	public void setKeyword(String keyword) {
+		this.keyword = keyword;
 	}
 
 }

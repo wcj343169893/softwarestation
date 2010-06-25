@@ -9,6 +9,6 @@
 <body>
 主页，负责跳转(区分浏览器)
 <a href="/admin/index.jsp" target="_parent">管理中心</a>
-<a href="/wap" target="_parent">wap站</a>
+<a href="/wap/index.php" target="_parent">wap站</a>
 </body>
 </html>

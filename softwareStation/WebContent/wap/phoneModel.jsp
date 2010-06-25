@@ -10,13 +10,14 @@
 如诺基亚N97,只需输'N97'<br />
 <input name="xh" size="8" emptyok="true" />
 <anchor>
-	<go href="" method="post">
-		<postfield name="model" value="$(xh)" />
-	</go> [搜索机型]
+	<go href="setmodel.php" method="post">
+		<postfield name="keyword" value="$(xh)" />
+	</go> [搜索机型]搜索显示到本页面
 </anchor><br />
 <c:set value="${fn:length(phoneBrandList)}" var="maxsize"></c:set>
 <c:forEach items="${phoneBrandList}" var="brand" varStatus="vs"><a href="setmodel.php?bid=${brand.id}">${brand.name}</a><c:choose><c:when test="${vs.count % 3 == 0 ||maxsize==vs.count}"><br/></c:when><c:otherwise>|</c:otherwise></c:choose></c:forEach>
 <br />
+<a href="index.php">重置机型</a>
 </p>
 </card>
 </wml>

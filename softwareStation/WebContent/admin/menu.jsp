@@ -46,6 +46,7 @@
 				<li><span class="folder">软件管理</span>
 					<ul>
 						<li><span class="file"><a href="softwareInfo!list.action?showData=0" target="workCenter">软件列表</a></span></li>
+						<li><span class="file"><a href="softwareInfo!addInit.action" target="workCenter">新增软件</a></span></li>
 						<li><span class="file"><a href="softwareType!list.action" target="workCenter">分类管理</a></span></li>
 					</ul>
 				</li>

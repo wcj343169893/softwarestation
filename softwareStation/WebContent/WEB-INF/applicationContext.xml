@@ -68,6 +68,9 @@
 	</bean>
 	<!-- form -->
 	<bean id="softwareForm" class="cn.ss.form.SoftwareForm" scope="prototype"></bean>
+
+	<!-- dto -->
+	<bean id="indexDTO" class="cn.ss.dto.IndexDTO"></bean>
 	<!-- service 	-->
 	<bean id="phoneOsService" class="cn.ss.service.PhoneOsService">
 		<property name="dao" ref="commonDAO"></property>
@@ -158,6 +161,8 @@
 		<property name="phoneBrandService" ref="phoneBrandService"></property>
 		<property name="softwareInfoService" ref="softwareInfoService"></property>
 		<property name="phoneModelService" ref="phoneModelService"></property>
+		<property name="indexDTO" ref="indexDTO"></property>
+		<property name="softwareTypeService" ref="softwareTypeService"></property>
 	</bean>
 
 	<!-- 事物管理 -->

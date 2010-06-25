@@ -1,12 +1,17 @@
 package cn.ss.action;
 
+import java.util.Date;
 import java.util.List;
 
 import cn.common.action.BasicAction;
+import cn.common.util.PageResult;
+import cn.ss.dto.IndexDTO;
 import cn.ss.entity.SoftwareInfo;
+import cn.ss.entity.SoftwareType;
 import cn.ss.service.PhoneBrandService;
 import cn.ss.service.PhoneModelService;
 import cn.ss.service.SoftwareInfoService;
+import cn.ss.service.SoftwareTypeService;
 
 /**
  * 加载主页信息
@@ -18,6 +23,8 @@ public class IndexAction extends BasicAction {
 	private SoftwareInfoService softwareInfoService;
 	private PhoneBrandService phoneBrandService;
 	private PhoneModelService phoneModelService;
+	private SoftwareTypeService softwareTypeService;
+	private IndexDTO indexDTO;
 	/**
 	 * 机型id
 	 */
@@ -29,11 +36,21 @@ public class IndexAction extends BasicAction {
 		// 如果选择机型，则查询相应机型的信息
 		// 如果没有选择，则查询全部(必须为显示软件)
 		// 1.查询置顶软件加精 plusFine
-		List<SoftwareInfo> sipList = softwareInfoService.findAll(mid, 1, 0);
+		List<SoftwareInfo> sipList = softwareInfoService.findAll(mid, 1, 0,
+				null);
+		indexDTO.setSoftware_plusFineList(sipList);
 		// 2.推荐 recommend
-		List<SoftwareInfo> sirList = softwareInfoService.findAll(mid, 0,1);
-		request.setAttribute("sipList", sipList);
-		request.setAttribute("sirList", sirList);
+		List<SoftwareInfo> sirList = softwareInfoService.findAll(mid, 0, 1,
+				null);
+		indexDTO.setSoftware_recommendList(sirList);
+		// 3.最新更新
+		indexDTO.setSoftware_newList(softwareInfoService.findAll(mid, 0, 0,
+				new Date()));
+		// 4.软件列表
+		indexDTO.setSoftwareTypeList(softwareTypeService.findAll(null));
+		if (mid>0) {
+			indexDTO.setModel(phoneModelService.findById(mid));
+		}
 		return "success";
 	}
 
@@ -67,6 +84,22 @@ public class IndexAction extends BasicAction {
 
 	public void setPhoneModelService(PhoneModelService phoneModelService) {
 		this.phoneModelService = phoneModelService;
+	}
+
+	public IndexDTO getIndexDTO() {
+		return indexDTO;
+	}
+
+	public void setIndexDTO(IndexDTO indexDTO) {
+		this.indexDTO = indexDTO;
+	}
+
+	public SoftwareTypeService getSoftwareTypeService() {
+		return softwareTypeService;
+	}
+
+	public void setSoftwareTypeService(SoftwareTypeService softwareTypeService) {
+		this.softwareTypeService = softwareTypeService;
 	}
 
 }

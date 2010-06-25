@@ -1,5 +1,7 @@
 package cn.ss.service;
 
+import java.util.List;
+
 import cn.common.service.BasicService;
 import cn.common.util.PageResult;
 import cn.ss.entity.SoftwareType;
@@ -18,6 +20,14 @@ public class SoftwareTypeService extends BasicService {
 		}
 		hql.append(" order by st.id desc");
 		dao.listByPage(hql.toString(), pageResult);
+	}
+
+	public List<SoftwareType> findAll(SoftwareType softwareType) {
+		StringBuffer hql = new StringBuffer("from SoftwareType st where 1=1 and st.isShow=1");
+		if (null != softwareType) {
+		}
+		hql.append(" order by st.zindex");
+		return dao.list(hql.toString());
 	}
 
 	/**
