@@ -48,8 +48,10 @@ public class IndexAction extends BasicAction {
 				new Date()));
 		// 4.软件列表
 		indexDTO.setSoftwareTypeList(softwareTypeService.findAll(null));
-		if (mid>0) {
+		if (mid > 0) {
 			indexDTO.setModel(phoneModelService.findById(mid));
+		} else {
+			indexDTO.setModel(null);// 重置机型
 		}
 		return "success";
 	}

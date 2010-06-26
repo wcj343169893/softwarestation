@@ -2,6 +2,7 @@ package cn.ss.action;
 
 import cn.common.action.BasicAction;
 import cn.common.util.PageResult;
+import cn.ss.dto.BrandDTO;
 import cn.ss.entity.PhoneBrand;
 import cn.ss.entity.PhoneModel;
 import cn.ss.service.PhoneBrandService;
@@ -12,6 +13,10 @@ public class PhoneModelAction extends BasicAction {
 	private PhoneModelService phoneModelService;
 	private PhoneBrand phoneBrand;
 	private PhoneModel phoneModel;
+	/**
+	 * 品牌列表
+	 */
+	private BrandDTO brandDTO;
 	private int p;
 	/**
 	 * 品牌id
@@ -33,18 +38,23 @@ public class PhoneModelAction extends BasicAction {
 		if (p != 0) {
 			modelPageResult.setPageNo(p);
 		}
-		if (bid != 0 || (keyword != null && !"".equals(keyword))) {// 如果没有选择品牌，则查询所有的品牌
-			phoneModelService
-					.findAll(modelPageResult, phoneModel, bid, keyword);
+		if (bid != 0) {// 如果没有选择品牌，则查询所有的品牌
+			phoneModelService.findAll(modelPageResult, phoneModel, bid, null);
 			request.setAttribute("pageResult", modelPageResult);
 			request.setAttribute("brand", phoneBrandService.findById(bid));
 			return "detail";
-		} else {// 所有品牌
-			request.setAttribute("phoneBrandList", phoneBrandService.findAll());
+		} else {// 
+			PageResult<PhoneModel> pageResult =new PageResult<PhoneModel>();
+			pageResult.setPageSize(25);
+			phoneModelService.findAll(pageResult, null, 1, null);
+			brandDTO.setPhoneModelList(pageResult.getList());
+			brandDTO.setPhoneBrandList(phoneBrandService.findAll());
+			//request.setAttribute("phoneBrandList", phoneBrandService.findAll());
 		}
 		return "list";
 	}
 
+	// 暂时未用
 	public String search() throws Exception {
 		init();
 		PageResult<PhoneModel> modelPageResult = new PageResult<PhoneModel>();
@@ -125,6 +135,14 @@ public class PhoneModelAction extends BasicAction {
 
 	public void setKeyword(String keyword) {
 		this.keyword = keyword;
+	}
+
+	public BrandDTO getBrandDTO() {
+		return brandDTO;
+	}
+
+	public void setBrandDTO(BrandDTO brandDTO) {
+		this.brandDTO = brandDTO;
 	}
 
 }

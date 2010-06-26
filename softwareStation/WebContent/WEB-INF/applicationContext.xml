@@ -71,6 +71,8 @@
 
 	<!-- dto -->
 	<bean id="indexDTO" class="cn.ss.dto.IndexDTO"></bean>
+	<bean id="brandDTO" class="cn.ss.dto.BrandDTO"></bean>
+	<bean id="softwareInfoDTO.java" class="cn.ss.dto.SoftwareInfoDTO"></bean>
 	<!-- service 	-->
 	<bean id="phoneOsService" class="cn.ss.service.PhoneOsService">
 		<property name="dao" ref="commonDAO"></property>
@@ -156,6 +158,7 @@
 		scope="prototype">
 		<property name="phoneBrandService" ref="phoneBrandService"></property>
 		<property name="phoneModelService" ref="phoneModelService"></property>
+		<property name="brandDTO" ref="brandDTO"></property>
 	</bean>
 	<bean id="IndexAction" class="cn.ss.action.IndexAction" scope="prototype">
 		<property name="phoneBrandService" ref="phoneBrandService"></property>

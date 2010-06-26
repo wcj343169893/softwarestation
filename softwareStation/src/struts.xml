@@ -72,7 +72,7 @@
 	</package>
 	<package name="wap"  extends="struts-default" >
 		<action name="*model" class="PhoneModelAction" method="{1}">
-			<result name="list">/wap/phoneModel.jsp</result>
+			<result name="list">/wap/brand.jsp</result>
 			<result name="detail">/wap/setModel.jsp</result>
 		</action>
 		<action name="index" class="IndexAction">

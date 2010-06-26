@@ -28,7 +28,8 @@
         	</key>
         	<one-to-many class="cn.ss.entity.PhoneSeries"/>
         </bag>
-        <bag name="phoneModelList">
+        <!-- 
+        <bag name="phoneModelList" cascade="all">
         	<key>
         		<column name="brandId">
         			<comment>手机机型</comment>
@@ -36,5 +37,6 @@
         	</key>
         	<one-to-many class="cn.ss.entity.PhoneModel"/>
         </bag>
+         -->
     </class>
 </hibernate-mapping>

@@ -7,11 +7,11 @@
 <card title="软件站">
 <p>
 <c:choose>
-	<c:when test="${mid>0 }">
-	我的机型 -${indexDTO.model.phonebrand.name}${indexDTO.model.name}<a href="setmodel.php?mid=${mid }">更改机型</a> <br />
+	<c:when test="${fn:length(indexDTO.model.phoneseries.brand.name)>0 }">
+	我的机型 -${indexDTO.model.phoneseries.brand.name}${indexDTO.model.name}<a href="setmodel.php?mid=${mid }">更改机型</a> <br />
 	</c:when>
 	<c:otherwise>
-	<a href="setmodel.php">请设定您的手机型号</a> <br />
+	<a href="setmodel.php">推荐!设置手机型号快速下载</a> <br />
 	</c:otherwise>
 </c:choose>
 <img src="/img/logo.png" alt="软件站" /><br />
@@ -28,7 +28,7 @@
 		<c:otherwise><c:set value="0" var="isWrap"></c:set></c:otherwise>
 	</c:choose>
 	<a href="#">${softwareInfo.name}</a>${isWrap ==0?"|":"<br/>" }
-</c:forEach><br />
+</c:forEach>
 【今日推荐】<br />
 <c:set value="" var="recommend"></c:set>
 <c:forEach items="${indexDTO.software_recommendList}" var="softwareInfo">
@@ -41,7 +41,7 @@
 	</c:when>
 	<c:otherwise><c:set value="0" var="isWrap"></c:set></c:otherwise>
 </c:choose><a href="#">${softwareInfo.name}</a>${isWrap ==0?"|":"<br/>" }
-</c:forEach><br />
+</c:forEach>
 <c:set value="" var="hots"></c:set>
 <c:forEach items="${indexDTO.software_hotList}" var="softwareInfo">
 <a href="#">${softwareInfo.name}</a>
@@ -66,14 +66,14 @@
 	</c:when>
 	<c:otherwise>|</c:otherwise>
 </c:choose>
-</c:forEach><br />
+</c:forEach>
 【软件分类】<br />
 <c:forEach items="${indexDTO.softwareTypeList}" var="softwareType"><a href="#">${softwareType.name }</a>
 <c:choose>
 	<c:when test="${softwareType.isWrap==1}"><br/></c:when>
 	<c:otherwise>|</c:otherwise>
 </c:choose>
-</c:forEach><br />
+</c:forEach>
 </p>
 </card>
 </wml>

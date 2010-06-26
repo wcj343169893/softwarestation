@@ -1,5 +1,7 @@
 package cn.ss.service;
 
+import java.util.List;
+
 import cn.common.service.BasicService;
 import cn.common.util.PageResult;
 import cn.ss.entity.PhoneOs;
@@ -18,6 +20,12 @@ public class PhoneOsService extends BasicService {
 		}
 		hql.append(" order by po.id desc");
 		dao.listByPage(hql.toString(), pageResult);
+	}
+
+	public List<PhoneOs> findAll() {
+		StringBuffer hql = new StringBuffer("from PhoneOs po where 1=1");
+		hql.append(" order by po.id");
+		return dao.list(hql.toString());
 	}
 
 	/**

@@ -20,11 +20,13 @@
 				<comment>系列</comment>
 			</column>
 		</many-to-one>
+		<!-- 
         <many-to-one name="phonebrand">
 			<column name="brandId">
 				<comment>品牌</comment>
 			</column>
 		</many-to-one>
+		 -->
         <property name="createTime" type="java.util.Date">
             <column name="createTime" length="19">
                 <comment>创建时间</comment>

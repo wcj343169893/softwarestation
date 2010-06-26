@@ -2,6 +2,7 @@ package cn.ss.action;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import cn.common.action.BasicAction;
 import cn.common.util.PageResult;
@@ -39,9 +40,9 @@ public class PhoneSeriesAction extends BasicAction {
 		phoneSeries.setBrand(phoneBrand);
 		phoneSeries.setOs(phoneOsService.findById(phoneOsId));
 		if (models != null && models.trim().length() > 1) {
-			if (models.trim().length()>10) {
+			if (models.trim().length() > 10) {
 				this.setName(models.trim().substring(0, 10));
-			}else{
+			} else {
 				this.setName(models.trim());
 			}
 		} else {
@@ -59,7 +60,7 @@ public class PhoneSeriesAction extends BasicAction {
 				if (model_s[i] != null && !"".equals(model_s[i].trim())) {
 					phoneModel = new PhoneModel();
 					phoneModel.setName(model_s[i]);
-					phoneModel.setPhonebrand(phoneBrand);// 设置品牌
+					// phoneModel.setPhonebrand(phoneBrand);// 设置品牌
 					phoneModel.setPhoneseries(phoneSeries);// 设置系列
 					phoneModel.setCreateTime(new Date());
 					phoneModelService.add(phoneModel);
@@ -75,9 +76,9 @@ public class PhoneSeriesAction extends BasicAction {
 		phoneSeries.setBrand(phoneBrand);
 		phoneSeries.setOs(phoneOsService.findById(phoneOsId));
 		if (models != null && models.trim().length() > 1) {
-			if (models.trim().length()>10) {
+			if (models.trim().length() > 10) {
 				this.setName(models.trim().substring(0, 10));
-			}else{
+			} else {
 				this.setName(models.trim());
 			}
 		} else {
@@ -88,24 +89,38 @@ public class PhoneSeriesAction extends BasicAction {
 		phoneSeries.setCreateTime(new Date());
 		PhoneModel phoneModel = null;
 		// 清除所有机型
-		for (PhoneModel phoneModel_old : phoneSeries.getPhoneModelList()) {
-			phoneModelService.delete(phoneModel_old.getId());
-		}
-		phoneSeries.setPhoneModelList(null);
+		// phoneSeries.setPhoneModelList(null);
+		List<PhoneModel> phoneModel_old = phoneSeries.getPhoneModelList();
+		// phoneSeries.setPhoneModelList(null);
 		phoneSeriesService.update(phoneSeries);
+		int size = phoneModel_old.size();
 		// 修改保存系列之后，重新增加机型
 		if (models != null && models.length() > 0) {
 			String[] model_s = models.split(",");
-			for (int i = 0; i < model_s.length; i++) {
-				if (model_s[i] != null && !"".equals(model_s[i].trim())) {
-					phoneModel = new PhoneModel();
-					phoneModel.setName(model_s[i].trim());
-					phoneModel.setPhonebrand(phoneBrand);// 设置品牌
-					phoneModel.setPhoneseries(phoneSeries);// 设置系列
-					phoneModel.setCreateTime(new Date());
-					phoneModelService.add(phoneModel);
+			if (model_s.length < size) {
+				phoneSeries.setPhoneModelList(null);//解除关系
+				for (int i = model_s.length; i < size; i++) {
+					phoneModelService.delete(phoneModel_old.get(i).getId());
 				}
 			}
+			for (int i = 0; i < model_s.length; i++) {
+				if (model_s[i] != null && !"".equals(model_s[i].trim())) {
+					if (i < size) {
+						phoneModel = phoneModel_old.get(i);
+						phoneModel.setName(model_s[i].trim());
+						phoneModel.setPhoneseries(phoneSeries);// 设置系列
+						phoneModel.setCreateTime(new Date());
+						phoneModelService.update(phoneModel);
+					} else {
+						phoneModel = new PhoneModel();
+						phoneModel.setName(model_s[i].trim());
+						phoneModel.setPhoneseries(phoneSeries);// 设置系列
+						phoneModel.setCreateTime(new Date());
+						phoneModelService.add(phoneModel);
+					}
+				}
+			}
+
 		}
 		return list();
 	}
@@ -148,13 +163,8 @@ public class PhoneSeriesAction extends BasicAction {
 	}
 
 	protected void dataInit() {
-		PageResult<PhoneBrand> phoneBrandPageResult = new PageResult<PhoneBrand>();
-		phoneBrandService.findAll(phoneBrandPageResult, null);
-		PageResult<PhoneOs> phoneOsPageResult = new PageResult<PhoneOs>();
-		phoneOsService.findAll(phoneOsPageResult, null);
-
-		request.setAttribute("phoneBrandList", phoneBrandPageResult.getList());
-		request.setAttribute("phoneOsList", phoneOsPageResult.getList());
+		request.setAttribute("phoneBrandList", phoneBrandService.findAll());
+		request.setAttribute("phoneOsList", phoneOsService.findAll());
 	}
 
 	public PhoneSeriesService getPhoneSeriesService() {

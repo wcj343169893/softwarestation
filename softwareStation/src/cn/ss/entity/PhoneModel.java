@@ -28,8 +28,8 @@ public class PhoneModel implements java.io.Serializable {
 	private PhoneSeries phoneseries;
 	/**
 	 * 品牌
-	 */
 	private PhoneBrand phonebrand;
+	 */
 	/**
 	 * 创建时间
 	 */
@@ -63,13 +63,6 @@ public class PhoneModel implements java.io.Serializable {
 		this.phoneseries = phoneseries;
 	}
 
-	public PhoneBrand getPhonebrand() {
-		return phonebrand;
-	}
-
-	public void setPhonebrand(PhoneBrand phonebrand) {
-		this.phonebrand = phonebrand;
-	}
 
 	public Date getCreateTime() {
 		return this.createTime;

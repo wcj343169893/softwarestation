@@ -33,18 +33,9 @@ public class PhoneBrand implements java.io.Serializable {
 
 	/**
 	 * 机型列表
-	 */
 	private List<PhoneModel> phoneModelList = new ArrayList<PhoneModel>();
+	 */
 
-	// Constructors
-
-	public List<PhoneModel> getPhoneModelList() {
-		return phoneModelList;
-	}
-
-	public void setPhoneModelList(List<PhoneModel> phoneModelList) {
-		this.phoneModelList = phoneModelList;
-	}
 
 	public List<PhoneSeries> getPhoneseriesList() {
 		return phoneseriesList;

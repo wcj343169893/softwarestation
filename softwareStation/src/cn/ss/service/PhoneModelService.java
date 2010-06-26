@@ -1,5 +1,7 @@
 package cn.ss.service;
 
+import java.util.List;
+
 import cn.common.service.BasicService;
 import cn.common.util.PageResult;
 import cn.ss.entity.PhoneModel;
@@ -19,7 +21,7 @@ public class PhoneModelService extends BasicService {
 		if (null != phoneModel) {
 		}
 		if (bid > 0) {
-			hql.append(" and ps.phonebrand.id=" + bid);
+			hql.append(" and ps.phoneseries.brand.id=" + bid);
 		}
 		if (keyword != null) {
 			keyword = keyword.replace("'", "");
@@ -27,6 +29,24 @@ public class PhoneModelService extends BasicService {
 		}
 		hql.append(" order by ps.id desc");
 		dao.listByPage(hql.toString(), pageResult);
+	}
+
+	/**
+	 * 根据品牌id查询
+	 * 
+	 * @param bid
+	 *            品牌id
+	 * @param maxCount
+	 *            最多条数
+	 * @return
+	 */
+	public List<PhoneModel> findAll(int bid, int maxCount) {
+		StringBuffer hql = new StringBuffer("from PhoneModel ps where 1=1");
+		if (bid > 0) {
+			hql.append(" and ps.phoneseries.brand.id=" + bid);
+		}
+		hql.append(" order by ps.id desc limit 0," + maxCount);
+		return dao.list(hql.toString());
 	}
 
 	/**

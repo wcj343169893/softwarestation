@@ -34,13 +34,13 @@ public class AccountAction extends BasicAction {
 			account = new Account();
 			account.setExplanation(explanation);
 			account.setPrice(price);
-			account.setCreateTime(Tool.stringFormatDate(beginTime,
-					"yyyy-MM-dd"));
+			account.setCreateTime(Tool
+					.stringFormatDate(beginTime, "yyyy-MM-dd"));
 			account.setAccType(accountType);
 			accountService.add(account);
 		}
-		beginTime="";
-		atId=-1;
+		beginTime = "";
+		atId = -1;
 		return list();
 	}
 
@@ -50,13 +50,13 @@ public class AccountAction extends BasicAction {
 		if (accountType != null && account != null) {
 			account.setExplanation(explanation);
 			account.setPrice(price);
-			account.setCreateTime(Tool.stringFormatDate(beginTime,
-					"yyyy-MM-dd"));
+			account.setCreateTime(Tool
+					.stringFormatDate(beginTime, "yyyy-MM-dd"));
 			account.setAccType(accountType);
 			accountService.update(account);
 		}
-		beginTime="";
-		atId=-1;
+		beginTime = "";
+		atId = -1;
 		return list();
 	}
 
@@ -91,10 +91,8 @@ public class AccountAction extends BasicAction {
 	}
 
 	private void initData() {
-		PageResult<AccountType> pageResult = new PageResult<AccountType>();
-		accountTypeService.findAll(pageResult, null);
-		List<AccountType> accountTypeList = (List<AccountType>) pageResult
-				.getList();
+		List<AccountType> accountTypeList = (List<AccountType>) accountTypeService
+				.findAll();
 		request.setAttribute("accountTypeList", accountTypeList);
 	}
 

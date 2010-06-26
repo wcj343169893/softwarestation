@@ -48,5 +48,12 @@
 		</c:otherwise>
 	</c:choose>
 </table>
+<div class="pager">
+<c:set var="page" value="${pageResult}"></c:set> 共${page.recTotal }条记录 每页<input
+			value="${page.pageSize}" size="2" id="pageSize"/>条 第<input value="${page.pageNo}" size="2"/>页/共${page.pageTotal}页
+		<a href="phoneBrand!list.action?p=1">第一页</a> <c:if test="${page.pageNo!=1}"><a href="phoneBrand!list.action?p=${page.pageNo-1 }">上一页</a> </c:if>
+				<c:if test="${page.pageNo<page.pageTotal}"><a href="phoneBrand!list.action?p=${page.pageNo+1 }">下一页</a> </c:if> <a
+			href="phoneBrand!list.action?p=${page.pageTotal}">最后一页</a> 
+		</div>
 </body>
 </html>

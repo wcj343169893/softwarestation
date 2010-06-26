@@ -1,5 +1,7 @@
 package cn.ss.service;
 
+import java.util.List;
+
 import cn.common.service.BasicService;
 import cn.common.util.PageResult;
 import cn.ss.entity.AccountType;
@@ -18,6 +20,12 @@ public class AccountTypeService extends BasicService {
 		}
 		hql.append(" order by at.id desc");
 		dao.listByPage(hql.toString(), pageResult);
+	}
+
+	public List<AccountType> findAll() {
+		StringBuffer hql = new StringBuffer("from AccountType at where 1=1");
+		hql.append(" order by at.id");
+		return dao.list(hql.toString());
 	}
 
 	/**
