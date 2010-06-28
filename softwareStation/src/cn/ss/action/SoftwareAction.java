@@ -1,5 +1,12 @@
 package cn.ss.action;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.PrintWriter;
+import java.io.Writer;
+
+import javax.servlet.ServletOutputStream;
+
 import cn.common.action.BasicAction;
 import cn.common.util.Folder;
 import cn.common.util.Tool;
@@ -21,6 +28,7 @@ public class SoftwareAction extends BasicAction {
 	 * 软件信息id
 	 */
 	private int id2;
+	private int mid;
 
 	public String delete() throws Exception {
 		init();
@@ -44,6 +52,70 @@ public class SoftwareAction extends BasicAction {
 			softwareInfoService.update(softwareInfo);
 		}
 		return "delete";
+	}
+
+	/**
+	 * 下载文件
+	 * 
+	 * @return
+	 * @throws Exception
+	 */
+	public String download() throws Exception {
+		init();
+		try {
+			software = softwareService.findById(id);
+			// 把softwareinfo重新加载软件数量
+			SoftwareInfo softwareInfo = software.getSoftwareInfo();
+			System.out.println("id2:" + id2);
+			if (softwareInfo != null && softwareInfo.getId() == id2) {// 判断请求的软件的软件信息id与传过来的id2是否一致
+				response.setContentType("application/octet-stream");
+				response.setHeader("Content-Disposition", "attachment;"
+						+ " filename=" + software.getDownloadPath());
+				String path = request.getSession().getServletContext()
+						.getRealPath("/")
+						+ "upload/"
+						+ Folder.file
+						+ "/"
+						+ id2
+						+ "/"
+						+ software.getDownloadPath();
+				System.out.println(path);
+				File file = new File(path);
+				FileInputStream fileInputStream = new FileInputStream(file);
+				ServletOutputStream servletOutputStream = response
+						.getOutputStream();
+				byte[] b = new byte[1024];
+				int len = 0;
+				while ((len = fileInputStream.read(b, 0, 1024)) > -1) {
+
+					servletOutputStream.write(b, 0, len);
+
+				}
+
+				servletOutputStream.flush();
+				servletOutputStream.close();
+				fileInputStream.close();
+			}
+		} catch (Exception e) {
+			response.setCharacterEncoding("UTF-8");
+			// response.setContentType("text/vnd.wap.wml");
+			PrintWriter write = response.getWriter();
+			xmlHeader(write);
+			write.println("<wml>");
+			write.println("<card title = \"JavaTest\">");
+			write.println("<p>下载文件不存在<a href='showsoftwareInfo.php?id=" + id
+					+ "&mid=" + mid + "'>返回</a></p>");
+			write.println("</card>");
+			write.println("</wml>");
+
+		}
+		return null;
+	}
+
+	public void xmlHeader(PrintWriter out) {
+		out.println("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
+		out.println("<!DOCTYPE wml PUBLIC \"-//WAPFORUM//DTD WML 1.1//EN\" "
+				+ "\"http://www.wapforum.org/DTD/wml_1.1.xml\">");
 	}
 
 	public SoftwareService getSoftwareService() {
@@ -84,6 +156,18 @@ public class SoftwareAction extends BasicAction {
 
 	public void setId2(int id2) {
 		this.id2 = id2;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
+	public int getMid() {
+		return mid;
+	}
+
+	public void setMid(int mid) {
+		this.mid = mid;
 	}
 
 }

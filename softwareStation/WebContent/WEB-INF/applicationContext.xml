@@ -134,6 +134,7 @@
 		<property name="softwareTypeService" ref="softwareTypeService"></property>
 		<property name="softwareForm" ref="softwareForm"></property>
 		<property name="activeLogService" ref="activeLogService"></property>
+		<property name="phoneModelService" ref="phoneModelService"></property>
 	</bean>
 	<bean id="SoftwareAction" class="cn.ss.action.SoftwareAction">
 		<property name="softwareService" ref="softwareService"></property>

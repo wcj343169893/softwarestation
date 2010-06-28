@@ -33,8 +33,6 @@ public class IndexAction extends BasicAction {
 	@Override
 	public String execute() throws Exception {
 		init();
-		// 如果选择机型，则查询相应机型的信息
-		// 如果没有选择，则查询全部(必须为显示软件)
 		// 1.查询置顶软件加精 plusFine
 		List<SoftwareInfo> sipList = softwareInfoService.findAll(mid, 1, 0,
 				null);

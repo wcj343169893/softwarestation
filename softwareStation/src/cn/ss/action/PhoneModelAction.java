@@ -32,6 +32,15 @@ public class PhoneModelAction extends BasicAction {
 	 */
 	private String keyword;
 
+	/**
+	 * 每页条数
+	 */
+	private int pageSize;
+
+	/**
+	 * @return
+	 * @throws Exception
+	 */
 	public String set() throws Exception {
 		init();
 		PageResult<PhoneModel> modelPageResult = new PageResult<PhoneModel>();
@@ -44,33 +53,32 @@ public class PhoneModelAction extends BasicAction {
 			request.setAttribute("brand", phoneBrandService.findById(bid));
 			return "detail";
 		} else {// 
-			PageResult<PhoneModel> pageResult =new PageResult<PhoneModel>();
+			PageResult<PhoneModel> pageResult = new PageResult<PhoneModel>();
 			pageResult.setPageSize(25);
 			phoneModelService.findAll(pageResult, null, 1, null);
 			brandDTO.setPhoneModelList(pageResult.getList());
 			brandDTO.setPhoneBrandList(phoneBrandService.findAll());
-			//request.setAttribute("phoneBrandList", phoneBrandService.findAll());
+			// request.setAttribute("phoneBrandList",
+			// phoneBrandService.findAll());
 		}
 		return "list";
 	}
 
-	// 暂时未用
+	/**
+	 * 搜索
+	 * 
+	 * @return
+	 * @throws Exception
+	 */
 	public String search() throws Exception {
 		init();
 		PageResult<PhoneModel> modelPageResult = new PageResult<PhoneModel>();
 		if (p != 0) {
 			modelPageResult.setPageNo(p);
 		}
-		if (bid != 0) {// 如果没有选择品牌，则查询所有的品牌
-			phoneModelService
-					.findAll(modelPageResult, phoneModel, bid, keyword);
-			request.setAttribute("pageResult", modelPageResult);
-			request.setAttribute("brand", phoneBrandService.findById(bid));
-			return "detail";
-		} else {// 所有品牌
-			request.setAttribute("phoneBrandList", phoneBrandService.findAll());
-		}
-		return "list";
+		phoneModelService.findAll(modelPageResult, phoneModel, 0, keyword);
+		request.setAttribute("pageResult", modelPageResult);
+		return "search";
 	}
 
 	public PhoneBrandService getPhoneBrandService() {
@@ -143,6 +151,14 @@ public class PhoneModelAction extends BasicAction {
 
 	public void setBrandDTO(BrandDTO brandDTO) {
 		this.brandDTO = brandDTO;
+	}
+
+	public int getPageSize() {
+		return pageSize;
+	}
+
+	public void setPageSize(int pageSize) {
+		this.pageSize = pageSize;
 	}
 
 }

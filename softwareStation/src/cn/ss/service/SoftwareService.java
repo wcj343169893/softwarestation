@@ -18,6 +18,10 @@ public class SoftwareService extends BasicService {
 		hql.append(" order by s.id desc");
 		dao.listByPage(hql.toString(), pageResult);
 	}
+	public Software find(){
+		
+		return null;
+	}
 
 	/**
 	 * 获取指定数据

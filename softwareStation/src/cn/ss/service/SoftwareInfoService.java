@@ -116,7 +116,7 @@ public class SoftwareInfoService extends BasicService {
 		List<SoftwareInfo> softwareInfoList = new ArrayList<SoftwareInfo>();
 		StringBuffer hql = new StringBuffer(
 				"FROM SoftwareInfo si where 1=1 and si.isShow=1 ");
-		if (mid > 0) {
+		if (mid > 0) {//机型id-->平台
 			hql.append("");
 		}
 		if (plusFine > 0) {

@@ -27,7 +27,7 @@
 		</c:when>
 		<c:otherwise><c:set value="0" var="isWrap"></c:set></c:otherwise>
 	</c:choose>
-	<a href="#">${softwareInfo.name}</a>${isWrap ==0?"|":"<br/>" }
+	<a href="showsoftwareInfo.php?id=${softwareInfo.id}&amp;mid=${mid }">${softwareInfo.name}</a>${isWrap ==0?"|":"<br/>" }
 </c:forEach>
 【今日推荐】<br />
 <c:set value="" var="recommend"></c:set>
@@ -40,11 +40,11 @@
 		<c:set value="" var="recommend"></c:set>
 	</c:when>
 	<c:otherwise><c:set value="0" var="isWrap"></c:set></c:otherwise>
-</c:choose><a href="#">${softwareInfo.name}</a>${isWrap ==0?"|":"<br/>" }
+</c:choose><a href="showsoftwareInfo.php?id=${softwareInfo.id}&amp;mid=${mid }">${softwareInfo.name}</a>${isWrap ==0?"|":"<br/>" }
 </c:forEach>
 <c:set value="" var="hots"></c:set>
 <c:forEach items="${indexDTO.software_hotList}" var="softwareInfo">
-<a href="#">${softwareInfo.name}</a>
+<a href="showsoftwareInfo.php?id=${softwareInfo.id}&amp;mid=${mid }">${softwareInfo.name}</a>
 <c:set value="${softwareInfo.name}|${hots}" var="hots"></c:set>
 <c:choose>
 	<c:when test="${fn:length(hots) > 10}">
@@ -57,7 +57,7 @@
 【最新更新】<br />
 <c:set value="" var="newone"></c:set>
 <c:forEach items="${indexDTO.software_newList}" var="softwareInfo">
-<a href="#">${softwareInfo.name}</a>
+<a href="showsoftwareInfo.php?id=${softwareInfo.id}&amp;mid=${mid }">${softwareInfo.name}</a>
 <c:set value="${softwareInfo.name}|${newone}" var="newone"></c:set>
 <c:choose>
 	<c:when test="${fn:length(newone) > 10}">

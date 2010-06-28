@@ -13,12 +13,14 @@ import cn.common.util.Folder;
 import cn.common.util.PageResult;
 import cn.common.util.Tool;
 import cn.ss.entity.Extension;
+import cn.ss.entity.PhoneModel;
 import cn.ss.entity.PhoneOs;
 import cn.ss.entity.Software;
 import cn.ss.entity.SoftwareInfo;
 import cn.ss.entity.SoftwareType;
 import cn.ss.form.SoftwareForm;
 import cn.ss.service.ActiveLogService;
+import cn.ss.service.PhoneModelService;
 import cn.ss.service.PhoneOsService;
 import cn.ss.service.SoftwareInfoService;
 import cn.ss.service.SoftwareService;
@@ -31,6 +33,7 @@ public class SoftwareInfoAction extends BasicAction {
 	private SoftwareTypeService softwareTypeService;
 	private PhoneOsService phoneOsService;
 	private ActiveLogService activeLogService;
+	private PhoneModelService phoneModelService;
 	private String name;
 	private Integer id;
 	private int p;
@@ -71,6 +74,11 @@ public class SoftwareInfoAction extends BasicAction {
 	 * 0.提成，1.免费
 	 */
 	private int promotionWay;
+
+	/**
+	 * 手机型号
+	 */
+	private int mid;
 
 	public String delete() throws Exception {
 		// 先删除文件以及文件的目录
@@ -347,8 +355,57 @@ public class SoftwareInfoAction extends BasicAction {
 		init();
 		dataInit();
 		softwareInfo = softwareInfoService.findById(id);
-		request.setAttribute("softwareInfo", softwareInfo);
 		return "detail";
+	}
+
+	public String show() throws Exception {
+		init();
+		// dataInit();
+		softwareInfo = softwareInfoService.findById(id);
+		// 查询该软件下面的某个包，支持mid
+		PhoneOs phoneOs = null;
+		PhoneModel model = null;
+		List<Extension> extension = null;
+		if (mid > 0) {
+			model = phoneModelService.findById(mid);
+			phoneOs = model.getPhoneseries().getOs();// 手机的操作系统
+			extension = phoneOs.getExtensionList();
+		}
+		// List<Software> softwareList = new ArrayList<Software>();// 支持此操作系统的软件
+		Software software_p = null;// 适配机型版
+		Software software_java = null;// 通用版
+		boolean flag = false;
+		for (Software software : softwareInfo.getSoftwareList()) {// 判断是否有适合机型的软件
+			String name = software.getDownloadPath();
+			name = name.substring(name.lastIndexOf("."));// 获取文件的后缀
+			System.out.println("后缀：" + name);
+			for (int i = 0; i < extension.size(); i++) {
+				System.out.println("extension" + extension.get(i).getName());
+				if (extension.get(i).getName().equals(name)) {
+					software_p = software;
+					flag = true;
+					System.out.println("匹配成功！" + name);
+					break;
+				}
+			}
+			if (flag) {
+				break;
+			}
+		}
+		for (Software software : softwareInfo.getSoftwareList()) {
+			String name = software.getDownloadPath();
+			name = name.substring(name.lastIndexOf("."));// 获取文件的后缀
+			System.out.println("后缀：" + name);
+			if (name.equals(".jar")) {
+				software_java = software;
+				break;
+			}
+		}
+		// request.setAttribute("softwareList", softwareList);
+		request.setAttribute("model", model);
+		request.setAttribute("software_p", software_p);
+		request.setAttribute("software_java", software_java);
+		return "show";
 	}
 
 	public String list() throws Exception {
@@ -552,6 +609,22 @@ public class SoftwareInfoAction extends BasicAction {
 
 	public void setPromotionWay(int promotionWay) {
 		this.promotionWay = promotionWay;
+	}
+
+	public int getMid() {
+		return mid;
+	}
+
+	public void setMid(int mid) {
+		this.mid = mid;
+	}
+
+	public PhoneModelService getPhoneModelService() {
+		return phoneModelService;
+	}
+
+	public void setPhoneModelService(PhoneModelService phoneModelService) {
+		this.phoneModelService = phoneModelService;
 	}
 
 }
