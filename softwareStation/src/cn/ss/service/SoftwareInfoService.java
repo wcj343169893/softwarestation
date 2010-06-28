@@ -23,7 +23,7 @@ public class SoftwareInfoService extends BasicService {
 			SoftwareInfo softwareInfo, String beginTime, String endTime,
 			String name, int oi, int od, int softwareTypeId, String producer,
 			int promotionWay) {
-		StringBuffer hql = new StringBuffer("FROM SoftwareInfo si where 1=1");
+		StringBuffer hql = new StringBuffer("FROM SoftwareInfo si where 1=1 ");
 		if (beginTime != null && !"".equals(beginTime)
 				&& Tool.stringFormatDate(beginTime, "yyyy-MM-dd") != null) {
 			hql
@@ -53,7 +53,7 @@ public class SoftwareInfoService extends BasicService {
 
 		// 更新softwareinfo里面的点击，下载，激活，总价 暂时未实现
 
-		hql.append(" " + getOrderString(oi));
+		hql.append(" ORDER BY " + getOrderString(oi));
 		hql.append(od == 0 ? " desc" : " asc");
 		dao.listByPage(hql.toString(), pageResult);
 	}
@@ -64,37 +64,40 @@ public class SoftwareInfoService extends BasicService {
 		if (oi > -1) {
 			switch (oi) {
 			case 0:
-				str = "ORDER BY si.id";
+				str = "si.id";
 				break;
 			case 1:// 点击
-				str = "ORDER BY cl.number";
+				str = "cl.number";
 				break;
 			case 2:// 下载
-				str = "ORDER BY dl.number";
+				str = "dl.number";
 				break;
 			case 3:// 激活
-				str = "ORDER BY al.number";
+				str = "al.number";
 				break;
 			case 4:// 单价(元)
-				str = "ORDER BY al.price";
+				str = "al.price";
 				break;
 			case 5:// 收入(元)
-				str = "ORDER BY al.number*al.price";
+				str = "al.number*al.price";
 				break;
 			case 6:// 下载/点击
-				str = "ORDER BY dl.number/cl.number";
+				str = "dl.number/cl.number";
 				break;
 			case 7:// 激活/下载
-				str = "ORDER BY al.number/dl.number";
+				str = "al.number/dl.number";
 				break;
 			case 8:// 激活/点击
-				str = "ORDER BY al.number/cl.number";
+				str = "al.number/cl.number";
 				break;
 			case 9:// 收入/点击
-				str = "ORDER BY al.number*al.price/cl.number";
+				str = "al.number*al.price/cl.number";
 				break;
-			case 10:// 收入/点击
-				str = "ORDER BY si.promotionWay";
+			case 10:// 是否免费
+				str = "si.promotionWay";
+				break;
+			case 11:// 是否加精(特殊  前台查询)
+				str = "si.recommend desc , si.promotionWay";
 				break;
 			default:
 				break;
@@ -134,6 +137,7 @@ public class SoftwareInfoService extends BasicService {
 							+ Tool.dateFormatString(date, "yyyy-MM-dd")
 							+ "','%Y %c %e')");
 		}
+//		softwareInfoDao.list(osId, plusFine, recommend, pageResult);
 		softwareInfoList = dao.list(hql.toString());
 		return softwareInfoList;
 	}

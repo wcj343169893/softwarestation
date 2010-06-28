@@ -388,9 +388,11 @@ public class SoftwareInfoAction extends BasicAction {
 		if (p != 0) {
 			pageResult.setPageNo(p);
 		}
-		softwareInfoService.findAll(pageResult, null, null, null, name, 10, 1,
-				0, null, 4);
-		request.setAttribute("pageResult", pageResult);
+		if (name != null && !"".equals(name.trim())) {
+			softwareInfoService.findAll(pageResult, null, null, null, name, 11,
+					1, 0, null, 4);
+			request.setAttribute("pageResult", pageResult);
+		}
 		return "search";
 	}
 

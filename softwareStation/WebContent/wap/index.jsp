@@ -16,15 +16,21 @@
 </c:choose>
 <img src="/img/logo.png" alt="软件站" /><br />
 <a href="new.jsp">最新</a>|<a href="commend.jsp">推荐</a>|<a href="plusFine.jsp">精品</a>|<a href="lsst.php?mid=${mid }">分类</a><br />
-<input name="name" maxlength="15"/>
+<input name="name" maxlength="15" size="8"/>
 <anchor>
-	<go href="">
+	<go href="searchsoftwareInfo.php" method="post">
 		<postfield name="name" value="$(name)" />
+		<postfield name="mid" value="${mid }" />
 	</go>搜软件
 </anchor> 
- 
+ <anchor>
+		<go href="searchmodel.php" method="post">
+			<postfield name="keyword" value="$(name)" />
+			<postfield name="mid" value="${mid }" />
+		</go>搜机型
+	</anchor>
 <br />
-
+【今日精品】<br />
 <c:set value="" var="plusFine"></c:set>
 <c:forEach items="${indexDTO.software_plusFineList}" var="softwareInfo">
 	<c:set value="0" var="isWrap"></c:set>
@@ -69,7 +75,6 @@
 	<c:otherwise>|</c:otherwise>
 </c:choose>
 </c:forEach><br />
- -->
 【最新更新】<br />
 <c:set value="" var="newone"></c:set>
 <c:set value="${fn:length(indexDTO.software_newList)}" var="maxlength"></c:set>
@@ -88,6 +93,7 @@
 	<c:otherwise>|</c:otherwise>
 </c:choose>
 </c:forEach>
+ -->
 【软件分类】<br />
 <c:forEach items="${indexDTO.softwareTypeList}" var="softwareType"><a href="showst.php?mid=${mid}&amp;id=${softwareType.id}">${softwareType.name }</a>
 <c:choose>

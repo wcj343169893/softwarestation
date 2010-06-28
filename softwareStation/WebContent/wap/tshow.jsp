@@ -14,7 +14,7 @@
 	<c:when test="${fn:length(pageResult.list)==0}">暂无相关软件</c:when>
 	<c:otherwise>
 		<c:forEach items="${pageResult.list}" var="si" varStatus="vs">
-		${vs.count }.<c:if test="${si.recommend==1}"><img src="img/commend.gif" alt="推荐" />	</c:if><a href="showsoftwareInfo.php?id=${si.id}&amp;mid=${mid }">[${softwareType.name }]${si.name }</a><br/>
+			${vs.count }.<c:if test="${si.recommend==1}"><img src="img/commend.gif" alt="推荐" /></c:if><a href="showsoftwareInfo.php?id=${si.id}&amp;mid=${mid }">[${softwareType.name }]${si.name }</a><br/>
 		</c:forEach>
 		<c:set var="page" value="${pageResult}"></c:set>
 			<c:if test="${page.pageNo!=1}"><a href="showst.php?p=${page.pageNo-1 }&amp;mid=${mid }">上页</a> </c:if>

@@ -76,7 +76,7 @@
 		<action name="*model" class="PhoneModelAction" method="{1}">
 			<result name="list">/wap/brand.jsp</result>
 			<result name="detail">/wap/setModel.jsp</result>
-			<result name="search">/wap/search.jsp</result>
+			<result name="search">/wap/searchModel.jsp</result>
 		</action>
 		<action name="index" class="IndexAction">
 			<result name="success">/wap/index.jsp</result>

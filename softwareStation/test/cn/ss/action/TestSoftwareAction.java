@@ -15,7 +15,11 @@ import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.ScrollableResults;
 import org.hibernate.Session;
+import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.Expression;
 import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Projection;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.jdbc.ConnectionManager;
 
@@ -84,7 +88,21 @@ public class TestSoftwareAction extends TestCase {
 		// Query query = session
 		// .createQuery("FROM SoftwareInfo");
 		// SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
-		// Criteria criteria = session.createCriteria(SoftwareInfo.class);
+		Criteria criteria = session.createCriteria(SoftwareInfo.class, "si");
+		Criteria cSoftware = criteria.createCriteria("softwareList", "s");
+		cSoftware.setProjection(Projections.projectionList().add(
+				Projections.groupProperty("s.softwareInfo")));
+		Criteria cOs = cSoftware.createCriteria("phoneOsList");
+		Criteria ps=cOs.createCriteria("phoneseriesList");
+		Criteria pm=ps.createCriteria("phoneModelList");
+		pm.add(Expression.eq("id",42));
+//		cOs.add(Restrictions.eq("id", 6));
+		List list = criteria.list();
+		 System.out.println(list);
+		for (int i = 0; i < list.size(); i++) {
+			System.out.println("id:" + ((SoftwareInfo) list.get(i)).getId()
+					+ "\t name:" + ((SoftwareInfo) list.get(i)).getName());
+		}
 		// Criteria criteria1=criteria.createCriteria("activeLogList");
 		// criteria1.addOrder(Order.desc("number"));
 		// try {
@@ -113,12 +131,13 @@ public class TestSoftwareAction extends TestCase {
 		// System.out.print(s.getId() + " ---  ");
 		// System.out.println(s.getActiveLogList().size());
 		// }
-		String sql = "SELECT si.* ,SUM(cl.number) clicknumber ,SUM(dl.number),SUM(al.number),SUM(al.number*al.price) FROM softwareinfo si	LEFT JOIN clicklog cl ON cl.softwareId=si.id	LEFT JOIN downloadlog dl ON dl.softwareId=si.id	LEFT JOIN activelog al ON al.softwareId=si.id 	GROUP BY cl.softwareId	ORDER BY clicknumber desc";
-		Query query = session.createSQLQuery(sql);
-		ScrollableResults result = query.scroll();
-		while (result.next()) {
-			System.out.println("1");
-		}
+		// String sql =
+		// "SELECT si.* ,SUM(cl.number) clicknumber ,SUM(dl.number),SUM(al.number),SUM(al.number*al.price) FROM softwareinfo si	LEFT JOIN clicklog cl ON cl.softwareId=si.id	LEFT JOIN downloadlog dl ON dl.softwareId=si.id	LEFT JOIN activelog al ON al.softwareId=si.id 	GROUP BY cl.softwareId	ORDER BY clicknumber desc";
+		// Query query = session.createSQLQuery(sql);
+		// ScrollableResults result = query.scroll();
+		// while (result.next()) {
+		// System.out.println("1");
+		// }
 	}
 
 }
