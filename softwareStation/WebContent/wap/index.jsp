@@ -31,17 +31,23 @@
 </c:forEach>
 【今日推荐】<br />
 <c:set value="" var="recommend"></c:set>
-<c:forEach items="${indexDTO.software_recommendList}" var="softwareInfo">
-<c:set value="0" var="isWrap"></c:set>
+<c:set value="${fn:length(indexDTO.software_recommendList)}" var="maxlength"></c:set>
+<c:forEach items="${indexDTO.software_recommendList}" var="softwareInfo" varStatus="vs">
 <c:set value="${softwareInfo.name}|${recommend}" var="recommend"></c:set>
+<a href="showsoftwareInfo.php?id=${softwareInfo.id}&amp;mid=${mid }">${softwareInfo.name}</a>
 <c:choose>
-	<c:when test="${fn:length(recommend) > 13}">
-		<c:set value="1" var="isWrap"></c:set>
+	<c:when test="${fn:length(recommend) > 10}">
+		<br/>
 		<c:set value="" var="recommend"></c:set>
 	</c:when>
-	<c:otherwise><c:set value="0" var="isWrap"></c:set></c:otherwise>
-</c:choose><a href="showsoftwareInfo.php?id=${softwareInfo.id}&amp;mid=${mid }">${softwareInfo.name}</a>${isWrap ==0?"|":"<br/>" }
+	<c:when test="${maxlength==vs.count }">
+		<br/>
+		<c:set value="" var="recommend"></c:set>
+	</c:when>
+	<c:otherwise>|</c:otherwise>
+</c:choose>
 </c:forEach>
+<!-- 
 <c:set value="" var="hots"></c:set>
 <c:forEach items="${indexDTO.software_hotList}" var="softwareInfo">
 <a href="showsoftwareInfo.php?id=${softwareInfo.id}&amp;mid=${mid }">${softwareInfo.name}</a>
@@ -54,13 +60,19 @@
 	<c:otherwise>|</c:otherwise>
 </c:choose>
 </c:forEach><br />
+ -->
 【最新更新】<br />
 <c:set value="" var="newone"></c:set>
-<c:forEach items="${indexDTO.software_newList}" var="softwareInfo">
+<c:set value="${fn:length(indexDTO.software_newList)}" var="maxlength"></c:set>
+<c:forEach items="${indexDTO.software_newList}" var="softwareInfo" varStatus="vs">
 <a href="showsoftwareInfo.php?id=${softwareInfo.id}&amp;mid=${mid }">${softwareInfo.name}</a>
 <c:set value="${softwareInfo.name}|${newone}" var="newone"></c:set>
 <c:choose>
 	<c:when test="${fn:length(newone) > 10}">
+		<br/>
+		<c:set value="" var="newone"></c:set>
+	</c:when>
+	<c:when test="${maxlength==vs.count }">
 		<br/>
 		<c:set value="" var="newone"></c:set>
 	</c:when>

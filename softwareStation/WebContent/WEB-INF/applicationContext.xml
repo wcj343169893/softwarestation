@@ -108,6 +108,9 @@
 	<bean id="extensionService" class="cn.ss.service.ExtensionService">
 		<property name="dao" ref="commonDAO"></property>
 	</bean>
+	<bean id="clickLogService" class="cn.ss.service.ClickLogService">
+		<property name="dao" ref="commonDAO"></property>
+	</bean>
 
 	<!-- action	 -->
 	<bean id="PhoneOsAction" class="cn.ss.action.PhoneOsAction">
@@ -135,6 +138,7 @@
 		<property name="softwareForm" ref="softwareForm"></property>
 		<property name="activeLogService" ref="activeLogService"></property>
 		<property name="phoneModelService" ref="phoneModelService"></property>
+		<property name="clickLogService" ref="clickLogService"></property>
 	</bean>
 	<bean id="SoftwareAction" class="cn.ss.action.SoftwareAction">
 		<property name="softwareService" ref="softwareService"></property>

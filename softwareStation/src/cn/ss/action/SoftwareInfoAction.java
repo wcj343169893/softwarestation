@@ -12,6 +12,7 @@ import cn.common.action.BasicAction;
 import cn.common.util.Folder;
 import cn.common.util.PageResult;
 import cn.common.util.Tool;
+import cn.ss.entity.ClickLog;
 import cn.ss.entity.Extension;
 import cn.ss.entity.PhoneModel;
 import cn.ss.entity.PhoneOs;
@@ -20,6 +21,7 @@ import cn.ss.entity.SoftwareInfo;
 import cn.ss.entity.SoftwareType;
 import cn.ss.form.SoftwareForm;
 import cn.ss.service.ActiveLogService;
+import cn.ss.service.ClickLogService;
 import cn.ss.service.PhoneModelService;
 import cn.ss.service.PhoneOsService;
 import cn.ss.service.SoftwareInfoService;
@@ -31,6 +33,7 @@ public class SoftwareInfoAction extends BasicAction {
 	private SoftwareInfoService softwareInfoService;
 	private SoftwareService softwareService;
 	private SoftwareTypeService softwareTypeService;
+	private ClickLogService clickLogService;
 	private PhoneOsService phoneOsService;
 	private ActiveLogService activeLogService;
 	private PhoneModelService phoneModelService;
@@ -41,6 +44,7 @@ public class SoftwareInfoAction extends BasicAction {
 	private SoftwareForm softwareForm;
 	private String beginTime;
 	private String endTime;
+
 	/**
 	 * 无语的排序0-9
 	 * <p>
@@ -98,19 +102,29 @@ public class SoftwareInfoAction extends BasicAction {
 	public String add() throws Exception {
 		init();
 		Calendar calendar = Calendar.getInstance();
+		softwareInfo = new SoftwareInfo();
 		softwareInfo.setSoftwareType(softwareTypeService.findById(this
 				.getSoftwareTypeId()));// 设置软件分类
 		softwareInfo.setClick(0);// 设置点击
-		softwareInfo.setCreateTime(calendar.getTime());// 设置上传时间
+		softwareInfo.setCreateTime(calendar.getTime());// 设置修改时间
+		softwareInfo.setName(softwareForm.getName());
+		softwareInfo.setNumber(softwareForm.getNumber());
+		softwareInfo.setTraffic((double) softwareForm.getTraffic());
+		softwareInfo.setSafety(softwareForm.getSafety());
+		softwareInfo.setPrompt(softwareForm.getPrompt());
+		softwareInfo.setProducer(softwareForm.getProducer());
+		softwareInfo.setRecommend(softwareForm.getRecommend());
+		softwareInfo.setIsShow(softwareForm.getIsShow());
+		softwareInfo.setPlusFine(softwareForm.getPlusFine());
+		softwareInfo.setPromotionWay(softwareForm.getPromotionWay());
+		softwareInfo.setDescription(softwareForm.getDescription());
+
 		// 判断是否有截图
 		if (softwareForm.getImage() != null) {
 			// 上传截图
 			// 重命名截图名称
-			softwareForm.setImageFileName("[yulezu]"
-					+ String.valueOf(calendar.getTimeInMillis())
-					+ softwareForm.getImageFileName().substring(
-							softwareForm.getImageFileName().lastIndexOf("."),
-							softwareForm.getImageFileName().length()));
+			softwareForm.setImageFileName(rename(calendar, softwareForm
+					.getImageFileName()));
 			softwareInfo.setImgPath(softwareForm.getImageFileName());// 设置截图名称
 		}
 		softwareInfoService.add(softwareInfo);// 保存软件信息
@@ -173,12 +187,10 @@ public class SoftwareInfoAction extends BasicAction {
 	 * @return
 	 */
 	private String rename(Calendar calendar, String fileName) {
-		if (softwareInfo.getIsRename() == 1) {// 重命名文件名
-			fileName = "[yulezu]"
-					+ String.valueOf(calendar.getTimeInMillis())
-					+ fileName.substring(fileName.lastIndexOf("."), fileName
-							.length());
-		}
+		fileName = "[yulezu]"
+				+ String.valueOf(calendar.getTimeInMillis())
+				+ fileName.substring(fileName.lastIndexOf("."), fileName
+						.length());
 		return fileName;
 	}
 
@@ -193,6 +205,21 @@ public class SoftwareInfoAction extends BasicAction {
 	public String edit() throws Exception {
 		init();
 		Calendar calendar = Calendar.getInstance();
+		softwareInfo = softwareInfoService.findById(softwareForm.getId());
+		softwareInfo.setSoftwareType(softwareTypeService.findById(this
+				.getSoftwareTypeId()));// 设置软件分类
+		softwareInfo.setClick(0);// 设置点击
+		softwareInfo.setCreateTime(calendar.getTime());// 设置修改时间
+		softwareInfo.setName(softwareForm.getName());
+		softwareInfo.setTraffic((double) softwareForm.getTraffic());
+		softwareInfo.setSafety(softwareForm.getSafety());
+		softwareInfo.setPrompt(softwareForm.getPrompt());
+		softwareInfo.setProducer(softwareForm.getProducer());
+		softwareInfo.setRecommend(softwareForm.getRecommend());
+		softwareInfo.setIsShow(softwareForm.getIsShow());
+		softwareInfo.setPlusFine(softwareForm.getPlusFine());
+		softwareInfo.setPromotionWay(softwareForm.getPromotionWay());
+		softwareInfo.setDescription(softwareForm.getDescription());
 		// 修改截图
 		if (softwareForm.getImage() != null) {
 			// 如果之前有截图，则只覆盖文件，如果没有，则新增一个
@@ -201,22 +228,14 @@ public class SoftwareInfoAction extends BasicAction {
 				softwareForm.setImageFileName(softwareInfo.getImgPath());
 			} else {
 				// 重命名截图名称
-				softwareForm.setImageFileName("[yulezu]"
-						+ String.valueOf(calendar.getTimeInMillis())
-						+ softwareForm.getImageFileName().substring(
-								softwareForm.getImageFileName()
-										.lastIndexOf("."),
-								softwareForm.getImageFileName().length()));
+				softwareForm.setImageFileName(rename(calendar, softwareForm
+						.getImageFileName()));
 				softwareInfo.setImgPath(softwareForm.getImageFileName());// 设置截图名称
 			}
 			Tool.UploadFile(softwareForm.getImage(), softwareForm
 					.getImageFileName(), uploadPath, Folder.image, softwareInfo
 					.getId());// 上传
 		}
-		// 修改软件信息
-		softwareInfo.setCreateTime(calendar.getTime());
-		softwareInfo.setSoftwareType(softwareTypeService.findById(this
-				.getSoftwareTypeId()));
 		softwareInfoService.update(softwareInfo);
 		// 查询所有的平台,存放到Map中
 		// 修改软件的平台
@@ -401,6 +420,13 @@ public class SoftwareInfoAction extends BasicAction {
 				break;
 			}
 		}
+		// 记录软件的点击
+		ClickLog clickLog = new ClickLog();
+		clickLog.setClickTime(new Date());
+		clickLog.setNumber(1);
+		clickLog.setSoftwareInfo(softwareInfo);
+		clickLogService.add(clickLog);
+
 		// request.setAttribute("softwareList", softwareList);
 		request.setAttribute("model", model);
 		request.setAttribute("software_p", software_p);
@@ -625,6 +651,14 @@ public class SoftwareInfoAction extends BasicAction {
 
 	public void setPhoneModelService(PhoneModelService phoneModelService) {
 		this.phoneModelService = phoneModelService;
+	}
+
+	public ClickLogService getClickLogService() {
+		return clickLogService;
+	}
+
+	public void setClickLogService(ClickLogService clickLogService) {
+		this.clickLogService = clickLogService;
 	}
 
 }

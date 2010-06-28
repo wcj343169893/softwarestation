@@ -144,10 +144,10 @@
 	<form action="softwareInfo!add.action" method="post" enctype="multipart/form-data" id="softwareInfoForm1">
 	<table class="query_form_table">
 			<tr>
-				<th>文件数量:</th><td><input id="rows" name="softwareInfo.number"/>
+				<th>文件数量:</th><td><input id="rows" name="softwareForm.number"/>
 					<input type="button" onclick="create()" value="设置"/>
 				</td>
-				<th>软件名称:</th><td><input name="softwareInfo.name"/></td>
+				<th>软件名称:</th><td><input name="softwareForm.name"/></td>
 			</tr>
 			<tr>
 				<th>分类:</th>
@@ -160,20 +160,20 @@
 				</td>
 				<th>安全:</th>
 				<td>
-					<input type="text" name="softwareInfo.safety" value="无病毒/无暗扣/无插件" />
+					<input type="text" name="softwareForm.safety" value="无病毒/无暗扣/无插件" />
 				</td>
 			</tr>
 			<tr>
 				<th>资费:</th>
 				<td>
-					<select name="softwareInfo.traffic">
+					<select name="softwareForm.traffic">
 						<option value="0">使用完全免费</option>
 						<option value="1">部分功能收费</option>
 					</select>
 				</td>
 				<th>提示:</th>
 				<td>
-					<select name="softwareInfo.prompt">
+					<select name="softwareForm.prompt">
 						<option value="无提示">无提示</option>
 						<option value="需要签证后才能安装">需要签证后才能安装</option>
 					</select>
@@ -182,36 +182,36 @@
 			<tr>
 				<th>开发商:</th>
 				<td>
-					<input type="text" name="softwareInfo.producer" value="">
+					<input type="text" name="softwareForm.producer" value="">
 				</td>
 				<th>是否推荐:</th>
 				<td>
-					<input type="radio" name="softwareInfo.recommend" checked="checked" value="1" id="recommendY">
+					<input type="radio" name="softwareForm.recommend" checked="checked" value="1" id="recommendY">
 					<label for="recommendY">是</label>
-					<input type="radio" name="softwareInfo.recommend" value="0" id="recommendN">
+					<input type="radio" name="softwareForm.recommend" value="0" id="recommendN">
 					<label for="recommendN">否</label>
 				</td>
 			</tr>
 			<tr>
 				<th>是否显示:</th>
 				<td>
-					<input type="radio" name="softwareInfo.isShow" checked="checked" value="1" id="isShowY">
+					<input type="radio" name="softwareForm.isShow" checked="checked" value="1" id="isShowY">
 					<label for="isShowY">是</label>
-					<input type="radio" name="softwareInfo.isShow" value="0" id="isShowN">
+					<input type="radio" name="softwareForm.isShow" value="0" id="isShowN">
 					<label for="isShowN">否</label>
 				</td>
 				<th>是否加精:</th>
 				<td>
-					<input type="radio" name="softwareInfo.plusFine" checked="checked" value="1" id="plusFineY">
+					<input type="radio" name="softwareForm.plusFine" checked="checked" value="1" id="plusFineY">
 					<label for="plusFineY">是</label>
-					<input type="radio" name="softwareInfo.plusFine" value="0" id="plusFineN">
+					<input type="radio" name="softwareForm.plusFine" value="0" id="plusFineN">
 					<label for="plusFineN">否</label>
 				</td>
 			</tr>
 			<tr>
 				<th>推广方式:</th>
 				<td>
-					<select name="softwareInfo.promotionWay">
+					<select name="softwareForm.promotionWay">
 						<option value="0">提成</option>
 						<option value="1">免费</option>
 					</select>
@@ -224,7 +224,7 @@
 			<tr>
 				<th>简介:</th>
 				<td colspan="3">
-					<textarea rows="10" cols="40" name="softwareInfo.description"></textarea>
+					<textarea rows="10" cols="40" name="softwareForm.description"></textarea>
 				</td>
 			</tr>
 			<tr>
@@ -251,14 +251,13 @@
 			<tr>
 				<th>文件数量:</th><td>
 				<c:set value="${fn:length(softwareInfo.softwareList)}" var="softwareNumbers"></c:set>
-					<input type="hidden" value="${softwareInfo.click }" name="softwareInfo.click"/>
-					<input id="number" type="hidden"  name="softwareInfo.number" value="${softwareNumbers }"/>
+					<input id="number" type="hidden"  name="" value="${softwareNumbers }"/>
 					<input id="rows" value="1"/>
 					<input type="button" onclick="addFile()" value="增加"/>
 				</td>
 				<th>软件名称:</th><td>
-				<input name="softwareInfo.name" value="${softwareInfo.name }"/>
-				<input type="hidden" value="${softwareInfo.id }" name="softwareInfo.id">
+				<input name="softwareForm.name" value="${softwareInfo.name }"/>
+				<input type="hidden" value="${softwareInfo.id }" name="softwareForm.id">
 				</td>
 			</tr>
 			<tr>
@@ -272,20 +271,20 @@
 				</td>
 				<th>安全:</th>
 				<td>
-					<input type="text" name="softwareInfo.safety" value="无病毒/无暗扣/无插件" value="${softwareInfo.safety }"/>
+					<input type="text" name="softwareForm.safety" value="无病毒/无暗扣/无插件" value="${softwareInfo.safety }"/>
 				</td>
 			</tr>
 			<tr>
 				<th>资费:</th>
 				<td>
-					<select name="softwareInfo.traffic">
+					<select name="softwareForm.traffic">
 						<option value="0" <c:if test="${softwareInfo.traffic == 0}">selected</c:if>>使用完全免费</option>
 						<option value="1" <c:if test="${softwareInfo.traffic == 1}">selected</c:if>>部分功能收费</option>
 					</select>
 				</td>
 				<th>提示:</th>
 				<td>
-					<select name="softwareInfo.prompt">
+					<select name="softwareForm.prompt">
 						<option value="无提示" <c:if test="${softwareInfo.prompt eq '无提示'}">selected</c:if>>无提示</option>
 						<option value="需要签证后才能安装" <c:if test="${softwareInfo.prompt eq '需要签证后才能安装'}">selected</c:if>>需要签证后才能安装</option>
 					</select>
@@ -294,36 +293,36 @@
 			<tr>
 				<th>开发商:</th>
 				<td>
-					<input type="text" name="softwareInfo.producer" value="${softwareInfo.producer }" maxlength="180">
+					<input type="text" name="softwareForm.producer" value="${softwareInfo.producer }" maxlength="180">
 				</td>
 				<th>是否推荐:</th>
 				<td>
-					<input type="radio" name="softwareInfo.recommend" <c:if test="${softwareInfo.recommend == 1}">checked</c:if> value="1" id="recommendY">
+					<input type="radio" name="softwareForm.recommend" <c:if test="${softwareInfo.recommend == 1}">checked</c:if> value="1" id="recommendY">
 					<label for="recommendY">是</label>
-					<input type="radio" name="softwareInfo.recommend" <c:if test="${softwareInfo.recommend == 0}">checked</c:if> value="0" id="recommendN">
+					<input type="radio" name="softwareForm.recommend" <c:if test="${softwareInfo.recommend == 0}">checked</c:if> value="0" id="recommendN">
 					<label for="recommendN">否</label>
 				</td>
 			</tr>
 			<tr>
 				<th>是否显示:</th>
 				<td>
-					<input type="radio" name="softwareInfo.isShow" <c:if test="${softwareInfo.isShow == 1}">checked</c:if> value="1" id="isShowY">
+					<input type="radio" name="softwareForm.isShow" <c:if test="${softwareInfo.isShow == 1}">checked</c:if> value="1" id="isShowY">
 					<label for="isShowY">是</label>
-					<input type="radio" name="softwareInfo.isShow"  <c:if test="${softwareInfo.isShow == 0}">checked</c:if> value="0" id="isShowN">
+					<input type="radio" name="softwareForm.isShow"  <c:if test="${softwareInfo.isShow == 0}">checked</c:if> value="0" id="isShowN">
 					<label for="isShowN">否</label>
 				</td>
 				<th>是否加精:</th>
 				<td>
-					<input type="radio" name="softwareInfo.plusFine" <c:if test="${softwareInfo.plusFine == 1}">checked</c:if> value="1" id="plusFineY">
+					<input type="radio" name="softwareForm.plusFine" <c:if test="${softwareInfo.plusFine == 1}">checked</c:if> value="1" id="plusFineY">
 					<label for="plusFineY">是</label>
-					<input type="radio" name="softwareInfo.plusFine" <c:if test="${softwareInfo.plusFine == 0}">checked</c:if> value="0" id="plusFineN">
+					<input type="radio" name="softwareForm.plusFine" <c:if test="${softwareInfo.plusFine == 0}">checked</c:if> value="0" id="plusFineN">
 					<label for="plusFineN">否</label>
 				</td>
 			</tr>
 			<tr>
 				<th>推广方式:</th>
 				<td colspan="3">
-					<select name="softwareInfo.promotionWay">
+					<select name="softwareForm.promotionWay">
 						<option value="0" <c:if test="${softwareInfo.promotionWay == 0}">selected</c:if>>提成</option>
 						<option value="1" <c:if test="${softwareInfo.promotionWay == 1}">selected</c:if>>免费</option>
 					</select>
@@ -335,11 +334,11 @@
 				<td>
 				 <img alt="" src="/upload/image/${softwareInfo.id }/${softwareInfo.imgPath }" width="80px" height="80px"><br>
 				<input type="file" name="softwareForm.image">
-				<input type="hidden" name="softwareInfo.imgPath" value="${softwareInfo.imgPath }">
+				<input type="hidden" name="softwareForm.imgPath" value="${softwareInfo.imgPath }">
 				</td>
 				<th>简介:</th>
 				<td>
-					<textarea rows="10" cols="40" name="softwareInfo.description">${softwareInfo.description }</textarea>
+					<textarea rows="10" cols="40" name="softwareForm.description">${softwareInfo.description }</textarea>
 				</td>
 			</tr>
 			

@@ -49,6 +49,19 @@ public class SoftwareForm {
 	 * ½ØÍ¼µÄÃû³Æ
 	 */
 	private String imageFileName;
+	private int id;
+	private int number;
+	private String name;
+	private String safety;
+	private int traffic;
+	private String prompt;
+	private String producer;
+	private int recommend;
+	private int isShow;
+	private int plusFine;
+	private int promotionWay;
+	private String description;
+	private String imgPath;
 
 	public String getImageFileName() {
 		return imageFileName;
@@ -128,6 +141,110 @@ public class SoftwareForm {
 
 	public void setPhoneOs_update(List<String> phoneOsUpdate) {
 		phoneOs_update = phoneOsUpdate;
+	}
+
+	public int getNumber() {
+		return number;
+	}
+
+	public void setNumber(int number) {
+		this.number = number;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getSafety() {
+		return safety;
+	}
+
+	public void setSafety(String safety) {
+		this.safety = safety;
+	}
+
+	public int getTraffic() {
+		return traffic;
+	}
+
+	public void setTraffic(int traffic) {
+		this.traffic = traffic;
+	}
+
+	public String getPrompt() {
+		return prompt;
+	}
+
+	public void setPrompt(String prompt) {
+		this.prompt = prompt;
+	}
+
+	public String getProducer() {
+		return producer;
+	}
+
+	public void setProducer(String producer) {
+		this.producer = producer;
+	}
+
+	public int getRecommend() {
+		return recommend;
+	}
+
+	public void setRecommend(int recommend) {
+		this.recommend = recommend;
+	}
+
+	public int getIsShow() {
+		return isShow;
+	}
+
+	public void setIsShow(int isShow) {
+		this.isShow = isShow;
+	}
+
+	public int getPlusFine() {
+		return plusFine;
+	}
+
+	public void setPlusFine(int plusFine) {
+		this.plusFine = plusFine;
+	}
+
+	public int getPromotionWay() {
+		return promotionWay;
+	}
+
+	public void setPromotionWay(int promotionWay) {
+		this.promotionWay = promotionWay;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getImgPath() {
+		return imgPath;
+	}
+
+	public void setImgPath(String imgPath) {
+		this.imgPath = imgPath;
 	}
 
 }

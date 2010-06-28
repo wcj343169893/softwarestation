@@ -10,6 +10,7 @@ public class ExtensionAction extends BasicAction {
 	private String name;
 	private Integer id;
 	private Extension extension;
+	private int p;
 
 	public String delete() throws Exception {
 		extensionService.delete(id);
@@ -39,6 +40,9 @@ public class ExtensionAction extends BasicAction {
 	public String list() throws Exception {
 		init();
 		PageResult<Extension> pageResult = new PageResult<Extension>();
+		if (p != 0) {
+			pageResult.setPageNo(p);
+		}
 		extensionService.findAll(pageResult, extension);
 		request.setAttribute("pageResult", pageResult);
 		return "list";
@@ -74,6 +78,14 @@ public class ExtensionAction extends BasicAction {
 
 	public void setExtension(Extension extension) {
 		this.extension = extension;
+	}
+
+	public int getP() {
+		return p;
+	}
+
+	public void setP(int p) {
+		this.p = p;
 	}
 
 }
