@@ -35,6 +35,8 @@ public class Software implements java.io.Serializable {
 
 	private Double price;
 
+	private Integer size;
+
 	public Integer getId() {
 		return id;
 	}
@@ -106,5 +108,15 @@ public class Software implements java.io.Serializable {
 	public void setPrice(Double price) {
 		this.price = price;
 	}
+
+	public Integer getSize() {
+		return size;
+	}
+
+	public void setSize(Integer size) {
+		this.size = size;
+	}
+
+	
 
 }

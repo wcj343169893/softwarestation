@@ -15,6 +15,11 @@
 				<comment>软件信息</comment>
 			</column>
 		</many-to-one>
+		<property name="size" type="java.lang.Integer">
+			<column name="size">
+				<comment>文件大小</comment>
+			</column>
+		</property>
 		<property name="click" type="java.lang.Integer">
 			<column name="click">
 				<comment>点击数</comment>

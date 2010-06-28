@@ -3,15 +3,17 @@ package cn.ss.action;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.PrintWriter;
-import java.io.Writer;
+import java.util.Date;
 
 import javax.servlet.ServletOutputStream;
 
 import cn.common.action.BasicAction;
 import cn.common.util.Folder;
 import cn.common.util.Tool;
+import cn.ss.entity.DownloadLog;
 import cn.ss.entity.Software;
 import cn.ss.entity.SoftwareInfo;
+import cn.ss.service.DownloadLogService;
 import cn.ss.service.SoftwareInfoService;
 import cn.ss.service.SoftwareService;
 
@@ -19,6 +21,7 @@ public class SoftwareAction extends BasicAction {
 	private static final long serialVersionUID = -5649579764754613826L;
 	private SoftwareService softwareService;
 	private SoftwareInfoService softwareInfoService;
+	private DownloadLogService downloadLogService;
 	private Software software;
 	/**
 	 * Èí¼þid
@@ -95,6 +98,13 @@ public class SoftwareAction extends BasicAction {
 				servletOutputStream.flush();
 				servletOutputStream.close();
 				fileInputStream.close();
+
+				// ÏÂÔØ¼ÇÂ¼
+				DownloadLog downloadLog = new DownloadLog();
+				downloadLog.setNumber(1);
+				downloadLog.setSoftwareInfo(softwareInfo);
+				downloadLog.setDownloadTime(new Date());
+				downloadLogService.add(downloadLog);
 			}
 		} catch (Exception e) {
 			response.setCharacterEncoding("UTF-8");
@@ -168,6 +178,14 @@ public class SoftwareAction extends BasicAction {
 
 	public void setMid(int mid) {
 		this.mid = mid;
+	}
+
+	public DownloadLogService getDownloadLogService() {
+		return downloadLogService;
+	}
+
+	public void setDownloadLogService(DownloadLogService downloadLogService) {
+		this.downloadLogService = downloadLogService;
 	}
 
 }

@@ -24,12 +24,24 @@
 	<c:otherwise>
 	${softwareInfo.name }<br/>
 	<img src="/upload/image/${softwareInfo.id}/${softwareInfo.imgPath}" alt="${softwareInfo.name }" /><br/>
+	<c:if test="${!empty software_p}">
+		<a href="downloadsoftware.php?id=${software_p.id}&amp;id2=${softwareInfo.id}&amp;mid=${mid}">${model.name }免费下载/${name }/${software_p.size }k</a><br/>
+	</c:if>
 	<fmt:formatDate value="${softwareInfo.createTime }" pattern="yyyy-MM-dd" var="ct"/>
 	[更新]${ct}<br/>
 	[资费]${softwareInfo.traffic >0 ?softwareInfo.traffic:"完全免费"}<br/>
 	[安全]${softwareInfo.safety}<br/>
-	[软件简介]${softwareInfo.description}
-		<c:if test="${!empty more}"><a href="showsoftwareInfo.php?id=${id}&amp;mid=${mid }&amp;more=more">详细</a> </c:if>
+	[软件简介]
+		<c:choose>
+			<c:when test="${more eq null}">
+				${fn:substring(softwareInfo.description,0,50)}
+				<c:if test="${fn:length(softwareInfo.description)>50}"><a href="showsoftwareInfo.php?id=${id}&amp;mid=${mid }&amp;more=more">详细...</a> </c:if>
+			</c:when>
+			<c:otherwise>
+				${softwareInfo.description}
+			</c:otherwise>
+		</c:choose>
+		
 	<br/>
 	[适用机型]
 	<c:choose>
@@ -41,7 +53,7 @@
 		</c:otherwise>
 	</c:choose><br/>
 	<c:if test="${!empty software_p}">
-		<a href="downloadsoftware.php?id=${software_p.id}&amp;id2=${softwareInfo.id}&amp;mid=${mid}">免费下载到手机</a><br/>
+		<a href="downloadsoftware.php?id=${software_p.id}&amp;id2=${softwareInfo.id}&amp;mid=${mid}">${model.name }免费下载/${name }/${software_p.size }k</a><br/>
 	</c:if>
 	<c:choose>
 		<c:when test="${!empty software_java}">
@@ -50,11 +62,12 @@
 		<c:otherwise>
 		</c:otherwise>
 	</c:choose>
-	[下载]${softwareInfo.download};[分类]${softwareInfo.softwareType.name}<br/>
+	[下载]${download};[分类]${softwareInfo.softwareType.name}<br/>
 	顶一下!13|评论233|报错<br/>
 	</c:otherwise>
 </c:choose>
-
+<br />---------------<br />
+<a href="index.php?mid=${mid }">首页</a>&gt;<a href="lsst.php?mid=${mid }">软件分类</a>&gt;<a href="showst.php?mid=${mid }&amp;id=${softwareInfo.softwareType.id}">${softwareInfo.softwareType.name}</a><br/>
 </p>
 </card>
 </wml>

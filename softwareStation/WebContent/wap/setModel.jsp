@@ -22,13 +22,14 @@
 			<c:choose><c:when test="${keyword eq null}"><a href="index.php?mid=${model.id }">${model.name }</a></c:when><c:otherwise><a href="index.php?mid=${model.id }">${vs.count }.${model.phoneseries.brand.name } ${model.name }</a><br/></c:otherwise></c:choose>
 		</c:forEach><br/>
 		<c:set var="page" value="${pageResult}"></c:set>
-		${page.recTotal}个
-				<a href="setmodel.php?bid=${bid }&amp;p=1&amp;mid=${mid }">首页</a> <c:if test="${page.pageNo!=1}"><a href="setmodel.php?bid=${bid }&amp;p=${page.pageNo-1 }&amp;mid=${mid }">上页</a> </c:if>
-						<c:if test="${page.pageNo<page.pageTotal}"><a href="setmodel.php?bid=${bid }&amp;p=${page.pageNo+1 }&amp;mid=${mid }">下页</a> </c:if> <a
-					href="setmodel.php?bid=${bid }&amp;p=${page.pageTotal}&amp;mid=${mid }">尾页</a> 
-					<br/>${page.pageNo}/${page.pageTotal}至<input name="pageno" maxlength="2" size="2" format="*N" value="${page.pageNo}"/>页 <anchor><go href="setmodel.php?bid=${bid }&amp;mid=${mid }">
-						<postfield name="p" value="$(pageno)" />
-					</go>跳页</anchor><br/>
+			<c:if test="${page.pageNo!=1}"><a href="setmodel.php?bid=${bid }&amp;p=${page.pageNo-1 }&amp;mid=${mid }">上页</a> </c:if>
+			<c:if test="${page.pageNo<page.pageTotal}"><a href="setmodel.php?bid=${bid }&amp;p=${page.pageNo+1 }&amp;mid=${mid }">下页</a> </c:if> 
+			<c:if test="${page.pageNo!=1}"><a href="setmodel.php?bid=${bid }&amp;p=1&amp;mid=${mid }">首页</a> </c:if>
+			<c:if test="${page.pageNo<page.pageTotal}"><a href="setmodel.php?bid=${bid }&amp;p=${page.pageTotal}&amp;mid=${mid }">尾页</a></c:if>
+			${page.recTotal}个<br/>
+			${page.pageNo}/${page.pageTotal}至<input name="pageno" maxlength="2" size="2" format="*N" value="${page.pageNo}"/>页 <anchor><go href="setmodel.php?bid=${bid }&amp;mid=${mid }">
+			<postfield name="p" value="$(pageno)" />
+				</go>跳页</anchor><br/>
 					<!-- 
 					【机型系列】<br/>
 					N开头|E|8|7|6|5|3|其他<br/>

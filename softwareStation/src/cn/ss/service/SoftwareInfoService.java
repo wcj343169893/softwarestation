@@ -93,6 +93,9 @@ public class SoftwareInfoService extends BasicService {
 			case 9:// 收入/点击
 				str = "ORDER BY al.number*al.price/cl.number";
 				break;
+			case 10:// 收入/点击
+				str = "ORDER BY si.promotionWay";
+				break;
 			default:
 				break;
 			}
@@ -116,7 +119,7 @@ public class SoftwareInfoService extends BasicService {
 		List<SoftwareInfo> softwareInfoList = new ArrayList<SoftwareInfo>();
 		StringBuffer hql = new StringBuffer(
 				"FROM SoftwareInfo si where 1=1 and si.isShow=1 ");
-		if (mid > 0) {//机型id-->平台
+		if (mid > 0) {// 机型id-->平台
 			hql.append("");
 		}
 		if (plusFine > 0) {
@@ -133,6 +136,36 @@ public class SoftwareInfoService extends BasicService {
 		}
 		softwareInfoList = dao.list(hql.toString());
 		return softwareInfoList;
+	}
+
+	/**
+	 * 前台分类分页显示
+	 * 
+	 * @param pageResult
+	 * @param mid
+	 *            手机机型
+	 * @param stid
+	 *            分类id
+	 * @param ty
+	 *            直接显示列表、排行
+	 */
+	public void findAll(PageResult<SoftwareInfo> pageResult, int mid, int stid,
+			int ty,int commend) {
+		StringBuffer hql = new StringBuffer(
+				"FROM SoftwareInfo si where 1=1 and si.isShow=1 ");
+		if (stid > 0) {
+			hql.append(" and si.softwareType.id=" + stid);
+		}
+		if (mid > 0) {
+			// hql.append(" and si.softwareType.id=" + stid);
+		}
+		if (ty > 0) {
+			// hql.append(" and si.softwareType.id=" + stid);
+		}
+		if (commend>0) {
+			hql.append(" order by si.recommend desc");
+		}
+		dao.listByPage(hql.toString(), pageResult);
 	}
 
 	/**

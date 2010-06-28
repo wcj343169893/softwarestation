@@ -111,6 +111,9 @@
 	<bean id="clickLogService" class="cn.ss.service.ClickLogService">
 		<property name="dao" ref="commonDAO"></property>
 	</bean>
+	<bean id="downloadLogService" class="cn.ss.service.DownloadLogService">
+		<property name="dao" ref="commonDAO"></property>
+	</bean>
 
 	<!-- action	 -->
 	<bean id="PhoneOsAction" class="cn.ss.action.PhoneOsAction">
@@ -128,6 +131,8 @@
 	</bean>
 	<bean id="SoftwareTypeAction" class="cn.ss.action.SoftwareTypeAction">
 		<property name="softwareTypeService" ref="softwareTypeService"></property>
+		<property name="phoneModelService" ref="phoneModelService"></property>
+		<property name="softwareInfoService" ref="softwareInfoService"></property>
 	</bean>
 	<bean id="SoftwareInfoAction" class="cn.ss.action.SoftwareInfoAction"
 		scope="prototype">
@@ -143,6 +148,7 @@
 	<bean id="SoftwareAction" class="cn.ss.action.SoftwareAction">
 		<property name="softwareService" ref="softwareService"></property>
 		<property name="softwareInfoService" ref="softwareInfoService"></property>
+		<property name="downloadLogService" ref="downloadLogService"></property>
 	</bean>
 	<bean id="AccountAction" class="cn.ss.action.AccountAction" scope="prototype">
 		<property name="accountService" ref="accountService"></property>

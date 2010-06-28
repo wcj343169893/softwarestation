@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -13,7 +14,7 @@ import java.util.ResourceBundle;
 
 public class Tool {
 	public static String CONFIG = null;
-	public static String packages="cn.ss.wap.";
+	public static String packages = "cn.ss.wap.";
 
 	/**
 	 * 删除指定文件
@@ -95,6 +96,23 @@ public class Tool {
 			System.err.println("ELS - Chart: " + err.getMessage());
 			err.printStackTrace();
 		}
+	}
+
+	/**
+	 * 得到文件的大小
+	 * 
+	 * @param file
+	 * @return
+	 */
+	public static int fileSize(File file) {
+		long length = file.length();
+		double size = (length) / 1024;
+		DecimalFormat df = new DecimalFormat("0");
+		String s = df.format(size);
+		if (!"".equals(s.trim())) {
+			return Integer.parseInt(s);
+		}
+		return 0;
 	}
 
 	/**

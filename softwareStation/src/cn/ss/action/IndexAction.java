@@ -44,7 +44,7 @@ public class IndexAction extends BasicAction {
 		// 3.最新更新
 		indexDTO.setSoftware_newList(softwareInfoService.findAll(mid, 0, 0,
 				new Date()));
-		// 4.软件列表
+		// 4.软件类型列表
 		indexDTO.setSoftwareTypeList(softwareTypeService.findAll(null));
 		if (mid > 0) {
 			indexDTO.setModel(phoneModelService.findById(mid));

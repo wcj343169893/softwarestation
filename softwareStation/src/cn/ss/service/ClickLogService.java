@@ -17,17 +17,17 @@ public class ClickLogService extends BasicService {
 	 */
 	public void findAll(PageResult<ClickLog> pageResult, ClickLog clickLog,
 			String beginTime, String endTime, int sid) {
-		StringBuffer hql = new StringBuffer("from ClickLog a where 1=1");
+		StringBuffer hql = new StringBuffer("from ClickLog c where 1=1");
 		if (beginTime != null && !"".equals(beginTime)
 				&& Tool.stringFormatDate(beginTime, "yyyy-MM-dd") != null) {
-			hql.append(" and a.activeTime >= '" + beginTime + "'");
+			hql.append(" and c.clickTime >= '" + beginTime + "'");
 		}
 		if (endTime != null && !"".equals(endTime)
 				&& Tool.stringFormatDate(endTime, "yyyy-MM-dd") != null) {
-			hql.append(" and a.activeTime =< '" + endTime + "'");
+			hql.append(" and c.clickTime =< '" + endTime + "'");
 		}
 		if (sid > 0) {
-			hql.append(" and a.softwareInfo.id = " + sid);
+			hql.append(" and c.softwareInfo.id = " + sid);
 		}
 		if (clickLog != null) {
 

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<%@page contentType="text/vnd.wap.wml;charset=UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>  
+<!DOCTYPE wml PUBLIC "-//WAPFORUM//DTD WML 1.3//EN" "http://www.wapforum.org/DTD/wml13.dtd">
+<wml>
+
+<card title="${model.name}-分类检索">
+<p>
+类别：${softwareType.name }|${softwareType.name }软件排行<br />
+
+<c:choose>
+	<c:when test="${fn:length(pageResult.list)==0}">暂无相关软件</c:when>
+	<c:otherwise>
+		<c:forEach items="${pageResult.list}" var="si" varStatus="vs">
+		${vs.count }.<c:if test="${si.recommend==1}"><img src="img/commend.gif" alt="推荐" />	</c:if><a href="showsoftwareInfo.php?id=${si.id}&amp;mid=${mid }">[${softwareType.name }]${si.name }</a><br/>
+		</c:forEach>
+		<c:set var="page" value="${pageResult}"></c:set>
+			<c:if test="${page.pageNo!=1}"><a href="showst.php?p=${page.pageNo-1 }&amp;mid=${mid }">上页</a> </c:if>
+			<c:if test="${page.pageNo<page.pageTotal}"><a href="showst.php?p=${page.pageNo+1 }&amp;mid=${mid }">下页</a> </c:if> 
+			<c:if test="${page.pageNo!=1}"><a href="showst.php?p=1&amp;mid=${mid }">首页</a> </c:if>
+			<c:if test="${page.pageNo<page.pageTotal}"><a href="showst.php?p=${page.pageTotal}&amp;mid=${mid }">尾页</a></c:if>
+			${page.recTotal}个 
+				<br/>${page.pageNo}/${page.pageTotal}至<input name="pageno" maxlength="2" size="2" format="*N" value="${page.pageNo}"/>页 <anchor>
+				<go href="showst.php">
+					<postfield name="p" value="$(pageno)" />
+					<postfield name="mid" value="${mid }" />
+				</go>跳页</anchor><br/>
+	</c:otherwise>
+</c:choose>
+<br />---------------<br />
+<a href="index.php?mid=${mid }">首页</a>&gt;<a href="lsst.php?mid=${mid }">软件分类</a>&gt;${softwareType.name }<br/>
+</p>
+</card>
+</wml>

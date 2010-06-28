@@ -15,7 +15,16 @@
 	</c:otherwise>
 </c:choose>
 <img src="/img/logo.png" alt="软件站" /><br />
-<a href="new.jsp">最新</a>|<a href="commend.jsp">推荐</a>|热门|<a href="plusFine.jsp">精品</a>|分类|资讯<br />
+<a href="new.jsp">最新</a>|<a href="commend.jsp">推荐</a>|<a href="plusFine.jsp">精品</a>|<a href="lsst.php?mid=${mid }">分类</a><br />
+<input name="name" maxlength="15"/>
+<anchor>
+	<go href="">
+		<postfield name="name" value="$(name)" />
+	</go>搜软件
+</anchor> 
+ 
+<br />
+
 <c:set value="" var="plusFine"></c:set>
 <c:forEach items="${indexDTO.software_plusFineList}" var="softwareInfo">
 	<c:set value="0" var="isWrap"></c:set>
@@ -80,7 +89,7 @@
 </c:choose>
 </c:forEach>
 【软件分类】<br />
-<c:forEach items="${indexDTO.softwareTypeList}" var="softwareType"><a href="#">${softwareType.name }</a>
+<c:forEach items="${indexDTO.softwareTypeList}" var="softwareType"><a href="showst.php?mid=${mid}&amp;id=${softwareType.id}">${softwareType.name }</a>
 <c:choose>
 	<c:when test="${softwareType.isWrap==1}"><br/></c:when>
 	<c:otherwise>|</c:otherwise>

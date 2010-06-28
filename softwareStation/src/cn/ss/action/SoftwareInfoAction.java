@@ -44,6 +44,7 @@ public class SoftwareInfoAction extends BasicAction {
 	private SoftwareForm softwareForm;
 	private String beginTime;
 	private String endTime;
+	private String more;
 
 	/**
 	 * 无语的排序0-9
@@ -169,6 +170,7 @@ public class SoftwareInfoAction extends BasicAction {
 					software.setDownloadPath(fileName);
 					software.setCreateTime(calendar.getTime());
 					software.setClick(0);
+					software.setSize(Tool.fileSize(upload.get(i)));
 					software.setDownload(0);
 					software.setPhoneOsList(maps.get(ids.get(i)));
 					softwareService.add(software);
@@ -298,10 +300,10 @@ public class SoftwareInfoAction extends BasicAction {
 									softwareInfo.getId(), software
 											.getDownloadPath());
 							software.setDownloadPath(fileName);
-							System.out.println(fileName);
 							File softwareFile = softwares.get(0);
 							Tool.UploadFile(softwareFile, fileName, uploadPath,
 									Folder.file, softwareInfo.getId());// 上传第一个文件
+							software.setSize(Tool.fileSize(softwareFile));
 						}
 						softwares.remove(0);
 						softwares_FileName.remove(0);
@@ -323,9 +325,11 @@ public class SoftwareInfoAction extends BasicAction {
 				String fileName = uploadFileName.get(i);
 				if (extenIsTrue(maps.get(ids.get(i)), fileName
 						.substring(fileName.lastIndexOf(".")))) {
-					System.out.println(fileName);
-					Tool.UploadFile(upload.get(i), fileName, uploadPath,
-							Folder.file, softwareInfo.getId());// 上传
+					File f = upload.get(i);
+					System.out.println("fileName:" + fileName + "\t length:"
+							+ f.length());
+					Tool.UploadFile(f, fileName, uploadPath, Folder.file,
+							softwareInfo.getId());// 上传
 					// 新增软件
 					software = new Software();
 					software.setSoftwareInfo(softwareInfo);
@@ -333,6 +337,7 @@ public class SoftwareInfoAction extends BasicAction {
 					software.setCreateTime(calendar.getTime());
 					software.setClick(0);
 					software.setDownload(0);
+					software.setSize(Tool.fileSize(f));
 					software.setPhoneOsList(maps.get(ids.get(i)));
 					softwareService.add(software);
 					softwaresize++;
@@ -377,6 +382,18 @@ public class SoftwareInfoAction extends BasicAction {
 		return "detail";
 	}
 
+	public String search() throws Exception {
+		init();
+		PageResult<SoftwareInfo> pageResult = new PageResult<SoftwareInfo>();
+		if (p != 0) {
+			pageResult.setPageNo(p);
+		}
+		softwareInfoService.findAll(pageResult, null, null, null, name, 10, 1,
+				0, null, 4);
+		request.setAttribute("pageResult", pageResult);
+		return "search";
+	}
+
 	public String show() throws Exception {
 		init();
 		// dataInit();
@@ -394,8 +411,9 @@ public class SoftwareInfoAction extends BasicAction {
 		Software software_p = null;// 适配机型版
 		Software software_java = null;// 通用版
 		boolean flag = false;
+		String name = "";
 		for (Software software : softwareInfo.getSoftwareList()) {// 判断是否有适合机型的软件
-			String name = software.getDownloadPath();
+			name = software.getDownloadPath();
 			name = name.substring(name.lastIndexOf("."));// 获取文件的后缀
 			System.out.println("后缀：" + name);
 			for (int i = 0; i < extension.size(); i++) {
@@ -404,6 +422,7 @@ public class SoftwareInfoAction extends BasicAction {
 					software_p = software;
 					flag = true;
 					System.out.println("匹配成功！" + name);
+					request.setAttribute("name", name.substring(1));
 					break;
 				}
 			}
@@ -411,13 +430,15 @@ public class SoftwareInfoAction extends BasicAction {
 				break;
 			}
 		}
-		for (Software software : softwareInfo.getSoftwareList()) {
-			String name = software.getDownloadPath();
-			name = name.substring(name.lastIndexOf("."));// 获取文件的后缀
-			System.out.println("后缀：" + name);
-			if (name.equals(".jar")) {
-				software_java = software;
-				break;
+		if (!name.equals(".jar")) {
+			for (Software software : softwareInfo.getSoftwareList()) {
+				name = software.getDownloadPath();
+				name = name.substring(name.lastIndexOf("."));// 获取文件的后缀
+				System.out.println("后缀：" + name);
+				if (name.equals(".jar")) {
+					software_java = software;
+					break;
+				}
 			}
 		}
 		// 记录软件的点击
@@ -426,8 +447,11 @@ public class SoftwareInfoAction extends BasicAction {
 		clickLog.setNumber(1);
 		clickLog.setSoftwareInfo(softwareInfo);
 		clickLogService.add(clickLog);
-
-		// request.setAttribute("softwareList", softwareList);
+		int download = 0;
+		for (int i = 0; i < softwareInfo.getDownloadLogList().size(); i++) {
+			download += softwareInfo.getDownloadLogList().get(i).getNumber();
+		}
+		request.setAttribute("download", download);
 		request.setAttribute("model", model);
 		request.setAttribute("software_p", software_p);
 		request.setAttribute("software_java", software_java);
@@ -659,6 +683,14 @@ public class SoftwareInfoAction extends BasicAction {
 
 	public void setClickLogService(ClickLogService clickLogService) {
 		this.clickLogService = clickLogService;
+	}
+
+	public String getMore() {
+		return more;
+	}
+
+	public void setMore(String more) {
+		this.more = more;
 	}
 
 }
