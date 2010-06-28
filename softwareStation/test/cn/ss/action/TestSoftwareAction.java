@@ -99,7 +99,7 @@ public class TestSoftwareAction extends TestCase {
 //		cOs.add(Restrictions.eq("id", 6));
 		List list = criteria.list();
 		 System.out.println(list);
-		for (int i = 0; i < list.size(); i++) {
+		for (int i = 0; i < list.size(); i++) {//现在能查询手机支持的平台软件，但是没有包括通用版本，以及版本高低的区分
 			System.out.println("id:" + ((SoftwareInfo) list.get(i)).getId()
 					+ "\t name:" + ((SoftwareInfo) list.get(i)).getName());
 		}
