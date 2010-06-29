@@ -90,18 +90,22 @@ public class TestSoftwareAction extends TestCase {
 		// SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
 		Criteria criteria = session.createCriteria(SoftwareInfo.class, "si");
 		Criteria cSoftware = criteria.createCriteria("softwareList", "s");
-		cSoftware.setProjection(Projections.projectionList().add(
-				Projections.groupProperty("s.softwareInfo")));
-		Criteria cOs = cSoftware.createCriteria("phoneOsList");
+		//cSoftware.setProjection(Projections.projectionList().add(
+			//	Projections.groupProperty("s.softwareInfo")));
+		Criteria cOs = cSoftware.createCriteria("phoneOsList","os");
+		Criteria extenssion=cOs.createCriteria("extensionList","ex");
+//		extenssion.add(Restrictions.or(Restrictions.eq("name", ".jar"), Restrictions.eq("name", ".jar")));
+//		extenssion.add(Expression.ilike("name", ".jar"));
 		Criteria ps=cOs.createCriteria("phoneseriesList");
 		Criteria pm=ps.createCriteria("phoneModelList");
-		pm.add(Expression.eq("id",42));
+		pm.add(Restrictions.or(Expression.eq("id",40),Restrictions.eq("ex.name", ".jar")));
 //		cOs.add(Restrictions.eq("id", 6));
+//		Object obj=criteria.uniqueResult();
 		List list = criteria.list();
-		 System.out.println(list);
+		 System.out.println(list.size());
 		for (int i = 0; i < list.size(); i++) {//现在能查询手机支持的平台软件，但是没有包括通用版本，以及版本高低的区分
 			System.out.println("id:" + ((SoftwareInfo) list.get(i)).getId()
-					+ "\t name:" + ((SoftwareInfo) list.get(i)).getName());
+					+ "\t name:" + ((SoftwareInfo) list.get(i)).getName()+"\t type:"+ ((SoftwareInfo) list.get(i)).getSoftwareType().getName());
 		}
 		// Criteria criteria1=criteria.createCriteria("activeLogList");
 		// criteria1.addOrder(Order.desc("number"));

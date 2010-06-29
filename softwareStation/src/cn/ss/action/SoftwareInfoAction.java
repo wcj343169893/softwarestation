@@ -417,7 +417,7 @@ public class SoftwareInfoAction extends BasicAction {
 		for (Software software : softwareInfo.getSoftwareList()) {// 判断是否有适合机型的软件
 			name = software.getDownloadPath();
 			name = name.substring(name.lastIndexOf("."));// 获取文件的后缀
-			System.out.println("后缀：" + name);
+			System.out.println("后缀1：" + name);
 			for (int i = 0; i < extension.size(); i++) {
 				System.out.println("extension" + extension.get(i).getName());
 				if (extension.get(i).getName().equals(name)) {
@@ -427,18 +427,22 @@ public class SoftwareInfoAction extends BasicAction {
 					request.setAttribute("name", name.substring(1));
 					break;
 				}
+//				name = extension.get(i).getName();
 			}
 			if (flag) {
 				break;
 			}
 		}
+		System.out.println("name:" + name);
 		if (!name.equals(".jar")) {
 			for (Software software : softwareInfo.getSoftwareList()) {
 				name = software.getDownloadPath();
 				name = name.substring(name.lastIndexOf("."));// 获取文件的后缀
-				System.out.println("后缀：" + name);
+				System.out.println("后缀2：" + name);
 				if (name.equals(".jar")) {
 					software_java = software;
+					request.setAttribute("software_java_name", name
+							.substring(1));
 					break;
 				}
 			}

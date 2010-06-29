@@ -22,9 +22,8 @@
 	</c:forEach>
 	<a href="setmodel.php?bid=1&amp;mid=${mid }">诺基亚全部机型</a><br />
 	【其他品牌】<br/>
-	<c:set value="${fn:length(brandDTO.phoneBrandList)}" var="maxsize"></c:set>
-	<c:forEach items="${brandDTO.phoneBrandList}" var="brand" varStatus="vs" begin="1"><a href="setmodel.php?bid=${brand.id}&amp;mid=${mid }">${brand.name}</a><c:choose><c:when test="${vs.count % 3 == 0 ||maxsize==vs.count}"><br/></c:when><c:otherwise>|</c:otherwise></c:choose></c:forEach>
-	<br />
+	<c:set value="${fn:length(brandDTO.phoneBrandList)-1}" var="maxsize"></c:set>
+	<c:forEach items="${brandDTO.phoneBrandList}" var="brand" varStatus="vs" begin="1"><a href="setmodel.php?bid=${brand.id}&amp;mid=${mid }">${brand.name}</a><c:choose><c:when test="${vs.count % 3 == 0 ||maxsize== vs.count}"><br/></c:when><c:otherwise>|</c:otherwise></c:choose></c:forEach>
 	【温馨提示】<br/>
 	1.建议您设置完机型或平台后将本站收藏(存为书签),方便您下次访问无需再次设置,还能节省您宝贵的流量!<br/>
 	2.如未找到您的机型,请您将手机品牌及机型报告给我们.<br/>

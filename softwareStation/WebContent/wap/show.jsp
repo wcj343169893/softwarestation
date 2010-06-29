@@ -55,14 +55,15 @@
 	<c:if test="${!empty software_p}">
 		<a href="downloadsoftware.php?id=${software_p.id}&amp;id2=${softwareInfo.id}&amp;mid=${mid}">${model.name }免费下载/${name }/${software_p.size }k</a><br/>
 	</c:if>
+	<c:if test="${!empty software_java}">
+		<a href="downloadsoftware.php?id=${software_java.id}&amp;id2=${softwareInfo.id}&amp;mid=${mid}">${model.name }免费下载/${software_java_name }/${software_java.size }k</a><br/>
+	</c:if>
 	<c:choose>
-		<c:when test="${!empty software_java}">
-			如果找不到你的机型,请下载<a href="downloadsoftware.php?id=${software_java.id}&amp;id2=${softwareInfo.id}">通用版本</a><br/>
-		</c:when>
-		<c:otherwise>
-		</c:otherwise>
+		<c:when test="${!empty software_p}"></c:when>
+		<c:when test="${!empty software_java}"></c:when>
+		<c:otherwise>暂时没有您需要的软件，请联系管理员<br/></c:otherwise>
 	</c:choose>
-	[下载]${download};[分类]${softwareInfo.softwareType.name}<br/>
+	[下载]${download};[分类]	<a href="showst.php?mid=${mid}&amp;id=${softwareInfo.softwareType.id}">${softwareInfo.softwareType.name }</a><br/>
 	顶一下!13|评论233|报错<br/>
 	</c:otherwise>
 </c:choose>

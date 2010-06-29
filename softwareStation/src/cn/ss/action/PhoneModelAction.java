@@ -37,6 +37,8 @@ public class PhoneModelAction extends BasicAction {
 	 */
 	private int pageSize;
 
+	private String from;
+
 	/**
 	 * @return
 	 * @throws Exception
@@ -159,6 +161,14 @@ public class PhoneModelAction extends BasicAction {
 
 	public void setPageSize(int pageSize) {
 		this.pageSize = pageSize;
+	}
+
+	public String getFrom() {
+		return from;
+	}
+
+	public void setFrom(String from) {
+		this.from = from;
 	}
 
 }

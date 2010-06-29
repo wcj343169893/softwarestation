@@ -8,14 +8,14 @@
 <p>
 <c:choose>
 	<c:when test="${fn:length(indexDTO.model.phoneseries.brand.name)>0 }">
-	我的机型 -${indexDTO.model.phoneseries.brand.name}${indexDTO.model.name}<a href="setmodel.php?mid=${mid }">更改机型</a> <br />
+	机型 -${indexDTO.model.phoneseries.brand.name}${indexDTO.model.name}<a href="setmodel.php?mid=${mid }&amp;from=index.php">[更改]</a> <br />
 	</c:when>
 	<c:otherwise>
-	<a href="setmodel.php">推荐!设置手机型号快速下载</a> <br />
+	<a href="setmodel.php?from=index.php">推荐!设置手机型号快速下载</a> <br />
 	</c:otherwise>
 </c:choose>
 <img src="/img/logo.png" alt="软件站" /><br />
-<a href="new.jsp">最新</a>|<a href="commend.jsp">推荐</a>|<a href="plusFine.jsp">精品</a>|<a href="lsst.php?mid=${mid }">分类</a><br />
+<a href="new.jsp">最新</a>|<a href="commend.jsp">推荐</a>|<a href="plusFine.jsp">排行</a>|<a href="lsst.php?mid=${mid }">分类</a><br />
 <input name="name" maxlength="15" size="8"/>
 <anchor>
 	<go href="searchsoftwareInfo.php" method="post">
@@ -32,17 +32,21 @@
 <br />
 【今日精品】<br />
 <c:set value="" var="plusFine"></c:set>
-<c:forEach items="${indexDTO.software_plusFineList}" var="softwareInfo">
-	<c:set value="0" var="isWrap"></c:set>
+<c:set value="${fn:length(indexDTO.software_plusFineList)}" var="maxlength"></c:set>
+<c:forEach items="${indexDTO.software_plusFineList}" var="softwareInfo" varStatus="vs">
 	<c:set value="${plusFine}|${softwareInfo.name}" var="plusFine"></c:set>
+	<a href="showsoftwareInfo.php?id=${softwareInfo.id}&amp;mid=${mid }">${softwareInfo.name}</a>
 	<c:choose>
-		<c:when test="${fn:length(plusFine) > 13}">
-			<c:set value="1" var="isWrap"></c:set>
+		<c:when test="${fn:length(plusFine) > 10}">
+			<br/>
 			<c:set value="" var="plusFine"></c:set>
 		</c:when>
-		<c:otherwise><c:set value="0" var="isWrap"></c:set></c:otherwise>
+		<c:when test="${maxlength==vs.count }">
+			<br/>
+			<c:set value="" var="plusFine"></c:set>
+		</c:when>
+		<c:otherwise>|</c:otherwise>
 	</c:choose>
-	<a href="showsoftwareInfo.php?id=${softwareInfo.id}&amp;mid=${mid }">${softwareInfo.name}</a>${isWrap ==0?"|":"<br/>" }
 </c:forEach>
 【今日推荐】<br />
 <c:set value="" var="recommend"></c:set>

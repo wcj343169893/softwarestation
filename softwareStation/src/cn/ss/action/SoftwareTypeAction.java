@@ -5,6 +5,7 @@ import java.util.List;
 
 import cn.common.action.BasicAction;
 import cn.common.util.PageResult;
+import cn.ss.entity.PhoneModel;
 import cn.ss.entity.SoftwareInfo;
 import cn.ss.entity.SoftwareType;
 import cn.ss.service.PhoneModelService;
@@ -24,6 +25,7 @@ public class SoftwareTypeAction extends BasicAction {
 	private int isWrap;
 	private SoftwareType softwareType;
 	private int mid;
+	private int isJava;
 
 	public String delete() throws Exception {
 		softwareTypeService.delete(id);
@@ -94,15 +96,23 @@ public class SoftwareTypeAction extends BasicAction {
 	 */
 	public String show() throws Exception {
 		init();
-		request.setAttribute("model", phoneModelService.findById(mid));
+		PhoneModel model = phoneModelService.findById(mid);
+		if (model != null) {
+			String osName = model.getPhoneseries().getOs().getName();
+			if (osName.trim().toLowerCase().equals("java")) {// 为java版本
+				isJava = 1;
+				request.setAttribute("isJava", 2);
+			}
+		}
+		request.setAttribute("model", model);
 		softwareType = softwareTypeService.findById(id);
 		request.setAttribute("softwareType", softwareType);
 		// mid 根据手机型号显示软件
-		PageResult<SoftwareInfo> pageResult=new PageResult<SoftwareInfo>();
+		PageResult<SoftwareInfo> pageResult = new PageResult<SoftwareInfo>();
 		if (p != 0) {
 			pageResult.setPageNo(p);
 		}
-		softwareInfoService.findAll(pageResult, mid, id, 0,1);
+		softwareInfoService.findAll(pageResult, mid, id, isJava, 2);
 		request.setAttribute("pageResult", pageResult);
 		return "show";
 	}
@@ -197,6 +207,14 @@ public class SoftwareTypeAction extends BasicAction {
 
 	public void setSoftwareInfoService(SoftwareInfoService softwareInfoService) {
 		this.softwareInfoService = softwareInfoService;
+	}
+
+	public int getIsJava() {
+		return isJava;
+	}
+
+	public void setIsJava(int isJava) {
+		this.isJava = isJava;
 	}
 
 }

@@ -96,7 +96,7 @@ public class SoftwareInfoService extends BasicService {
 			case 10:// 是否免费
 				str = "si.promotionWay";
 				break;
-			case 11:// 是否加精(特殊  前台查询)
+			case 11:// 是否加精(特殊 前台查询)
 				str = "si.recommend desc , si.promotionWay";
 				break;
 			default:
@@ -117,29 +117,29 @@ public class SoftwareInfoService extends BasicService {
 	 *            推荐0:否,1:是
 	 * @return
 	 */
-	public List<SoftwareInfo> findAll(int mid, int plusFine, int recommend,
-			Date date) {
-		List<SoftwareInfo> softwareInfoList = new ArrayList<SoftwareInfo>();
-		StringBuffer hql = new StringBuffer(
-				"FROM SoftwareInfo si where 1=1 and si.isShow=1 ");
-		if (mid > 0) {// 机型id-->平台
-			hql.append("");
-		}
-		if (plusFine > 0) {
-			hql.append("and si.plusFine=" + plusFine);
-		}
-		if (recommend > 0) {
-			hql.append("and si.recommend=" + recommend);
-		}
-		if (date != null) {
-			hql
-					.append("and DATE_FORMAT(si.createTime ,'%Y %c %e') = DATE_FORMAT('"
-							+ Tool.dateFormatString(date, "yyyy-MM-dd")
-							+ "','%Y %c %e')");
-		}
-//		softwareInfoDao.list(osId, plusFine, recommend, pageResult);
-		softwareInfoList = dao.list(hql.toString());
-		return softwareInfoList;
+	public List<SoftwareInfo> findAll(int mid, int plusFine, int recommend) {
+		// List<SoftwareInfo> softwareInfoList = new ArrayList<SoftwareInfo>();
+		// StringBuffer hql = new StringBuffer(
+		// "FROM SoftwareInfo si where 1=1 and si.isShow=1 ");
+		// if (mid > 0) {// 机型id-->平台
+		// hql.append("");
+		// }
+		// if (plusFine > 0) {
+		// hql.append("and si.plusFine=" + plusFine);
+		// }
+		// if (recommend > 0) {
+		// hql.append("and si.recommend=" + recommend);
+		// }
+		// if (date != null) {
+		// hql
+		// .append("and DATE_FORMAT(si.createTime ,'%Y %c %e') = DATE_FORMAT('"
+		// + Tool.dateFormatString(date, "yyyy-MM-dd")
+		// + "','%Y %c %e')");
+		// }
+		// softwareInfoDao.list(osId, plusFine, recommend, pageResult);
+		// softwareInfoList = dao.list(hql.toString());
+		return softwareInfoDao.list(mid, plusFine, recommend, 0, 0, null);
+		// return softwareInfoList;
 	}
 
 	/**
@@ -151,25 +151,26 @@ public class SoftwareInfoService extends BasicService {
 	 * @param stid
 	 *            分类id
 	 * @param ty
-	 *            直接显示列表、排行
+	 *            是否过滤通用版0：显示，1：过滤
 	 */
-	public void findAll(PageResult<SoftwareInfo> pageResult, int mid, int stid,
-			int ty,int commend) {
-		StringBuffer hql = new StringBuffer(
-				"FROM SoftwareInfo si where 1=1 and si.isShow=1 ");
-		if (stid > 0) {
-			hql.append(" and si.softwareType.id=" + stid);
-		}
-		if (mid > 0) {
-			// hql.append(" and si.softwareType.id=" + stid);
-		}
-		if (ty > 0) {
-			// hql.append(" and si.softwareType.id=" + stid);
-		}
-		if (commend>0) {
-			hql.append(" order by si.recommend desc");
-		}
-		dao.listByPage(hql.toString(), pageResult);
+	public List<SoftwareInfo> findAll(PageResult<SoftwareInfo> pageResult,
+			int mid, int stid, int isJava, int recommend) {
+		// StringBuffer hql = new StringBuffer(
+		// "FROM SoftwareInfo si where 1=1 and si.isShow=1 ");
+		// if (stid > 0) {
+		// hql.append(" and si.softwareType.id=" + stid);
+		// }
+		// if (mid > 0) {
+		// // hql.append(" and si.softwareType.id=" + stid);
+		// }
+		// if (ty > 0) {
+		// // hql.append(" and si.softwareType.id=" + stid);
+		// }
+		// if (commend > 0) {
+		// hql.append(" order by si.recommend desc");
+		// }
+		// dao.listByPage(hql.toString(), pageResult);
+		return softwareInfoDao.list(mid, -1, recommend, stid, isJava, pageResult);
 	}
 
 	/**

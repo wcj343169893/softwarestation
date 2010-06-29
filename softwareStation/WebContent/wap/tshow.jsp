@@ -8,8 +8,12 @@
 
 <card title="${model.name}-分类检索">
 <p>
-类别：${softwareType.name }|${softwareType.name }软件排行<br />
-
+类别：${softwareType.name }
+<c:choose>
+	<c:when test="${isJava == 1}"><a href="showst.php?p=1&amp;isJava=0&amp;mid=${mid }">显示通用版</a></c:when>
+	<c:when test="${isJava == 0}"><a href="showst.php?p=1&amp;isJava=1&amp;mid=${mid }">过滤通用版</a></c:when>
+	<c:otherwise></c:otherwise>
+</c:choose><br />
 <c:choose>
 	<c:when test="${fn:length(pageResult.list)==0}">暂无相关软件</c:when>
 	<c:otherwise>

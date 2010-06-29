@@ -88,15 +88,17 @@ public class ClickLogService extends BasicService {
 		List<ClickLog> clickLogList = findByDate(Tool.dateFormatString(clickLog
 				.getClickTime(), "yyyy-MM-dd"), clickLog.getSoftwareInfo()
 				.getId());
-		System.out.println(clickLogList);
+		//System.out.println(clickLogList);
 		if (clickLogList != null && clickLogList.size() > 0) {
-			System.out.println(clickLogList.size());
+			//System.out.println(clickLogList.size());
 			// 修改
 			clickLog = clickLogList.get(0);
 			clickLog.setNumber(clickLog.getNumber() + 1);
+			System.out.println("修改点击:"+clickLog.getSoftwareInfo().getId());
 			dao.update(clickLog);
 		} else {
 			// 新增
+			System.out.println("新增点击:"+clickLog.getSoftwareInfo().getId());
 			dao.add(clickLog);
 		}
 	}
