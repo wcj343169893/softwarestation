@@ -53,6 +53,7 @@ public class PhoneModelAction extends BasicAction {
 			phoneModelService.findAll(modelPageResult, phoneModel, bid, null);
 			request.setAttribute("pageResult", modelPageResult);
 			request.setAttribute("brand", phoneBrandService.findById(bid));
+			bid = 0;
 			return "detail";
 		} else {// 
 			PageResult<PhoneModel> pageResult = new PageResult<PhoneModel>();
@@ -63,7 +64,26 @@ public class PhoneModelAction extends BasicAction {
 			// request.setAttribute("phoneBrandList",
 			// phoneBrandService.findAll());
 		}
+		bid = 0;
 		return "list";
+	}
+
+	public String sure() throws Exception {
+		init();
+		String url = request.getRequestURL().toString();
+		int indexs = url.lastIndexOf("/");
+		if (from != null) {
+			System.out.println(from);
+			if (from.indexOf("?") != -1) {
+				from += "&amp;mid=" + mid;
+			} else {
+				from += "?mid=" + mid;
+			}
+		} else {
+			from = "/index.php?mid=" + mid;
+		}
+		from = url.substring(0, indexs) + from;
+		return "sure";
 	}
 
 	/**

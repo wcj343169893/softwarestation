@@ -408,6 +408,12 @@ public class SoftwareInfoAction extends BasicAction {
 			model = phoneModelService.findById(mid);
 			phoneOs = model.getPhoneseries().getOs();// 手机的操作系统
 			extension = phoneOs.getExtensionList();
+		}else{
+			String uri=request.getRequestURI();
+			String from=uri.substring(uri.lastIndexOf("/"))+"?id="+id;
+//			request.getRequestDispatcher("setmodel.php?from="+from).forward(request, response);
+			response.sendRedirect("setmodel.php?from="+from);
+			return null;
 		}
 		// List<Software> softwareList = new ArrayList<Software>();// 支持此操作系统的软件
 		Software software_p = null;// 适配机型版

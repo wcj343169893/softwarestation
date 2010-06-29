@@ -6,12 +6,13 @@
 <wml>
 <card title="软件站">
 <p>
+${pageContext.request.contextPath}
 <c:choose>
 	<c:when test="${fn:length(indexDTO.model.phoneseries.brand.name)>0 }">
-	机型 -${indexDTO.model.phoneseries.brand.name}${indexDTO.model.name}<a href="setmodel.php?mid=${mid }&amp;from=index.php">[更改]</a> <br />
+	机型 -${indexDTO.model.phoneseries.brand.name}${indexDTO.model.name}<a href="setmodel.php?mid=${mid }&amp;from=/index.php">[更改]</a> <br />
 	</c:when>
 	<c:otherwise>
-	<a href="setmodel.php?from=index.php">推荐!设置手机型号快速下载</a> <br />
+	<a href="setmodel.php?from=/index.php">推荐!设置手机型号快速下载</a> <br />
 	</c:otherwise>
 </c:choose>
 <img src="/img/logo.png" alt="软件站" /><br />

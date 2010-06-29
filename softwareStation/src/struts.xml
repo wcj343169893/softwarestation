@@ -77,6 +77,7 @@
 			<result name="list">/wap/brand.jsp</result>
 			<result name="detail">/wap/setModel.jsp</result>
 			<result name="search">/wap/searchModel.jsp</result>
+			<result name="sure">/wap/sure.jsp</result>
 		</action>
 		<action name="index" class="IndexAction">
 			<result name="success">/wap/index.jsp</result>

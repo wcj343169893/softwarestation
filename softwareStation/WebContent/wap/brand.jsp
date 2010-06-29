@@ -18,7 +18,7 @@
 	【诺基亚】<br/>
 	<c:set value="0" var="maxsize"></c:set>
 	<c:forEach items="${brandDTO.phoneModelList}" var="model" varStatus="vs">
-		<a href="index.php?mid=${model.id }">${model.name}</a><c:choose><c:when test="${vs.count % 5 == 0}"><br/></c:when><c:otherwise>|</c:otherwise></c:choose>
+		<a href="suremodel.php?mid=${model.id }">${model.name}</a><c:choose><c:when test="${vs.count % 5 == 0}"><br/></c:when><c:otherwise>|</c:otherwise></c:choose>
 	</c:forEach>
 	<a href="setmodel.php?bid=1&amp;mid=${mid }">诺基亚全部机型</a><br />
 	【其他品牌】<br/>

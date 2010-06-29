@@ -19,7 +19,7 @@
 	<c:when test="${fn:length(pageResult.list)==0}">非常抱歉，暂时没有您的手机型号！我们将尽快完善<br/></c:when>
 	<c:otherwise>
 		<c:forEach items="${pageResult.list}" var="model" varStatus="vs">
-			<c:choose><c:when test="${keyword eq null}"><a href="index.php?mid=${model.id }">${model.name }</a></c:when><c:otherwise><a href="index.php?mid=${model.id }">${vs.count }.${model.phoneseries.brand.name } ${model.name }</a><br/></c:otherwise></c:choose>
+			<c:choose><c:when test="${keyword eq null}"><a href="suremodel.php?mid=${model.id }">${model.name }</a></c:when><c:otherwise><a href="index.php?mid=${model.id }">${vs.count }.${model.phoneseries.brand.name } ${model.name }</a><br/></c:otherwise></c:choose>
 		</c:forEach><br/>
 		<c:set var="page" value="${pageResult}"></c:set>
 			<c:if test="${page.pageNo!=1}"><a href="setmodel.php?bid=${bid }&amp;p=${page.pageNo-1 }&amp;mid=${mid }">上页</a> </c:if>
