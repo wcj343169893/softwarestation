@@ -6,6 +6,7 @@ import java.util.List;
 import cn.common.action.BasicAction;
 import cn.common.util.PageResult;
 import cn.ss.dto.IndexDTO;
+import cn.ss.entity.PhoneModel;
 import cn.ss.entity.SoftwareInfo;
 import cn.ss.entity.SoftwareType;
 import cn.ss.service.PhoneBrandService;
@@ -29,6 +30,16 @@ public class IndexAction extends BasicAction {
 	 * 机型id
 	 */
 	private int mid;
+	private int c;
+	private int isJava;
+	private int p;
+	private PageResult<SoftwareInfo> pageResult = new PageResult<SoftwareInfo>();
+	private PhoneModel phoneModel;
+	private int commend;
+	/**
+	 * 0：日榜.1：月榜.2：总榜
+	 */
+	private int ranks;
 
 	@Override
 	public String execute() throws Exception {
@@ -51,6 +62,75 @@ public class IndexAction extends BasicAction {
 			indexDTO.setModel(null);// 重置机型
 		}
 		return "success";
+	}
+
+	/**
+	 * 排行
+	 * 
+	 * @return
+	 * @throws Exception
+	 */
+	public String rank() throws Exception {
+		phoneModel = null;
+		if (mid != 0) {
+			phoneModel = phoneModelService.findById(mid);
+			if (phoneModel == null
+					|| phoneModel.getPhoneseries().getOs().getName()
+							.toLowerCase().equals("java")) {
+				isJava = 2;
+			}
+		} 
+		if (p != 0) {
+			pageResult.setPageNo(p);
+		}
+		softwareInfoService.findByRank(pageResult, mid, isJava, ranks);
+		return "rank";
+	}
+
+	/**
+	 * 最新
+	 * 
+	 * @return
+	 * @throws Exception
+	 */
+	public String news() throws Exception {
+		phoneModel = null;
+		if (mid != 0) {
+			phoneModel = phoneModelService.findById(mid);
+			if (phoneModel == null
+					|| phoneModel.getPhoneseries().getOs().getName()
+							.toLowerCase().equals("java")) {
+				isJava = 2;
+			}
+		}
+		if (p != 0) {
+			pageResult.setPageNo(p);
+		}
+		softwareInfoService.findAll(pageResult, mid, isJava);
+		return "news";
+	}
+
+	/**
+	 * 推荐
+	 * 
+	 * @return
+	 * @throws Exception
+	 */
+	public String commend() throws Exception {
+		phoneModel = null;
+		if (mid != 0) {
+			phoneModel = phoneModelService.findById(mid);
+			if (phoneModel == null
+					|| phoneModel.getPhoneseries().getOs().getName()
+							.toLowerCase().equals("java")) {
+				isJava = 2;
+			}
+		} 
+		if (p != 0) {
+			pageResult.setPageNo(p);
+		}
+		softwareInfoService.findAll(pageResult, mid, isJava, commend);
+		return "commend";
 	}
 
 	public SoftwareInfoService getSoftwareInfoService() {
@@ -99,6 +179,62 @@ public class IndexAction extends BasicAction {
 
 	public void setSoftwareTypeService(SoftwareTypeService softwareTypeService) {
 		this.softwareTypeService = softwareTypeService;
+	}
+
+	public int getC() {
+		return c;
+	}
+
+	public void setC(int c) {
+		this.c = c;
+	}
+
+	public int getIsJava() {
+		return isJava;
+	}
+
+	public void setIsJava(int isJava) {
+		this.isJava = isJava;
+	}
+
+	public PageResult<SoftwareInfo> getPageResult() {
+		return pageResult;
+	}
+
+	public void setPageResult(PageResult<SoftwareInfo> pageResult) {
+		this.pageResult = pageResult;
+	}
+
+	public int getP() {
+		return p;
+	}
+
+	public void setP(int p) {
+		this.p = p;
+	}
+
+	public PhoneModel getPhoneModel() {
+		return phoneModel;
+	}
+
+	public void setPhoneModel(PhoneModel phoneModel) {
+		this.phoneModel = phoneModel;
+	}
+
+	public int getCommend() {
+		return commend;
+	}
+
+	public void setCommend(int commend) {
+		this.commend = commend;
+	}
+
+	public int getRanks() {
+		return ranks;
+	}
+
+	public void setRanks(int ranks) {
+		this.ranks = ranks;
 	}
 
 }

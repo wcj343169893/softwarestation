@@ -440,7 +440,7 @@ public class SoftwareInfoAction extends BasicAction {
 			}
 		}
 		System.out.println("name:" + name);
-		if (!name.equals(".jar")) {
+		if (phoneOs!=null&&!phoneOs.getName().equals("java")) {
 			for (Software software : softwareInfo.getSoftwareList()) {
 				name = software.getDownloadPath();
 				name = name.substring(name.lastIndexOf("."));// 获取文件的后缀

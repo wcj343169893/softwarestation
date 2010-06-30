@@ -16,7 +16,7 @@ ${pageContext.request.contextPath}
 	</c:otherwise>
 </c:choose>
 <img src="/img/logo.png" alt="软件站" /><br />
-<a href="new.jsp">最新</a>|<a href="commend.jsp">推荐</a>|<a href="plusFine.jsp">排行</a>|<a href="lsst.php?mid=${mid }">分类</a><br />
+<a href="newsindex.php?mid=${mid }">最新</a>|<a href="commendindex.php?mid=${mid }">推荐</a>|<a href="rankindex.php?mid=${mid }">排行</a>|<a href="lsst.php?mid=${mid }">分类</a><br />
 <input name="name" maxlength="15" size="8"/>
 <anchor>
 	<go href="searchsoftwareInfo.php" method="post">
@@ -80,24 +80,6 @@ ${pageContext.request.contextPath}
 	<c:otherwise>|</c:otherwise>
 </c:choose>
 </c:forEach><br />
-【最新更新】<br />
-<c:set value="" var="newone"></c:set>
-<c:set value="${fn:length(indexDTO.software_newList)}" var="maxlength"></c:set>
-<c:forEach items="${indexDTO.software_newList}" var="softwareInfo" varStatus="vs">
-<a href="showsoftwareInfo.php?id=${softwareInfo.id}&amp;mid=${mid }">${softwareInfo.name}</a>
-<c:set value="${softwareInfo.name}|${newone}" var="newone"></c:set>
-<c:choose>
-	<c:when test="${fn:length(newone) > 10}">
-		<br/>
-		<c:set value="" var="newone"></c:set>
-	</c:when>
-	<c:when test="${maxlength==vs.count }">
-		<br/>
-		<c:set value="" var="newone"></c:set>
-	</c:when>
-	<c:otherwise>|</c:otherwise>
-</c:choose>
-</c:forEach>
  -->
 【软件分类】<br />
 <c:forEach items="${indexDTO.softwareTypeList}" var="softwareType"><a href="showst.php?mid=${mid}&amp;id=${softwareType.id}">${softwareType.name }</a>

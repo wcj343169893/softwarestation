@@ -5,11 +5,11 @@
 <!DOCTYPE wml PUBLIC "-//WAPFORUM//DTD WML 1.3//EN" "http://www.wapforum.org/DTD/wml13.dtd">
 <wml>
 <card title="成功" ontimer="${from}">
-<timer value="10" />
+<timer value="1" />
 <p>
 ${request.contextPath} 
 
-设置机型成功,跳转到<a href="${from}">${from}</a>
+设置机型成功
 </p>
 </card>
 </wml>

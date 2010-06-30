@@ -118,28 +118,7 @@ public class SoftwareInfoService extends BasicService {
 	 * @return
 	 */
 	public List<SoftwareInfo> findAll(int mid, int plusFine, int recommend) {
-		// List<SoftwareInfo> softwareInfoList = new ArrayList<SoftwareInfo>();
-		// StringBuffer hql = new StringBuffer(
-		// "FROM SoftwareInfo si where 1=1 and si.isShow=1 ");
-		// if (mid > 0) {// 机型id-->平台
-		// hql.append("");
-		// }
-		// if (plusFine > 0) {
-		// hql.append("and si.plusFine=" + plusFine);
-		// }
-		// if (recommend > 0) {
-		// hql.append("and si.recommend=" + recommend);
-		// }
-		// if (date != null) {
-		// hql
-		// .append("and DATE_FORMAT(si.createTime ,'%Y %c %e') = DATE_FORMAT('"
-		// + Tool.dateFormatString(date, "yyyy-MM-dd")
-		// + "','%Y %c %e')");
-		// }
-		// softwareInfoDao.list(osId, plusFine, recommend, pageResult);
-		// softwareInfoList = dao.list(hql.toString());
-		return softwareInfoDao.list(mid, plusFine, recommend, 0, 0, null);
-		// return softwareInfoList;
+		return softwareInfoDao.list(mid, plusFine, recommend, 0, 0, null, 0);
 	}
 
 	/**
@@ -155,22 +134,50 @@ public class SoftwareInfoService extends BasicService {
 	 */
 	public List<SoftwareInfo> findAll(PageResult<SoftwareInfo> pageResult,
 			int mid, int stid, int isJava, int recommend) {
-		// StringBuffer hql = new StringBuffer(
-		// "FROM SoftwareInfo si where 1=1 and si.isShow=1 ");
-		// if (stid > 0) {
-		// hql.append(" and si.softwareType.id=" + stid);
-		// }
-		// if (mid > 0) {
-		// // hql.append(" and si.softwareType.id=" + stid);
-		// }
-		// if (ty > 0) {
-		// // hql.append(" and si.softwareType.id=" + stid);
-		// }
-		// if (commend > 0) {
-		// hql.append(" order by si.recommend desc");
-		// }
-		// dao.listByPage(hql.toString(), pageResult);
-		return softwareInfoDao.list(mid, -1, recommend, stid, isJava, pageResult);
+		return softwareInfoDao.list(mid, -1, recommend, stid, isJava,
+				pageResult, 0);
+	}
+
+	/**
+	 * 查询最新更新
+	 * 
+	 * @param pageResult
+	 * @param mid
+	 * @param isJava
+	 * @return
+	 */
+	public List<SoftwareInfo> findAll(PageResult<SoftwareInfo> pageResult,
+			int mid, int isJava) {
+		return softwareInfoDao.list(mid, -1, 2, -1, isJava, pageResult, 2);
+	}
+
+	/**
+	 * 排行
+	 * 
+	 * @param pageResult
+	 * @param mid
+	 * @param isJava
+	 * @param ranks
+	 * @return
+	 */
+	public void findByRank(PageResult<SoftwareInfo> pageResult, int mid,
+			int isJava, int ranks) {
+		softwareInfoDao.list(mid, ranks, isJava, pageResult);
+	}
+
+	/**
+	 * 查询推荐
+	 * 
+	 * @param pageResult
+	 * @param mid
+	 * @param isJava
+	 * @param commend
+	 * @return
+	 */
+	public List<SoftwareInfo> findAll(PageResult<SoftwareInfo> pageResult,
+			int mid, int isJava, int commend) {
+		return softwareInfoDao
+				.list(mid, -1, commend, -1, isJava, pageResult, 0);
 	}
 
 	/**

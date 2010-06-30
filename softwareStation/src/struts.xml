@@ -79,8 +79,11 @@
 			<result name="search">/wap/searchModel.jsp</result>
 			<result name="sure">/wap/sure.jsp</result>
 		</action>
-		<action name="index" class="IndexAction">
+		<action name="*index" class="IndexAction" method="{1}">
 			<result name="success">/wap/index.jsp</result>
+			<result name="news">/wap/new.jsp</result>
+			<result name="rank">/wap/rank.jsp</result>
+			<result name="commend">/wap/commend.jsp</result>
 		</action>
 		<action name="*st" class="SoftwareTypeAction" method="{1}">
 			<result name="success">/index.jsp</result>
