@@ -30,7 +30,7 @@
 				<go href="showst.php">
 					<postfield name="p" value="$(pageno)" />
 					<postfield name="mid" value="${mid }" />
-				</go>跳页</anchor><br/>
+				</go>跳页</anchor>
 	</c:otherwise>
 </c:choose>
 <br />---------------<br />

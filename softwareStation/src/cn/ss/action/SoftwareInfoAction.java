@@ -408,11 +408,12 @@ public class SoftwareInfoAction extends BasicAction {
 			model = phoneModelService.findById(mid);
 			phoneOs = model.getPhoneseries().getOs();// 手机的操作系统
 			extension = phoneOs.getExtensionList();
-		}else{
-			String uri=request.getRequestURI();
-			String from=uri.substring(uri.lastIndexOf("/"))+"?id="+id;
-//			request.getRequestDispatcher("setmodel.php?from="+from).forward(request, response);
-			response.sendRedirect("setmodel.php?from="+from);
+		} else {
+			String uri = request.getRequestURI();
+			String from = uri.substring(uri.lastIndexOf("/")) + "?id=" + id;
+			// request.getRequestDispatcher("setmodel.php?from="+from).forward(request,
+			// response);
+			response.sendRedirect("setmodel.php?from=" + from);
 			return null;
 		}
 		// List<Software> softwareList = new ArrayList<Software>();// 支持此操作系统的软件
@@ -433,14 +434,14 @@ public class SoftwareInfoAction extends BasicAction {
 					request.setAttribute("name", name.substring(1));
 					break;
 				}
-//				name = extension.get(i).getName();
+				// name = extension.get(i).getName();
 			}
 			if (flag) {
 				break;
 			}
 		}
 		System.out.println("name:" + name);
-		if (phoneOs!=null&&!phoneOs.getName().equals("java")) {
+		if (phoneOs != null && !phoneOs.getName().equals("java") && !flag) {
 			for (Software software : softwareInfo.getSoftwareList()) {
 				name = software.getDownloadPath();
 				name = name.substring(name.lastIndexOf("."));// 获取文件的后缀

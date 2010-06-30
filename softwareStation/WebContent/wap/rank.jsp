@@ -12,7 +12,7 @@ ${ranks==1 ?"月榜":"<a href='rankindex.php?mid="}${ranks==1?"":mid}${ranks==1?
 ${ranks==2 ?"总榜":"<a href='rankindex.php?mid="}${ranks==2?"":mid}${ranks==2?"":"&amp;ranks=2'>总榜</a>" }<br/>
 ----------------------<br />
 <c:choose>
-	<c:when test="${fn:length(pageResult.list)==0}">暂无相关软件<br/></c:when>
+	<c:when test="${fn:length(pageResult.list)==0}">暂无相关软件</c:when>
 	<c:otherwise>
 		<c:forEach items="${pageResult.list}" var="si" varStatus="vs">
 			${vs.count }.<c:if test="${si[1].recommend==1}"><img src="img/commend.gif" alt="推荐" /></c:if><a href="showsoftwareInfo.php?id=${si[1].id}&amp;mid=${mid }">[${si[1].softwareType.name }]${si[1].name }</a><br/>

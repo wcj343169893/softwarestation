@@ -6,6 +6,7 @@ import java.io.PrintWriter;
 import java.util.Date;
 
 import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
 
 import cn.common.action.BasicAction;
 import cn.common.util.Folder;
@@ -71,9 +72,6 @@ public class SoftwareAction extends BasicAction {
 			SoftwareInfo softwareInfo = software.getSoftwareInfo();
 			System.out.println("id2:" + id2);
 			if (softwareInfo != null && softwareInfo.getId() == id2) {// 判断请求的软件的软件信息id与传过来的id2是否一致
-				response.setContentType("application/octet-stream");
-				response.setHeader("Content-Disposition", "attachment;"
-						+ " filename=" + software.getDownloadPath());
 				String path = request.getSession().getServletContext()
 						.getRealPath("/")
 						+ "upload/"
@@ -84,42 +82,52 @@ public class SoftwareAction extends BasicAction {
 						+ software.getDownloadPath();
 				System.out.println(path);
 				File file = new File(path);
-				FileInputStream fileInputStream = new FileInputStream(file);
-				ServletOutputStream servletOutputStream = response
-						.getOutputStream();
-				byte[] b = new byte[1024];
-				int len = 0;
-				while ((len = fileInputStream.read(b, 0, 1024)) > -1) {
+				if (file.exists()) {
 
-					servletOutputStream.write(b, 0, len);
+					response.setContentType("application/octet-stream");
+					response.setHeader("Content-Disposition", "attachment;"
+							+ " filename=" + software.getDownloadPath());
+					FileInputStream fileInputStream = new FileInputStream(file);
+					ServletOutputStream servletOutputStream = response
+							.getOutputStream();
+					byte[] b = new byte[1024];
+					int len = 0;
+					while ((len = fileInputStream.read(b, 0, 1024)) > -1) {
 
+						servletOutputStream.write(b, 0, len);
+
+					}
+					servletOutputStream.flush();
+					servletOutputStream.close();
+					fileInputStream.close();
+
+					// 下载记录
+					DownloadLog downloadLog = new DownloadLog();
+					downloadLog.setNumber(1);
+					downloadLog.setSoftwareInfo(softwareInfo);
+					downloadLog.setDownloadTime(new Date());
+					downloadLogService.add(downloadLog);
+				} else {
+					//writerError(response);输出到页面（文件不存在）
 				}
-
-				servletOutputStream.flush();
-				servletOutputStream.close();
-				fileInputStream.close();
-
-				// 下载记录
-				DownloadLog downloadLog = new DownloadLog();
-				downloadLog.setNumber(1);
-				downloadLog.setSoftwareInfo(softwareInfo);
-				downloadLog.setDownloadTime(new Date());
-				downloadLogService.add(downloadLog);
 			}
 		} catch (Exception e) {
-			response.setCharacterEncoding("UTF-8");
-			// response.setContentType("text/vnd.wap.wml");
-			PrintWriter write = response.getWriter();
-			xmlHeader(write);
-			write.println("<wml>");
-			write.println("<card title = \"JavaTest\">");
-			write.println("<p>下载文件不存在<a href='showsoftwareInfo.php?id=" + id
-					+ "&mid=" + mid + "'>返回</a></p>");
-			write.println("</card>");
-			write.println("</wml>");
-
+			//writerError(response);
 		}
 		return null;
+	}
+
+	public void writerError(HttpServletResponse response) throws Exception {
+		response.setCharacterEncoding("UTF-8");
+		// response.setContentType("text/vnd.wap.wml");
+		PrintWriter write = response.getWriter();
+		xmlHeader(write);
+		write.println("<wml>");
+		write.println("<card title = \"JavaTest\">");
+		write.println("<p>下载文件不存在<a href='showsoftwareInfo.php?id=" + id
+				+ "&mid=" + mid + "'>返回</a></p>");
+		write.println("</card>");
+		write.println("</wml>");
 	}
 
 	public void xmlHeader(PrintWriter out) {

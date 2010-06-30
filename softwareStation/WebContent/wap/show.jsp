@@ -27,6 +27,9 @@
 	<c:if test="${!empty software_p}">
 		<a href="downloadsoftware.php?id=${software_p.id}&amp;id2=${softwareInfo.id}&amp;mid=${mid}">${model.name }免费下载/${name }/${software_p.size }k</a><br/>
 	</c:if>
+	<c:if test="${!empty software_java}">
+		<a href="downloadsoftware.php?id=${software_java.id}&amp;id2=${softwareInfo.id}&amp;mid=${mid}">${model.name }免费下载/${software_java_name }/${software_java.size }k</a><br/>
+	</c:if>
 	<fmt:formatDate value="${softwareInfo.createTime }" pattern="yyyy-MM-dd" var="ct"/>
 	[更新]${ct}<br/>
 	[资费]${softwareInfo.traffic >0 ?softwareInfo.traffic:"完全免费"}<br/>
@@ -64,7 +67,7 @@
 		<c:otherwise>暂时没有您需要的软件，请联系管理员<br/></c:otherwise>
 	</c:choose>
 	[下载]${download};[分类]	<a href="showst.php?mid=${mid}&amp;id=${softwareInfo.softwareType.id}">${softwareInfo.softwareType.name }</a><br/>
-	顶一下!13|评论233|报错<br/>
+	顶一下!13|评论233|报错
 	</c:otherwise>
 </c:choose>
 <br />---------------<br />
