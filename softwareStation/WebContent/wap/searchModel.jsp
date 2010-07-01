@@ -24,8 +24,8 @@
 			<c:if test="${page.pageNo<page.pageTotal}"><a href="searchmodel.php?keyword=${keyword }&amp;p=${page.pageNo+1 }&amp;mid=${mid }">下页</a></c:if> 
 			<c:if test="${page.pageNo!=1}"><a href="searchmodel.php?keyword=${keyword }&amp;p=1&amp;mid=${mid }">首页</a></c:if>
 			<c:if test="${page.pageNo<page.pageTotal}"><a href="searchmodel.php?keyword=${keyword }&amp;p=${page.pageTotal}&amp;mid=${mid }">尾页</a></c:if>
-			${page.recTotal}个 
-				<br/>${page.pageNo}/${page.pageTotal}至<input name="pageno" maxlength="2" size="2" format="*N" value="${page.pageNo}"/>页 <anchor>
+			共${page.recTotal}个 
+				<br/>${page.pageNo}/${page.pageTotal}页,至<input name="pageno" maxlength="2" size="2" format="*N" value="${page.pageNo}"/>页 <anchor>
 				<go href="searchmodel.php">
 					<postfield name="p" value="$(pageno)" />
 					<postfield name="keyword" value="${keyword }" />

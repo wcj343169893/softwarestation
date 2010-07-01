@@ -147,10 +147,13 @@ public class SoftwareInfoDao extends HibernateDaoSupport {
 		}
 		// System.out.println("list:" + si.list());
 		if (mid > 0) {
-			si.createCriteria("softwareList").createCriteria("phoneOsList")
-					.createCriteria("phoneseriesList").createCriteria(
-							"phoneModelList").add(
-							Expression.idEq(new Integer(mid)));
+			Criteria cOs = si.createCriteria("softwareList").createCriteria(
+					"phoneOsList");
+			Criteria extenssions = cOs.createCriteria("extensionList", "ext");
+			cOs.createCriteria("phoneseriesList").createCriteria(
+					"phoneModelList","pm").add(
+					Restrictions.or(Expression.eq("pm.id", mid), Expression.eq(
+							"ext.name", ".jar")));
 		}
 		if (pageResult != null) {
 			List list = si.list();

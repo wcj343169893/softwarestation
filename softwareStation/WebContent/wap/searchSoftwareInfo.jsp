@@ -19,8 +19,8 @@
 			<c:if test="${page.pageNo<page.pageTotal}"><a href="searchsoftwareInfo.php?p=${page.pageNo+1 }&amp;mid=${mid }&amp;name=${name}">下页</a> </c:if> 
 			<c:if test="${page.pageNo!=1}"><a href="searchsoftwareInfo.php?p=1&amp;mid=${mid }&amp;name=${name}">首页</a> </c:if>
 			<c:if test="${page.pageNo<page.pageTotal}"><a href="searchsoftwareInfo.php?p=${page.pageTotal}&amp;mid=${mid }&amp;name=${name}">尾页</a></c:if>
-			${page.recTotal}个 
-				<br/>${page.pageNo}/${page.pageTotal}至<input name="pageno" maxlength="2" size="2" format="*N" value="${page.pageNo}"/>页 <anchor>
+			共${page.recTotal}个 
+				<br/>${page.pageNo}/${page.pageTotal}页,至<input name="pageno" maxlength="2" size="2" format="*N" value="${page.pageNo}"/>页 <anchor>
 				<go href="searchsoftwareInfo.php">
 					<postfield name="p" value="$(pageno)" />
 					<postfield name="mid" value="${mid }" />
