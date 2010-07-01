@@ -108,11 +108,13 @@ public class SoftwareAction extends BasicAction {
 					downloadLog.setDownloadTime(new Date());
 					downloadLogService.add(downloadLog);
 				} else {
-					//writerError(response);输出到页面（文件不存在）
+					return "error";
 				}
+			}else{
+				return "error";
 			}
 		} catch (Exception e) {
-			//writerError(response);
+			return "error";
 		}
 		return null;
 	}
