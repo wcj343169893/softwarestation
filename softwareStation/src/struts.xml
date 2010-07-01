@@ -94,5 +94,9 @@
 			<result name="ls">/wap/types.jsp</result>
 			<result name="show">/wap/tshow.jsp</result>
 		</action>
+			<action name="*help" class="HelpAction" method="{1}">
+			<result name="success">/wap/help.jsp</result>
+			<result name="input">/index.jsp</result>
+		</action>
 	</package>
 </struts>

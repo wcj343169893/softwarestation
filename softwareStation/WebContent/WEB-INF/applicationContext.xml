@@ -177,6 +177,7 @@
 		<property name="indexDTO" ref="indexDTO"></property>
 		<property name="softwareTypeService" ref="softwareTypeService"></property>
 	</bean>
+	<bean id="HelpAction" class="cn.ss.action.HelpAction" scope="prototype"></bean>
 
 	<!-- 事物管理 -->
 	<tx:advice id="txAdvice" transaction-manager="transactionManager">

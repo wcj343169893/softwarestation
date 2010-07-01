@@ -27,7 +27,7 @@ public class PhoneModelService extends BasicService {
 			keyword = keyword.replace("'", "");
 			hql.append(" and ps.name like '" + keyword + "%'");
 		}
-		hql.append(" order by ps.id desc");
+		hql.append(" order by ps.id");
 		dao.listByPage(hql.toString(), pageResult);
 	}
 
@@ -45,7 +45,7 @@ public class PhoneModelService extends BasicService {
 		if (bid > 0) {
 			hql.append(" and ps.phoneseries.brand.id=" + bid);
 		}
-		hql.append(" order by ps.id desc limit 0," + maxCount);
+		hql.append(" order by ps.id limit 0," + maxCount);
 		return dao.list(hql.toString());
 	}
 

@@ -45,7 +45,7 @@ public class PhoneModelAction extends BasicAction {
 	 */
 	public String set() throws Exception {
 		init();
-		keyword=null;
+		keyword = null;
 		PageResult<PhoneModel> modelPageResult = new PageResult<PhoneModel>();
 		if (p != 0) {
 			modelPageResult.setPageNo(p);
@@ -54,7 +54,8 @@ public class PhoneModelAction extends BasicAction {
 			phoneModelService.findAll(modelPageResult, phoneModel, bid, null);
 			request.setAttribute("pageResult", modelPageResult);
 			request.setAttribute("brand", phoneBrandService.findById(bid));
-			bid = 0;
+			request.setAttribute("bid", bid);
+			 bid = 0;
 			return "detail";
 		} else {// 
 			PageResult<PhoneModel> pageResult = new PageResult<PhoneModel>();

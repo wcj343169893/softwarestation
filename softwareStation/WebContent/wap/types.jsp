@@ -8,12 +8,7 @@
 <card title="软件">
 <p>
 【${model.name }软件分类】<br />
-<c:forEach items="${softwareTypeList}" var="softwareType"><a href="showst.php?mid=${mid}&amp;id=${softwareType.id}">${softwareType.name }</a>
-<c:choose>
-	<c:when test="${softwareType.isWrap==1}"><br/></c:when>
-	<c:otherwise>|</c:otherwise>
-</c:choose>
-</c:forEach>
+<c:forEach items="${softwareTypeList}" var="softwareType"><a href="showst.php?mid=${mid}&amp;id=${softwareType.id}">${softwareType.name }</a><c:choose><c:when test="${softwareType.isWrap==1}"><br/></c:when><c:otherwise>|</c:otherwise></c:choose></c:forEach>
 <br />---------------<br />
 <a href="index.php?mid=${mid }">首页</a>&gt;软件分类<br/>
 </p>

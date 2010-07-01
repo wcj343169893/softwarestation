@@ -14,7 +14,7 @@
 	</c:when>
 	<c:otherwise>
 		<c:set value="1" var="isShow"></c:set>
-		<c:set value="${softwareInfo.name }" var="titles"></c:set>
+		<c:set value="${softwareInfo.name }--${model.phoneseries.brand.name}${model.name }" var="titles"></c:set>
 	</c:otherwise>
 </c:choose>
 <card title="${titles}">

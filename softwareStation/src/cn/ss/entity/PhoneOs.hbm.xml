@@ -28,7 +28,7 @@
 			</key>
 			<one-to-many class="cn.ss.entity.PhoneSeries" />
 		</bag>
-		<bag name="softwareList" table="softwareos">
+		<bag name="softwareList" table="softwareOs">
 			<key column="phoneOsId"></key>
 			<many-to-many class="cn.ss.entity.Software" column="softwareId"></many-to-many>
 		</bag>

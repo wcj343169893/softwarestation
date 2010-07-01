@@ -6,7 +6,10 @@
 <wml>
 <card title="失败" >
 <p>
-文件下载失败！<a href="showsoftwareInfo.php?id=${id2}&amp;mid=${mid }">返回</a>
+文件下载失败！<a href="showsoftwareInfo.php?id=${id2}&amp;mid=${mid }">返回</a><br />
+可能原因：<br />
+1.请求路径有误<br />
+2.此软件已经被删除或者禁止下载
 </p>
 </card>
 </wml>
