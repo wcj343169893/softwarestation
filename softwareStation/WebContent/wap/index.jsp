@@ -6,7 +6,11 @@
 <wml>
 <card title="软件站">
 <p>
-${pageContext.request.contextPath}
+<c:if test="${indexDTO eq null}">
+<%
+	response.sendRedirect("/wap/index.php");
+%>
+</c:if>
 <c:choose>
 	<c:when test="${fn:length(indexDTO.model.phoneseries.brand.name)>0 }">
 	机型 -${indexDTO.model.phoneseries.brand.name}${indexDTO.model.name}<a href="setmodel.php?mid=${mid }&amp;from=/index.php">[更改]</a> <br />
@@ -15,7 +19,7 @@ ${pageContext.request.contextPath}
 	<a href="setmodel.php?from=/index.php">推荐!设置手机型号快速下载</a> <br />
 	</c:otherwise>
 </c:choose>
-<img src="/img/logo.png" alt="软件站" /><br />
+<img src="../img/logo.gif" alt="361软件站" /><br />
 <a href="newsindex.php?mid=${mid }">最新</a>|<a href="commendindex.php?mid=${mid }">推荐</a>|<a href="rankindex.php?mid=${mid }">排行</a>|<a href="lsst.php?mid=${mid }">分类</a><br />
 <input name="name" maxlength="15" size="8"/>
 <anchor>

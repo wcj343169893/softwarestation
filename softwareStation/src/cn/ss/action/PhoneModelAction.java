@@ -45,6 +45,7 @@ public class PhoneModelAction extends BasicAction {
 	 */
 	public String set() throws Exception {
 		init();
+		keyword=null;
 		PageResult<PhoneModel> modelPageResult = new PageResult<PhoneModel>();
 		if (p != 0) {
 			modelPageResult.setPageNo(p);
