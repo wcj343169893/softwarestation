@@ -409,10 +409,7 @@ public class SoftwareInfoAction extends BasicAction {
 			phoneOs = model.getPhoneseries().getOs();// 手机的操作系统
 			extension = phoneOs.getExtensionList();
 		} else {
-			String uri = request.getRequestURI();
-			String from = uri.substring(uri.lastIndexOf("/")) + "?id=" + id;
-			// request.getRequestDispatcher("setmodel.php?from="+from).forward(request,
-			// response);
+			String from = "/showsoftwareInfo.php?id=" + id;
 			response.sendRedirect("setmodel.php?from=" + from);
 			return null;
 		}

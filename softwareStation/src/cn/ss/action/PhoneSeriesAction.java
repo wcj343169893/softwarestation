@@ -33,7 +33,13 @@ public class PhoneSeriesAction extends BasicAction {
 		phoneSeriesService.delete(id);
 		return list();
 	}
-
+	
+	public boolean isExit(String modelName){
+		boolean flag=false;
+		
+		return flag;
+	}
+	
 	public String add() throws Exception {
 		phoneSeries = new PhoneSeries();
 		PhoneBrand phoneBrand = phoneBrandService.findById(phoneBrandId);

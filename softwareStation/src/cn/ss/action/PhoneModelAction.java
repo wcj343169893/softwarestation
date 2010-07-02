@@ -55,7 +55,7 @@ public class PhoneModelAction extends BasicAction {
 			request.setAttribute("pageResult", modelPageResult);
 			request.setAttribute("brand", phoneBrandService.findById(bid));
 			request.setAttribute("bid", bid);
-			 bid = 0;
+			bid = 0;
 			return "detail";
 		} else {// 
 			PageResult<PhoneModel> pageResult = new PageResult<PhoneModel>();
@@ -72,19 +72,27 @@ public class PhoneModelAction extends BasicAction {
 
 	public String sure() throws Exception {
 		init();
-		String url = request.getRequestURL().toString();
-		int indexs = url.lastIndexOf("/");
+		// request.getSession().getServletContext().getRealPath("/");
+		// String url = request.getRequestURL().toString();
+		// int indexs = url.lastIndexOf("/");
 		if (from != null) {
 			System.out.println(from);
 			if (from.indexOf("?") != -1) {
-				from += "&amp;mid=" + mid;
+				int index = from.indexOf("mid=");
+				System.out.println("from1:" + from);
+				if (index != -1) {
+					from = from.substring(0, index);
+					from += "mid=" + mid;
+				} else {
+					from += "&amp;mid=" + mid;// http://sj.361rj.com/index.php?mid=26&mid=20&mid=32&mid=40&mid=34&mid=31&mid=31&mid=33
+				}
+				System.out.println("from2:" + from);
 			} else {
 				from += "?mid=" + mid;
 			}
 		} else {
 			from = "/index.php?mid=" + mid;
 		}
-		from = url.substring(0, indexs) + from;
 		return "sure";
 	}
 

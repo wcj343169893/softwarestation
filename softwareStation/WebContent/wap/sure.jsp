@@ -7,7 +7,6 @@
 <card title="成功" ontimer="${from}">
 <timer value="1" />
 <p>
-${request.contextPath} 
 
 设置机型成功
 </p>

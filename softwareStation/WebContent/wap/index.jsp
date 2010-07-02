@@ -19,7 +19,7 @@
 	<a href="setmodel.php?from=/index.php">推荐!设置手机型号快速下载</a> <br />
 	</c:otherwise>
 </c:choose>
-<img src="../img/logo.gif" alt="361软件站" /><br />
+<img src="/img/logo.gif" alt="361软件站" /><br />
 <a href="newsindex.php?mid=${mid }">最新</a>|<a href="commendindex.php?mid=${mid }">推荐</a>|<a href="rankindex.php?mid=${mid }">排行</a>|<a href="lsst.php?mid=${mid }">分类</a><br />
 置顶软件<br />
 【今日精品】<br />

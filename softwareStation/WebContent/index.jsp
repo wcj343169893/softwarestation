@@ -11,7 +11,7 @@
 <a href="/admin/index.jsp" target="_parent">管理中心</a>
 <a href="/wap/index.php" target="_parent">wap站</a>
 <%
-	response.sendRedirect("/wap/index.php");
+	response.sendRedirect("/index.php");
 %>
 </body>
 </html>
