@@ -1,8 +1,11 @@
 package cn.ss.action;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import cn.common.action.BasicAction;
 import cn.common.util.PageResult;
@@ -33,43 +36,67 @@ public class PhoneSeriesAction extends BasicAction {
 		phoneSeriesService.delete(id);
 		return list();
 	}
-	
-	public boolean isExit(String modelName){
-		boolean flag=false;
-		
-		return flag;
+
+	public Map<Integer, String> getModelMaps(PhoneBrand phoneBrand,
+			PhoneSeries phoneSeries) {
+		Map<Integer, String> maps = new HashMap<Integer, String>();
+		List<PhoneModel> models = null;
+		List<PhoneSeries> series = null;
+		if (phoneBrand != null) {
+			series = phoneBrand.getPhoneseriesList();
+			if (series != null) {
+				for (int i = 0; i < series.size(); i++) {
+					if (phoneSeries != null
+							&& phoneSeries.getId() == series.get(i).getId()) {
+					} else {
+						models = series.get(i).getPhoneModelList();
+						for (int j = 0; j < models.size(); j++) {
+							maps.put(models.get(j).getId(), models.get(j)
+									.getName().toLowerCase().trim());
+						}
+					}
+				}
+			}
+		}
+		return maps;
 	}
-	
+
 	public String add() throws Exception {
 		phoneSeries = new PhoneSeries();
-		PhoneBrand phoneBrand = phoneBrandService.findById(phoneBrandId);
-		phoneSeries.setBrand(phoneBrand);
-		phoneSeries.setOs(phoneOsService.findById(phoneOsId));
-		if (models != null && models.trim().length() > 1) {
-			if (models.trim().length() > 10) {
-				this.setName(models.trim().substring(0, 10));
+		PhoneBrand phoneBrand = phoneBrandService.findById(phoneBrandId);// 查询品牌
+		if (phoneBrand != null) {// 判断页面是否选择品牌
+			Map<Integer, String> maps = getModelMaps(phoneBrand, null);
+			phoneSeries.setBrand(phoneBrand);
+			phoneSeries.setOs(phoneOsService.findById(phoneOsId));
+			if (models != null && models.trim().length() > 1) {// 给我认为的系列添加名称
+				if (models.trim().length() > 10) {
+					this.setName(models.trim().substring(0, 10));
+				} else {
+					this.setName(models.trim());
+				}
 			} else {
-				this.setName(models.trim());
+				Calendar calendar = Calendar.getInstance();
+				this.setName(String.valueOf(calendar.getTimeInMillis()));
 			}
-		} else {
-			Calendar calendar = Calendar.getInstance();
-			this.setName(String.valueOf(calendar.getTimeInMillis()));
-		}
-		phoneSeries.setName(this.getName());
-		phoneSeries.setCreateTime(new Date());
-		phoneSeriesService.add(phoneSeries);
-		PhoneModel phoneModel = null;
-		// 保存系列之后，增加机型
-		if (models != null && models.length() > 0) {
-			String[] model_s = models.split(",");
-			for (int i = 0; i < model_s.length; i++) {
-				if (model_s[i] != null && !"".equals(model_s[i].trim())) {
-					phoneModel = new PhoneModel();
-					phoneModel.setName(model_s[i]);
-					// phoneModel.setPhonebrand(phoneBrand);// 设置品牌
-					phoneModel.setPhoneseries(phoneSeries);// 设置系列
-					phoneModel.setCreateTime(new Date());
-					phoneModelService.add(phoneModel);
+			phoneSeries.setName(this.getName());
+			phoneSeries.setCreateTime(new Date());
+			phoneSeriesService.add(phoneSeries);
+			PhoneModel phoneModel = null;
+			// 保存系列之后，增加机型
+			if (models != null && models.length() > 0) {
+				String[] model_s = models.split(",");
+				for (int i = 0; i < model_s.length; i++) {
+					if (model_s[i] != null && !"".equals(model_s[i].trim())) {
+						if (!maps
+								.containsValue(model_s[i].trim().toLowerCase())) {
+							phoneModel = new PhoneModel();
+							phoneModel.setName(model_s[i]);
+							// phoneModel.setPhonebrand(phoneBrand);// 设置品牌
+							phoneModel.setPhoneseries(phoneSeries);// 设置系列
+							phoneModel.setCreateTime(new Date());
+							phoneModelService.add(phoneModel);
+						}
+					}
 				}
 			}
 		}
@@ -79,54 +106,71 @@ public class PhoneSeriesAction extends BasicAction {
 	public String edit() throws Exception {
 		phoneSeries = phoneSeriesService.findById(id);
 		PhoneBrand phoneBrand = phoneBrandService.findById(phoneBrandId);
-		phoneSeries.setBrand(phoneBrand);
-		phoneSeries.setOs(phoneOsService.findById(phoneOsId));
-		if (models != null && models.trim().length() > 1) {
-			if (models.trim().length() > 10) {
-				this.setName(models.trim().substring(0, 10));
-			} else {
-				this.setName(models.trim());
-			}
-		} else {
-			Calendar calendar = Calendar.getInstance();
-			this.setName(String.valueOf(calendar.getTimeInMillis()));
-		}
-		phoneSeries.setName(this.getName());
-		phoneSeries.setCreateTime(new Date());
-		PhoneModel phoneModel = null;
-		// 清除所有机型
-		// phoneSeries.setPhoneModelList(null);
-		List<PhoneModel> phoneModel_old = phoneSeries.getPhoneModelList();
-		// phoneSeries.setPhoneModelList(null);
-		phoneSeriesService.update(phoneSeries);
-		int size = phoneModel_old.size();
-		// 修改保存系列之后，重新增加机型
-		if (models != null && models.length() > 0) {
-			String[] model_s = models.split(",");
-			if (model_s.length < size) {
-				phoneSeries.setPhoneModelList(null);//解除关系
-				for (int i = model_s.length; i < size; i++) {
-					phoneModelService.delete(phoneModel_old.get(i).getId());
+		if (phoneBrand != null) {
+			Map<Integer, String> maps = getModelMaps(phoneBrand, phoneSeries);
+			phoneSeries.setBrand(phoneBrand);
+			phoneSeries.setOs(phoneOsService.findById(phoneOsId));
+			if (models != null && models.trim().length() > 1) {
+				if (models.trim().length() > 10) {
+					this.setName(models.trim().substring(0, 10));
+				} else {
+					this.setName(models.trim());
 				}
+			} else {
+				Calendar calendar = Calendar.getInstance();
+				this.setName(String.valueOf(calendar.getTimeInMillis()));
 			}
-			for (int i = 0; i < model_s.length; i++) {
-				if (model_s[i] != null && !"".equals(model_s[i].trim())) {
+			phoneSeries.setName(this.getName());
+			phoneSeries.setCreateTime(new Date());
+			PhoneModel phoneModel = null;
+			// 清除所有机型
+			List<PhoneModel> phoneModel_old = phoneSeries.getPhoneModelList();
+			// phoneSeries.setPhoneModelList(null);
+			phoneSeriesService.update(phoneSeries);
+			int size = phoneModel_old.size();
+			// 修改保存系列之后，重新增加机型
+			if (models != null && models.length() > 0) {
+				String[] model_s = models.split(",");
+				List<String> modelList = new ArrayList<String>();
+				for (int i = 0; i < model_s.length; i++) {
+					if (model_s[i] != null
+							&& !"".equals(model_s[i].trim())
+							&& !maps.containsValue(model_s[i].trim()
+									.toLowerCase())) {
+						boolean flag=false;
+						for (int j = 0; j < modelList.size(); j++) {
+							if (modelList.get(j).toLowerCase().trim().equals(
+									model_s[i].trim().toLowerCase())) {
+								flag=true;
+							}
+						}
+						if (!flag) {
+							modelList.add(model_s[i].trim());// 以前不存在的手机机型
+						}
+					}
+				}
+				if (modelList.size() < size) {// 判断新增机型，与以前的机型的数量
+					phoneSeries.setPhoneModelList(null);// 解除关系
+					for (int i = modelList.size(); i < size; i++) {
+						phoneModelService.delete(phoneModel_old.get(i).getId());// 删除多余的机型
+					}
+				}
+				for (int i = 0; i < modelList.size(); i++) {
 					if (i < size) {
-						phoneModel = phoneModel_old.get(i);
-						phoneModel.setName(model_s[i].trim());
+						phoneModel = phoneModel_old.get(i);// 修改原有的机型
+						phoneModel.setName(modelList.get(i).trim());
 						phoneModel.setPhoneseries(phoneSeries);// 设置系列
 						phoneModel.setCreateTime(new Date());
 						phoneModelService.update(phoneModel);
 					} else {
-						phoneModel = new PhoneModel();
-						phoneModel.setName(model_s[i].trim());
+						phoneModel = new PhoneModel();// 新增机型
+						phoneModel.setName(modelList.get(i).trim());
 						phoneModel.setPhoneseries(phoneSeries);// 设置系列
 						phoneModel.setCreateTime(new Date());
 						phoneModelService.add(phoneModel);
 					}
 				}
 			}
-
 		}
 		return list();
 	}
