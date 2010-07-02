@@ -27,10 +27,6 @@
 <div class="page_title">管理中心 &gt; 软件列表</div>
 <div class="page_search" style="float: left; width: 800px;">
 <form action="" method="post" id="myform">
-<!-- 
-<input type="radio" name="showData" value="1" <c:if test="${showData==1}">checked</c:if> id="datasY"><label for="datasY">提成</label>
-<input type="radio" name="showData" value="0" <c:if test="${showData==0}">checked</c:if> id="datasN"><label for="datasN">免费</label>
- -->
 <input type="hidden" name="showData" value="${showData }"/>软件分类  
 <select name="softwareTypeId">
 	<option value="0">全部</option>
@@ -70,7 +66,7 @@
 		<th>激活/下载</th>
 		<th>激活/点击</th>
 		<th>收入/点击</th>
-		
+		<th>置顶</th>
 		<th>显示</th>
 		<th>加精</th>
 		<th>推荐</th>
@@ -146,9 +142,8 @@
 					<td>${ac_ }</td>
 					<fmt:formatNumber value="${click!=0 ? (stp*alu/click) : 0  }" type="number" pattern="0.00"  var="sa_"/>
 					<td><span class="red_test">${sa_ }</span></td>
-						
-					<td class="list_data_number">${softwareInfo.isShow==0?"<span class='red_test'>否</span>":"是"}
-					</td>
+					<td class="list_data_number">${softwareInfo.tops==0?"<span class='red_test'>否</span>":"是"}</td>
+					<td class="list_data_number">${softwareInfo.isShow==0?"<span class='red_test'>否</span>":"是"}</td>
 					<td class="list_data_number">${softwareInfo.plusFine==0?"<span class='red_test'>否</span>":"是"}</td>
 					<td class="list_data_number">${softwareInfo.recommend==0?"<span class='red_test'>否</span>":"是"}</td>
 					<td class="list_data_number">${softwareInfo.promotionWay == 0?'提成':'免费'}</td>

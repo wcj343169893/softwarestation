@@ -72,6 +72,13 @@
 			<result name="detail">/admin/data/activeLogAdd.jsp</result>
 			<result name="add" type="redirect">softwareInfo!list.action?showData=1</result>
 		</action>
+		<action name="*commentary" class="CommentaryAction" method="{1}">
+			<result name="success">/index.jsp</result>
+			<result name="input">/index.jsp</result>
+			<result name="list">/wap/commentary.jsp</result>
+			<result name="add" type="redirect">listcommentary.action?sid=${sid}&amp;mid=${mid}</result>
+		</action>
+		
 	</package>
 	<package name="wap"  extends="struts-default" >
 		<action name="*model" class="PhoneModelAction" method="{1}">

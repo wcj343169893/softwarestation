@@ -47,6 +47,10 @@ public class IndexDTO {
 	 * 人气
 	 */
 	private List<SoftwareInfo> software_hotList = new ArrayList<SoftwareInfo>();
+	/**
+	 * 置顶软件
+	 */
+	private List<SoftwareInfo> software_topsList = new ArrayList<SoftwareInfo>();
 
 	/**
 	 * 软件分类
@@ -100,6 +104,14 @@ public class IndexDTO {
 
 	public void setModel(PhoneModel model) {
 		this.model = model;
+	}
+
+	public List<SoftwareInfo> getSoftware_topsList() {
+		return software_topsList;
+	}
+
+	public void setSoftware_topsList(List<SoftwareInfo> softwareTopsList) {
+		software_topsList = softwareTopsList;
 	}
 
 }

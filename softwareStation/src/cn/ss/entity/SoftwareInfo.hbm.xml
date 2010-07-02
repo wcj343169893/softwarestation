@@ -36,6 +36,18 @@
 				<comment>点击数</comment>
 			</column>
 		</property>
+		
+		<property name="vote" type="java.lang.Integer">
+			<column name="vote">
+				<comment>顶一下</comment>
+			</column>
+		</property>
+		
+		<property name="tops" type="java.lang.Integer">
+			<column name="tops">
+				<comment>是否置顶</comment>
+			</column>
+		</property>
 
 		<property name="download" type="java.lang.Integer">
 			<column name="download">
@@ -141,6 +153,14 @@
 				</column>
 			</key>
 			<one-to-many class="cn.ss.entity.DownloadLog" />
+		</bag>
+		<bag name="commentaryList" cascade="all">
+			<key>
+				<column name="softwareInfoId">
+					<comment>软件评论</comment>
+				</column>
+			</key>
+			<one-to-many class="cn.ss.entity.Commentary" />
 		</bag>
 	</class>
 </hibernate-mapping>

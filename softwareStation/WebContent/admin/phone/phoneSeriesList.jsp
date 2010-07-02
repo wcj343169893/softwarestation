@@ -13,6 +13,25 @@
 <body>
 
 <div class="page_title">管理中心 &gt; 机型列表</div>
+<div class="page_search" style="float: left; width: 800px;">
+<form action="" method="post" id="myform">操作系统 
+<select name="phoneOsId">
+	<option value="0">全部</option>
+	<c:forEach items="${phoneOsList}" var="os">
+		<option value="${os.id }" <c:if test="${phoneOsId==os.id}"> selected</c:if>>${os.name }</option>
+	</c:forEach>
+</select>
+品牌
+<select name="phoneBrandId">
+	<option value="0">全部</option>
+	<c:forEach items="${phoneBrandList}" var="brand">
+		<option value="${brand.id }" <c:if test="${phoneBrandId==brand.id}"> selected</c:if>>${brand.name }</option>
+	</c:forEach>
+</select>
+机型<input name="models">
+<input type="button" onclick="mysearch(1)" value="查询">
+</form>
+</div>
 <div class="button_bar">
 <input type="button" value="新增机型" onclick="to('/admin/phoneSeries!addInit.action')"/>
 </div>
@@ -66,7 +85,10 @@ function mysearch(p){
 	if(p==-1){
 			p=document.getElementById("pageNo").value;
 	}
-	to('phoneSeries!list.action?p='+p);
+	var myform=document.getElementById("myform");
+	myform.action="phoneSeries!list.action?p="+p;
+	myform.submit();
+	//to('phoneSeries!list.action?p='+p);
 }
 </script>
 </body>

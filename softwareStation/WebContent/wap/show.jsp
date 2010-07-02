@@ -67,7 +67,7 @@
 		<c:otherwise>暂时没有您需要的软件，请联系管理员<br/></c:otherwise>
 	</c:choose>
 	[下载]${download};[分类]	<a href="showst.php?mid=${mid}&amp;id=${softwareInfo.softwareType.id}">${softwareInfo.softwareType.name }</a><br/>
-	顶一下!13|评论233|报错
+	顶一下!13|<a href="listcommentary.php?sid=${softwareInfo.id }&amp;mid=${mid}">评论${fn:length(softwareInfo.commentaryList) }</a>|报错
 	</c:otherwise>
 </c:choose>
 <br />---------------<br />

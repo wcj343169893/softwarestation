@@ -25,5 +25,6 @@
 		<mapping resource="cn/ss/entity/SoftwareType.hbm.xml" />
 		<mapping resource="cn/ss/entity/Software.hbm.xml" />
 		<mapping resource="cn/ss/entity/SoftwareOs.hbm.xml" />
+		<mapping resource="cn/ss/entity/Commentary.hbm.xml" />
 	</session-factory>
 </hibernate-configuration>

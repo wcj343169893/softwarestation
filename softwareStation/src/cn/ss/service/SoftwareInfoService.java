@@ -118,7 +118,16 @@ public class SoftwareInfoService extends BasicService {
 	 * @return
 	 */
 	public List<SoftwareInfo> findAll(int mid, int plusFine, int recommend) {
-		return softwareInfoDao.list(mid, plusFine, recommend, 0, 0, null, 0);
+		return softwareInfoDao.list(mid, plusFine, recommend, 0, 0, null, 0, 0);
+	}
+
+	/**
+	 * ≤È—Ø÷√∂•»Ìº˛
+	 * 
+	 * @return
+	 */
+	public List<SoftwareInfo> findAll(int mid) {
+		return softwareInfoDao.list(mid, -1, -1, 0, 0, null, 0, 1);
 	}
 
 	/**
@@ -135,7 +144,7 @@ public class SoftwareInfoService extends BasicService {
 	public List<SoftwareInfo> findAll(PageResult<SoftwareInfo> pageResult,
 			int mid, int stid, int isJava, int recommend) {
 		return softwareInfoDao.list(mid, -1, recommend, stid, isJava,
-				pageResult, 0);
+				pageResult, 0, 0);
 	}
 
 	/**
@@ -148,7 +157,7 @@ public class SoftwareInfoService extends BasicService {
 	 */
 	public List<SoftwareInfo> findAll(PageResult<SoftwareInfo> pageResult,
 			int mid, int isJava) {
-		return softwareInfoDao.list(mid, -1, 2, -1, isJava, pageResult, 2);
+		return softwareInfoDao.list(mid, -1, 2, -1, isJava, pageResult, 2, 0);
 	}
 
 	/**
@@ -176,8 +185,8 @@ public class SoftwareInfoService extends BasicService {
 	 */
 	public List<SoftwareInfo> findAll(PageResult<SoftwareInfo> pageResult,
 			int mid, int isJava, int commend) {
-		return softwareInfoDao
-				.list(mid, -1, commend, -1, isJava, pageResult, 0);
+		return softwareInfoDao.list(mid, -1, commend, -1, isJava, pageResult,
+				0, 0);
 	}
 
 	/**

@@ -181,8 +181,17 @@
 			</tr>
 			<tr>
 				<th>开发商:</th>
-				<td>
+				<td colspan="3">
 					<input type="text" name="softwareForm.producer" value="">
+				</td>
+			</tr>
+			<tr>
+				<th>是否置顶:</th>
+				<td>
+					<input type="radio" name="softwareForm.tops"  value="1" id="topsY">
+					<label for="topsY">是</label>
+					<input type="radio" name="softwareForm.tops" checked="checked" value="0" id="topsN">
+					<label for="topsN">否</label>
 				</td>
 				<th>是否推荐:</th>
 				<td>
@@ -292,8 +301,17 @@
 			</tr>
 			<tr>
 				<th>开发商:</th>
-				<td>
+				<td colspan="3">
 					<input type="text" name="softwareForm.producer" value="${softwareInfo.producer }" maxlength="180">
+				</td>
+			</tr>
+			<tr>
+				<th>是否置顶:</th>
+				<td>
+					<input type="radio" name="softwareForm.tops"  <c:if test="${softwareInfo.tops == 1}">checked</c:if> value="1" id="topsY">
+					<label for="topsY">是</label>
+					<input type="radio" name="softwareForm.tops"  <c:if test="${softwareInfo.tops == 0}">checked</c:if> value="0" id="topsN">
+					<label for="topsN">否</label>
 				</td>
 				<th>是否推荐:</th>
 				<td>

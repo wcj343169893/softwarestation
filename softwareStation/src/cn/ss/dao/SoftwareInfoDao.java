@@ -47,10 +47,14 @@ public class SoftwareInfoDao extends HibernateDaoSupport {
 	 */
 	public List<SoftwareInfo> list(int mid, int plusFine, int recommend,
 			int softwareTypeId, int show_java,
-			PageResult<SoftwareInfo> pageResult, int byDate) {
+			PageResult<SoftwareInfo> pageResult, int byDate,int tops) {
 		Criteria criteria = this.getSession().createCriteria(
 				SoftwareInfo.class, "si");
 		criteria.add(Expression.eq("isShow", new Integer(1)));
+		if (tops==1) {
+			criteria.add(Expression.eq("tops", tops));
+			criteria.setMaxResults(5);
+		}
 		if (byDate == 1) {
 			criteria.addOrder(Order.desc("si.createTime"));
 		}

@@ -44,15 +44,14 @@ public class IndexAction extends BasicAction {
 	@Override
 	public String execute() throws Exception {
 		init();
-		// 1.查询置顶软件加精 plusFine
+		// 1.查询软件加精 plusFine
 		List<SoftwareInfo> sipList = softwareInfoService.findAll(mid, 1, 0);
 		indexDTO.setSoftware_plusFineList(sipList);
 		// 2.推荐 recommend
 		List<SoftwareInfo> sirList = softwareInfoService.findAll(mid, 0, 1);
 		indexDTO.setSoftware_recommendList(sirList);
-		// // 3.最新更新
-		// indexDTO.setSoftware_newList(softwareInfoService.findAll(mid, 0, 0,
-		// new Date()));
+		// 3.置顶软件5条
+		indexDTO.setSoftware_topsList(softwareInfoService.findAll(mid));
 
 		// 4.软件类型列表
 		indexDTO.setSoftwareTypeList(softwareTypeService.findAll(null));
@@ -79,7 +78,7 @@ public class IndexAction extends BasicAction {
 							.toLowerCase().equals("java")) {
 				isJava = 2;
 			}
-		} 
+		}
 		if (p != 0) {
 			pageResult.setPageNo(p);
 		}
@@ -125,7 +124,7 @@ public class IndexAction extends BasicAction {
 							.toLowerCase().equals("java")) {
 				isJava = 2;
 			}
-		} 
+		}
 		if (p != 0) {
 			pageResult.setPageNo(p);
 		}

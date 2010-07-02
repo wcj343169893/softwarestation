@@ -11,7 +11,7 @@
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
 		<property name="url"
-			value="jdbc:mysql://localhost:3306/softwareStation?useUnicode=true&amp;characterEncoding=utf-8" />
+			value="jdbc:mysql://localhost:3306/softwarestation?useUnicode=true&amp;characterEncoding=utf-8" />
 		<property name="username" value="root" />
 		<property name="password" value="520520" />
 	</bean>
@@ -35,6 +35,7 @@
 				<value>cn/ss/entity/SoftwareType.hbm.xml</value>
 				<value>cn/ss/entity/Software.hbm.xml</value>
 				<value>cn/ss/entity/SoftwareOs.hbm.xml</value>
+				<value>cn/ss/entity/Commentary.hbm.xml</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">
@@ -114,6 +115,9 @@
 	<bean id="downloadLogService" class="cn.ss.service.DownloadLogService">
 		<property name="dao" ref="commonDAO"></property>
 	</bean>
+	<bean id="commentaryService" class="cn.ss.service.CommentaryService">
+		<property name="dao" ref="commonDAO"></property>
+	</bean>
 
 	<!-- action	 -->
 	<bean id="PhoneOsAction" class="cn.ss.action.PhoneOsAction">
@@ -178,6 +182,11 @@
 		<property name="softwareTypeService" ref="softwareTypeService"></property>
 	</bean>
 	<bean id="HelpAction" class="cn.ss.action.HelpAction" scope="prototype"></bean>
+	<bean id="CommentaryAction" class="cn.ss.action.CommentaryAction">
+		<property name="softwareInfoService" ref="softwareInfoService"></property>
+		<property name="commentaryService" ref="commentaryService"></property>
+		<property name="phoneModelService" ref="phoneModelService"></property>
+	</bean>
 
 	<!-- 事物管理 -->
 	<tx:advice id="txAdvice" transaction-manager="transactionManager">

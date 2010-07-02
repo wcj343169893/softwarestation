@@ -53,6 +53,15 @@ public class SoftwareInfo implements java.io.Serializable {
 	private Integer plusFine = 0;
 
 	/**
+	 * 顶一下
+	 */
+	private Integer vote;
+	/**
+	 * 是否置顶0否，1是
+	 */
+	private Integer tops;
+
+	/**
 	 * 软件个数
 	 */
 	private Integer number = 0;
@@ -86,6 +95,11 @@ public class SoftwareInfo implements java.io.Serializable {
 	 * 下载日志（每日一篇）
 	 */
 	private List<DownloadLog> downloadLogList = new ArrayList<DownloadLog>();
+
+	/**
+	 * 软件评论
+	 */
+	private List<Commentary> commentaryList = new ArrayList<Commentary>();
 
 	public List<Software> getSoftwareList() {
 		return softwareList;
@@ -277,6 +291,30 @@ public class SoftwareInfo implements java.io.Serializable {
 
 	public void setProducer(String producer) {
 		this.producer = producer;
+	}
+
+	public List<Commentary> getCommentaryList() {
+		return commentaryList;
+	}
+
+	public void setCommentaryList(List<Commentary> commentaryList) {
+		this.commentaryList = commentaryList;
+	}
+
+	public Integer getVote() {
+		return vote;
+	}
+
+	public void setVote(Integer vote) {
+		this.vote = vote;
+	}
+
+	public Integer getTops() {
+		return tops;
+	}
+
+	public void setTops(Integer tops) {
+		this.tops = tops;
 	}
 
 }

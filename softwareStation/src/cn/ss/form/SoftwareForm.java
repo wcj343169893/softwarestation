@@ -62,6 +62,14 @@ public class SoftwareForm {
 	private int promotionWay;
 	private String description;
 	private String imgPath;
+	/**
+	 * 顶一下
+	 */
+	private Integer vote;
+	/**
+	 * 是否置顶0否，1是
+	 */
+	private Integer tops;
 
 	public String getImageFileName() {
 		return imageFileName;
@@ -245,6 +253,22 @@ public class SoftwareForm {
 
 	public void setImgPath(String imgPath) {
 		this.imgPath = imgPath;
+	}
+
+	public Integer getVote() {
+		return vote;
+	}
+
+	public void setVote(Integer vote) {
+		this.vote = vote;
+	}
+
+	public Integer getTops() {
+		return tops;
+	}
+
+	public void setTops(Integer tops) {
+		this.tops = tops;
 	}
 
 }

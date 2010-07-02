@@ -119,6 +119,7 @@ public class SoftwareInfoAction extends BasicAction {
 		softwareInfo.setPlusFine(softwareForm.getPlusFine());
 		softwareInfo.setPromotionWay(softwareForm.getPromotionWay());
 		softwareInfo.setDescription(softwareForm.getDescription());
+		softwareInfo.setTops(softwareForm.getTops());
 
 		// 判断是否有截图
 		if (softwareForm.getImage() != null) {
@@ -222,6 +223,7 @@ public class SoftwareInfoAction extends BasicAction {
 		softwareInfo.setPlusFine(softwareForm.getPlusFine());
 		softwareInfo.setPromotionWay(softwareForm.getPromotionWay());
 		softwareInfo.setDescription(softwareForm.getDescription());
+		softwareInfo.setTops(softwareForm.getTops());
 		// 修改截图
 		if (softwareForm.getImage() != null) {
 			// 如果之前有截图，则只覆盖文件，如果没有，则新增一个

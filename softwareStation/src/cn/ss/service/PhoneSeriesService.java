@@ -12,9 +12,19 @@ public class PhoneSeriesService extends BasicService {
 	 * @param phoneSeries
 	 */
 	public void findAll(PageResult<PhoneSeries> pageResult,
-			PhoneSeries phoneSeries) {
+			PhoneSeries phoneSeries, String name, int phoneOsId, int brandId) {
 		StringBuffer hql = new StringBuffer("from PhoneSeries ps where 1=1");
 		if (null != phoneSeries) {
+		}
+		if (phoneOsId > 0) {
+			hql.append(" and ps.os.id=" + phoneOsId);
+		}
+		if (brandId > 0) {
+			hql.append(" and ps.brand.id=" + brandId);
+		}
+		if (name != null && !"".equals(name.trim())) {
+			name = name.replace("'", "");
+			hql.append(" and ps.name like '%" + name + "'");
 		}
 		hql.append(" order by ps.id desc");
 		dao.listByPage(hql.toString(), pageResult);
