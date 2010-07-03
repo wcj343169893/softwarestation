@@ -207,7 +207,7 @@ public class PhoneSeriesAction extends BasicAction {
 		if (p != 0) {
 			pageResult.setPageNo(p);
 		}
-		phoneSeriesService.findAll(pageResult, phoneSeries,name,phoneOsId,phoneBrandId);
+		phoneSeriesService.findAll(pageResult, phoneSeries,models,phoneOsId,phoneBrandId);
 		request.setAttribute("pageResult", pageResult);
 		dataInit();
 		return "list";

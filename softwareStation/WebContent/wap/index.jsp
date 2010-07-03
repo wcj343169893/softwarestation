@@ -23,7 +23,7 @@
 <img src="/img/logo.gif" alt="361软件站" /><br />
 <a href="newsindex.php?mid=${mid }">最新</a>|<a href="commendindex.php?mid=${mid }">推荐</a>|<a href="rankindex.php?mid=${mid }">排行</a>|<a href="lsst.php?mid=${mid }">分类</a><br />
 <c:forEach items="${indexDTO.software_topsList}" var="softwareInfo">
-	.<a href="showsoftwareInfo.php?id=${softwareInfo.id}&amp;mid=${mid }">${softwareInfo.name}</a><br/>
+	<a href="showsoftwareInfo.php?id=${softwareInfo.id}&amp;mid=${mid }">${softwareInfo.name}</a><br/>
 </c:forEach>
 【今日精品】<br />
 <c:set value="" var="plusFine"></c:set><c:set value="${fn:length(indexDTO.software_plusFineList)}" var="maxlength"></c:set><c:forEach items="${indexDTO.software_plusFineList}" var="softwareInfo" varStatus="vs"><c:set value="${plusFine}|${softwareInfo.name}" var="plusFine"></c:set><a href="showsoftwareInfo.php?id=${softwareInfo.id}&amp;mid=${mid }">${softwareInfo.name}</a><c:choose><c:when test="${fn:length(plusFine) > 14}"><br/><c:set value="" var="plusFine"></c:set></c:when><c:when test="${maxlength==vs.count }"><br/><c:set value="" var="plusFine"></c:set></c:when><c:otherwise>|</c:otherwise></c:choose></c:forEach>

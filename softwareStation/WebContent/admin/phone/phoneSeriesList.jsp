@@ -28,7 +28,7 @@
 		<option value="${brand.id }" <c:if test="${phoneBrandId==brand.id}"> selected</c:if>>${brand.name }</option>
 	</c:forEach>
 </select>
-机型<input name="models">
+机型<input name="models" value="${models }">
 <input type="button" onclick="mysearch(1)" value="查询">
 </form>
 </div>

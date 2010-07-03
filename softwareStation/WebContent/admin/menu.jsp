@@ -28,7 +28,7 @@
 			<ul>
 				<li><span class="folder">机型管理</span>
 					<ul>
-						<li><span class="file"><a href="extension!list.action" target="workCenter">扩展名列表</a></span></li>
+						<li><span class="file"><a href="extension!list.action" target="workCenter">扩展名表</a></span></li>
 						<li><span class="file"><a href="phoneOs!list.action" target="workCenter">平台列表</a></span></li>
 						<!-- 
 						<li><span class="file"><a href="phone/phoneOsUpdate.jsp" target="workCenter">增加平台</a></span></li>
@@ -48,6 +48,8 @@
 						<li><span class="file"><a href="softwareInfo!list.action?showData=0" target="workCenter">软件列表</a></span></li>
 						<li><span class="file"><a href="softwareInfo!addInit.action" target="workCenter">新增软件</a></span></li>
 						<li><span class="file"><a href="softwareType!list.action" target="workCenter">分类管理</a></span></li>
+						<li><span class="file"><a href="data/lscommentary.action" target="workCenter">评论管理</a></span></li>
+						<li><span class="file"><a href="wap/listreport.action" target="workCenter">报错管理</a></span></li>
 					</ul>
 				</li>
 				<li><span class="folder">数据管理</span>
@@ -55,8 +57,6 @@
 						<li><span class="file"><a href="softwareInfo!list.action?showData=1&promotionWay=3" target="workCenter">数据分析</a></span></li>
 						<li><span class="file"><a href="data/account!list.action" target="workCenter">推广费用</a></span></li>
 						<li><span class="file"><a href="data/accountType!list.action" target="workCenter">推广类型</a></span></li>
-						<li><span class="file"><a href="data/lscommentary.action" target="workCenter">评论管理</a></span></li>
-						<li><span class="file"><a href="wap/listreport.action" target="workCenter">报错管理</a></span></li>
 					</ul>
 				</li>
 			</ul>

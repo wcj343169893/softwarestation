@@ -68,6 +68,9 @@
 	<bean id="softwareInfoDao" class="cn.ss.dao.SoftwareInfoDao">
 		<property name="sessionFactory" ref="sessionFactory"></property>
 	</bean>
+	<bean id="phoneSeriesDao" class="cn.ss.dao.PhoneSeriesDao">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
 	<!-- form -->
 	<bean id="softwareForm" class="cn.ss.form.SoftwareForm" scope="prototype"></bean>
 
@@ -84,6 +87,7 @@
 	</bean>
 	<bean id="phoneSeriesService" class="cn.ss.service.PhoneSeriesService">
 		<property name="dao" ref="commonDAO"></property>
+		<property name="phoneSeriesDao" ref="phoneSeriesDao"></property>
 	</bean>
 	<bean id="phoneModelService" class="cn.ss.service.PhoneModelService">
 		<property name="dao" ref="commonDAO"></property>
