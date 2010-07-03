@@ -44,6 +44,7 @@
 			<result name="detail">/admin/software/softwareInfoUpdate.jsp</result>
 			<result name="show">/wap/show.jsp</result>
 			<result name="search">/wap/searchSoftwareInfo.jsp</result>
+			<result name="dingnidefei" type="redirect">showsoftwareInfo.php?id=${id}&amp;mid=${mid}</result>
 		</action>
 		<action name="*software" class="SoftwareAction" method="{1}">
 			<result name="success" type="redirectAction">softwareInfo!list.action</result>
@@ -73,7 +74,7 @@
 			<result name="add" type="redirect">softwareInfo!list.action?showData=1</result>
 		</action>
 		<action name="*commentary" class="CommentaryAction" method="{1}">
-			<result name="success">/index.jsp</result>
+			<result name="ls">/admin/report/commentaryList.jsp</result>
 			<result name="input">/index.jsp</result>
 			<result name="list">/wap/commentary.jsp</result>
 			<result name="add" type="redirect">listcommentary.action?sid=${sid}&amp;mid=${mid}</result>
@@ -101,9 +102,16 @@
 			<result name="ls">/wap/types.jsp</result>
 			<result name="show">/wap/tshow.jsp</result>
 		</action>
-			<action name="*help" class="HelpAction" method="{1}">
+		<action name="*help" class="HelpAction" method="{1}">
 			<result name="success">/wap/help.jsp</result>
 			<result name="input">/index.jsp</result>
+		</action>
+		<action name="*report" class="ReportAction" method="{1}">
+			<result name="success" type="redirect">okreport.action?sid=${sid}&amp;mid=${mid}</result>
+			<result name="report">/wap/report.jsp</result>
+			<result name="ok">/wap/success.jsp</result>
+			<result name="input">/index.jsp</result>
+			<result name="list">/admin/report/reportList.jsp</result>
 		</action>
 	</package>
 </struts>

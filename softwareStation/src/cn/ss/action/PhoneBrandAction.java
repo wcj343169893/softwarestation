@@ -39,7 +39,7 @@ public class PhoneBrandAction extends BasicAction {
 		if (p != 0) {
 			pageResult.setPageNo(p);
 		}
-		phoneBrandService.findAll(pageResult, phoneBrand);
+		phoneBrandService.findAll(pageResult, phoneBrand,name);
 		request.setAttribute("pageResult", pageResult);
 		return "list";
 	}

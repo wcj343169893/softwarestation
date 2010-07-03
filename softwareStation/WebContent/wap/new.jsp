@@ -6,6 +6,7 @@
 <wml>
 <card title="${phoneModel.phoneseries.brand.name}${phoneModel.name}最新">
 <p>
+<jsp:include page="notices.jsp"></jsp:include>
 以下是软件列表：
 <c:choose>
 	<c:when test="${isJava == 1}"><a href="newsindex.php?p=1&amp;isJava=0&amp;mid=${mid }">显示通用版</a></c:when>
@@ -33,6 +34,7 @@
 </c:choose>
 <br/>---------------<br />
 <a href="index.php?mid=${mid }">首页</a>&gt;${phoneModel.phoneseries.brand.name}${phoneModel.name}最新<br/>
+<jsp:include page="detail.jsp"></jsp:include>
 </p>
 </card>
 </wml>

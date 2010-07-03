@@ -7,8 +7,14 @@
 <card title="成功" ontimer="${from}">
 <timer value="1" />
 <p>
-
-设置机型成功
+<jsp:include page="notices.jsp"></jsp:include>
+设置机型成功!<br />
+您的手机：${phoneModel.name }<br />
+操作系统:${phoneModel.phoneseries.os.name }<br />
+如没跳转请点击<a href="${from}">返回</a>
+<br/>---------------<br />
+<a href="index.php?mid=${mid }">首页</a>&gt;设置机型<br/>
+<jsp:include page="detail.jsp"></jsp:include>
 </p>
 </card>
 </wml>

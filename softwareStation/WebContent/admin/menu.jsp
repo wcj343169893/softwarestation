@@ -55,6 +55,8 @@
 						<li><span class="file"><a href="softwareInfo!list.action?showData=1&promotionWay=3" target="workCenter">数据分析</a></span></li>
 						<li><span class="file"><a href="data/account!list.action" target="workCenter">推广费用</a></span></li>
 						<li><span class="file"><a href="data/accountType!list.action" target="workCenter">推广类型</a></span></li>
+						<li><span class="file"><a href="data/lscommentary.action" target="workCenter">评论管理</a></span></li>
+						<li><span class="file"><a href="wap/listreport.action" target="workCenter">报错管理</a></span></li>
 					</ul>
 				</li>
 			</ul>

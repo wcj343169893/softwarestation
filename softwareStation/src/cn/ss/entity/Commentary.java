@@ -2,6 +2,12 @@ package cn.ss.entity;
 
 import java.util.Date;
 
+/**
+ * 软件评论
+ * 
+ * @author 文朝军
+ * 
+ */
 public class Commentary {
 	private int id;
 	private SoftwareInfo softwareInfo;

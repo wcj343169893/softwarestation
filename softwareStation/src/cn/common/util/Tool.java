@@ -281,4 +281,16 @@ public class Tool {
 		}
 		return null;
 	}
+
+	public static String filterString(String string) {
+		String s = string;
+		if (s != null && !"".equals(s.trim())) {
+			s = s.replace("<", "&lt;");
+			s = s.replace(">", "&gt;");
+			s = s.replace("&", "&amp;");
+			s = s.replace("'", "&apos;");
+			s = s.replace("\"", "&quot;");
+		}
+		return s;
+	}
 }

@@ -8,6 +8,7 @@
 
 <card title="${model.name}-分类检索">
 <p>
+<jsp:include page="notices.jsp"></jsp:include>
 类别：${softwareType.name }
 <c:choose>
 	<c:when test="${isJava == 1}"><a href="showst.php?p=1&amp;isJava=0&amp;mid=${mid }">显示通用版</a></c:when>
@@ -35,6 +36,7 @@
 </c:choose>
 <br />---------------<br />
 <a href="index.php?mid=${mid }">首页</a>&gt;<a href="lsst.php?mid=${mid }">软件分类</a>&gt;${softwareType.name }<br/>
+<jsp:include page="detail.jsp"></jsp:include>
 </p>
 </card>
 </wml>

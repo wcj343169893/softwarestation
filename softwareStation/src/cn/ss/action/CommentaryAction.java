@@ -4,6 +4,7 @@ import java.util.Date;
 
 import cn.common.action.BasicAction;
 import cn.common.util.PageResult;
+import cn.common.util.Tool;
 import cn.ss.entity.Commentary;
 import cn.ss.entity.PhoneModel;
 import cn.ss.entity.SoftwareInfo;
@@ -44,26 +45,25 @@ public class CommentaryAction extends BasicAction {
 	private CommentaryService commentaryService;
 	private Commentary commentary;
 
-	// public String delete() throws Exception {
-	// return list();
-	// }
+	public String delete() throws Exception {
+		if (id > 0) {
+			commentaryService.delete(id);
+		}
+		return ls();
+	}
 
 	public String add() throws Exception {
 		if (sid > 0 && mid > 0) {
 			SoftwareInfo softwareInfo = softwareInfoService.findById(sid);
 			PhoneModel phoneModel = phoneModelService.findById(mid);
 			commentary = new Commentary();
-			commentary.setContent(content);
+			commentary.setContent(Tool.filterString(content));
 			commentary.setCommentTime(new Date());
 			commentary.setSoftwareInfo(softwareInfo);
 			commentary.setPhoneModel(phoneModel);
 			commentaryService.add(commentary);
 		}
 		return "add";
-	}
-
-	public String edit() throws Exception {
-		return list();
 	}
 
 	public String detail() throws Exception {
@@ -74,17 +74,37 @@ public class CommentaryAction extends BasicAction {
 		return "detail";
 	}
 
+	public String ls() throws Exception {
+		pageResult = new PageResult<Commentary>();
+		pageResult.setPageSize(10);// 每页10条记录
+		pageResult.setSort("Desc");
+		if (p != 0) {
+			pageResult.setPageNo(p);
+		}
+		if (beginTime != null && !"".equals(beginTime) && endTime != null
+				&& !"".equals(endTime)) {
+			if (beginTime.compareTo(endTime) > 0) {
+				String tmp = beginTime;
+				beginTime = endTime;
+				endTime = tmp;
+			}
+		}
+		commentaryService.findAll(pageResult, commentary, beginTime, endTime,
+				0, content);
+		return "ls";
+	}
+
 	// 前台也需要分页查询
 	public String list() throws Exception {
 		init();
 		initData();
 		pageResult = new PageResult<Commentary>();
-		pageResult.setPageSize(5);//每页5条记录
+		pageResult.setPageSize(5);// 每页5条记录
 		if (p != 0) {
 			pageResult.setPageNo(p);
 		}
 		if (sid > 0) {
-			commentaryService.findAll(pageResult, null, null, null, sid);
+			commentaryService.findAll(pageResult, null, null, null, sid, null);
 		}
 		return "list";
 	}

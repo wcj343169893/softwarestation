@@ -18,12 +18,12 @@ public class AccountService extends BasicService {
 		if (beginTime != null
 				&& !"".equals(beginTime)
 				&& Tool.stringFormatDate(beginTime, "yyyy-MM-dd") != null) {
-			hql.append(" and a.createTime > '" + beginTime + "'");
+			hql.append(" and DATE_FORMAT(a.createTime,'%y %m %d') >= DATE_FORMAT('"+beginTime+"','%y %m %d')");
 		}
 		if (endTime != null
 				&& !"".equals(endTime)
 				&& Tool.stringFormatDate(endTime, "yyyy-MM-dd") != null) {
-			hql.append(" and a.createTime < '" + endTime + "'");
+			hql.append(" and DATE_FORMAT(a.createTime,'%y %m %d') <= DATE_FORMAT('"+endTime+"','%y %m %d')");
 		}
 		if (atId > 0) {
 			hql.append(" and a.accType.id = " + atId);

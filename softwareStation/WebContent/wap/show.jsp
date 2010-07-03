@@ -19,6 +19,7 @@
 </c:choose>
 <card title="${titles}">
 <p>
+<jsp:include page="notices.jsp"></jsp:include>
 <c:choose>
 	<c:when test="${softwareInfo eq null}">暂时未找到此软件</c:when>
 	<c:otherwise>
@@ -67,11 +68,12 @@
 		<c:otherwise>暂时没有您需要的软件，请联系管理员<br/></c:otherwise>
 	</c:choose>
 	[下载]${download};[分类]	<a href="showst.php?mid=${mid}&amp;id=${softwareInfo.softwareType.id}">${softwareInfo.softwareType.name }</a><br/>
-	顶一下!13|<a href="listcommentary.php?sid=${softwareInfo.id }&amp;mid=${mid}">评论${fn:length(softwareInfo.commentaryList) }</a>|报错
+	<a href="dsoftwareInfo.php?id=${softwareInfo.id}&amp;mid=${mid}">顶一下!${softwareInfo.vote }</a>|<a href="listcommentary.php?sid=${softwareInfo.id }&amp;mid=${mid}">评论${fn:length(softwareInfo.commentaryList) }</a>|<a href="report.php?sid=${softwareInfo.id }&amp;mid=${mid}">报错</a>
 	</c:otherwise>
 </c:choose>
 <br />---------------<br />
 <a href="index.php?mid=${mid }">首页</a>&gt;<a href="lsst.php?mid=${mid }">软件分类</a>&gt;<a href="showst.php?mid=${mid }&amp;id=${softwareInfo.softwareType.id}">${softwareInfo.softwareType.name}</a><br/>
+<jsp:include page="detail.jsp"></jsp:include>
 </p>
 </card>
 </wml>

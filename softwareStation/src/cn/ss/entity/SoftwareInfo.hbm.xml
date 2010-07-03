@@ -38,13 +38,13 @@
 		</property>
 		
 		<property name="vote" type="java.lang.Integer">
-			<column name="vote">
+			<column name="vote" default="0">
 				<comment>顶一下</comment>
 			</column>
 		</property>
 		
 		<property name="tops" type="java.lang.Integer">
-			<column name="tops">
+			<column name="tops" default="0">
 				<comment>是否置顶</comment>
 			</column>
 		</property>

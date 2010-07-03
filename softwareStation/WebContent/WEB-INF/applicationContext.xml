@@ -36,6 +36,7 @@
 				<value>cn/ss/entity/Software.hbm.xml</value>
 				<value>cn/ss/entity/SoftwareOs.hbm.xml</value>
 				<value>cn/ss/entity/Commentary.hbm.xml</value>
+				<value>cn/ss/entity/Report.hbm.xml</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">
@@ -118,7 +119,9 @@
 	<bean id="commentaryService" class="cn.ss.service.CommentaryService">
 		<property name="dao" ref="commonDAO"></property>
 	</bean>
-
+	<bean id="reportService" class="cn.ss.service.ReportService">
+		<property name="dao" ref="commonDAO"></property>
+	</bean>
 	<!-- action	 -->
 	<bean id="PhoneOsAction" class="cn.ss.action.PhoneOsAction">
 		<property name="phoneOsService" ref="phoneOsService"></property>
@@ -127,7 +130,8 @@
 	<bean id="PhoneBrandAction" class="cn.ss.action.PhoneBrandAction">
 		<property name="phoneBrandService" ref="phoneBrandService"></property>
 	</bean>
-	<bean id="PhoneSeriesAction" class="cn.ss.action.PhoneSeriesAction">
+	<bean id="PhoneSeriesAction" class="cn.ss.action.PhoneSeriesAction"
+		scope="prototype">
 		<property name="phoneBrandService" ref="phoneBrandService"></property>
 		<property name="phoneOsService" ref="phoneOsService"></property>
 		<property name="phoneSeriesService" ref="phoneSeriesService"></property>
@@ -148,6 +152,7 @@
 		<property name="activeLogService" ref="activeLogService"></property>
 		<property name="phoneModelService" ref="phoneModelService"></property>
 		<property name="clickLogService" ref="clickLogService"></property>
+		<property name="reportService" ref="reportService"></property>
 	</bean>
 	<bean id="SoftwareAction" class="cn.ss.action.SoftwareAction">
 		<property name="softwareService" ref="softwareService"></property>
@@ -187,7 +192,11 @@
 		<property name="commentaryService" ref="commentaryService"></property>
 		<property name="phoneModelService" ref="phoneModelService"></property>
 	</bean>
-
+	<bean id="ReportAction" class="cn.ss.action.ReportAction">
+		<property name="phoneModelService" ref="phoneModelService"></property>
+		<property name="reportService" ref="reportService"></property>
+		<property name="softwareInfoService" ref="softwareInfoService"></property>
+	</bean>
 	<!-- 事物管理 -->
 	<tx:advice id="txAdvice" transaction-manager="transactionManager">
 		<tx:attributes>

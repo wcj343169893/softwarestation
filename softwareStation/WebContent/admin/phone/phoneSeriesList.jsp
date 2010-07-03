@@ -88,7 +88,6 @@ function mysearch(p){
 	var myform=document.getElementById("myform");
 	myform.action="phoneSeries!list.action?p="+p;
 	myform.submit();
-	//to('phoneSeries!list.action?p='+p);
 }
 </script>
 </body>

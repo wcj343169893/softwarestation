@@ -13,15 +13,19 @@ public class CommentaryService extends BasicService {
 	 * @param account
 	 */
 	public void findAll(PageResult<Commentary> pageResult,
-			Commentary commentary, String beginTime, String endTime, int sid) {
+			Commentary commentary, String beginTime, String endTime, int sid,String content) {
 		StringBuffer hql = new StringBuffer("from Commentary c where 1=1");
 		if (beginTime != null && !"".equals(beginTime)
 				&& Tool.stringFormatDate(beginTime, "yyyy-MM-dd") != null) {
-			hql.append(" and c.commentTime >= '" + beginTime + "'");
+			hql.append(" and DATE_FORMAT(c.commentTime,'%y %m %d') >= DATE_FORMAT('"+beginTime+"','%y %m %d')");
 		}
 		if (endTime != null && !"".equals(endTime)
 				&& Tool.stringFormatDate(endTime, "yyyy-MM-dd") != null) {
-			hql.append(" and c.commentTime =< '" + endTime + "'");
+			hql.append(" and DATE_FORMAT(c.commentTime,'%y %m %d') <= DATE_FORMAT('"+endTime+"','%y %m %d')");
+		}
+		if (content!=null&&!"".equals(content.trim())) {
+			content=content.replace("'", "");
+			hql.append(" and c.content like '%" + content + "%'");
 		}
 		if (sid > 0) {
 			hql.append(" and c.softwareInfo.id = " + sid);
@@ -29,7 +33,7 @@ public class CommentaryService extends BasicService {
 		if (commentary != null) {
 
 		}
-		hql.append(" order by c.id");
+		hql.append(" order by c.id "+pageResult.getSort());
 		dao.listByPage(hql.toString(), pageResult);
 	}
 

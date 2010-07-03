@@ -6,6 +6,7 @@
 <wml>
 <card title="${phoneModel.phoneseries.brand.name}${phoneModel.name}排行">
 <p>
+<jsp:include page="notices.jsp"></jsp:include>
 <c:set value="rankindex.php?mid=${mid}&amp;ranks=${ranks }" var="url"></c:set>
 ${ranks==0 ?"日榜":"<a href='rankindex.php?mid="}${ranks==0?"":mid}${ranks==0?"":"&amp;ranks=0'>日榜</a>" }.
 ${ranks==1 ?"月榜":"<a href='rankindex.php?mid="}${ranks==1?"":mid}${ranks==1?"":"&amp;ranks=1'>月榜</a>" }.
@@ -32,6 +33,7 @@ ${ranks==2 ?"总榜":"<a href='rankindex.php?mid="}${ranks==2?"":mid}${ranks==2?
 </c:choose>
 <br />---------------<br />
 <a href="index.php?mid=${mid }">首页</a>&gt;${phoneModel.phoneseries.brand.name}${phoneModel.name}排行<br/>
+<jsp:include page="detail.jsp"></jsp:include>
 </p>
 </card>
 </wml>

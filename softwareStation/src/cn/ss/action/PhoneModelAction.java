@@ -72,9 +72,7 @@ public class PhoneModelAction extends BasicAction {
 
 	public String sure() throws Exception {
 		init();
-		// request.getSession().getServletContext().getRealPath("/");
-		// String url = request.getRequestURL().toString();
-		// int indexs = url.lastIndexOf("/");
+		phoneModel=phoneModelService.findById(mid);
 		if (from != null) {
 			System.out.println(from);
 			if (from.indexOf("?") != -1) {

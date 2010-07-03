@@ -6,6 +6,7 @@
 <wml>
 <card title="查询软件">
 <p>
+<jsp:include page="notices.jsp"></jsp:include>
 <c:set value="${fn:length(pageResult.list)}" var="resultSize"></c:set>
 "${name }"的软件搜索结果共有${resultSize }个:<br />
 <c:choose>
@@ -40,7 +41,7 @@
 	</anchor> <br />
 --------------------<br />
 <a href="index.php?mid=${mid }">首页</a>&gt;搜索结果<br />
---------------------<br />
+<jsp:include page="detail.jsp"></jsp:include>
 </p>
 </card>
 </wml>

@@ -48,7 +48,9 @@ public class PhoneOsAction extends BasicAction {
 		return list();
 	}
 
-	/**根据id数组查询扩展List
+	/**
+	 * 根据id数组查询扩展List
+	 * 
 	 * @return
 	 */
 	private List<Extension> getExtensionsList() {
@@ -84,9 +86,7 @@ public class PhoneOsAction extends BasicAction {
 	}
 
 	private void initData() {
-		PageResult<Extension> pageResult = new PageResult<Extension>();
-		extensionService.findAll(pageResult, null);
-		request.setAttribute("extensionList", pageResult.getList());
+		request.setAttribute("extensionList", extensionService.findAll(null));
 	}
 
 	public PhoneOs getPhoneOs() {

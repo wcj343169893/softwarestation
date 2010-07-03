@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 import cn.common.action.BasicAction;
+import cn.common.util.Config;
 import cn.common.util.Folder;
 import cn.common.util.PageResult;
 import cn.common.util.Tool;
@@ -16,6 +17,7 @@ import cn.ss.entity.ClickLog;
 import cn.ss.entity.Extension;
 import cn.ss.entity.PhoneModel;
 import cn.ss.entity.PhoneOs;
+import cn.ss.entity.Report;
 import cn.ss.entity.Software;
 import cn.ss.entity.SoftwareInfo;
 import cn.ss.entity.SoftwareType;
@@ -24,6 +26,7 @@ import cn.ss.service.ActiveLogService;
 import cn.ss.service.ClickLogService;
 import cn.ss.service.PhoneModelService;
 import cn.ss.service.PhoneOsService;
+import cn.ss.service.ReportService;
 import cn.ss.service.SoftwareInfoService;
 import cn.ss.service.SoftwareService;
 import cn.ss.service.SoftwareTypeService;
@@ -37,6 +40,7 @@ public class SoftwareInfoAction extends BasicAction {
 	private PhoneOsService phoneOsService;
 	private ActiveLogService activeLogService;
 	private PhoneModelService phoneModelService;
+	private ReportService reportService;
 	private String name;
 	private Integer id;
 	private int p;
@@ -84,6 +88,21 @@ public class SoftwareInfoAction extends BasicAction {
 	 * 手机型号
 	 */
 	private int mid;
+
+	/**
+	 * 报错id
+	 */
+	private int rid;
+
+
+	public String d() throws Exception {
+		softwareInfo = softwareInfoService.findById(id);
+		if (softwareInfo.getVote() != null) {
+			softwareInfo.setVote(softwareInfo.getVote() + 1);
+		}
+		softwareInfoService.update(softwareInfo);
+		return "dingnidefei";
+	}
 
 	public String delete() throws Exception {
 		// 先删除文件以及文件的目录
@@ -356,13 +375,13 @@ public class SoftwareInfoAction extends BasicAction {
 	 * 初始化数据
 	 */
 	protected void dataInit() {
-		PageResult<PhoneOs> phoneOsPageResult = new PageResult<PhoneOs>();
-		phoneOsService.findAll(phoneOsPageResult, null);
-		PageResult<SoftwareType> softwareTypePageResult = new PageResult<SoftwareType>();
-		softwareTypeService.findAll(softwareTypePageResult, null);
+		// PageResult<PhoneOs> phoneOsPageResult = new PageResult<PhoneOs>();
+		// PageResult<SoftwareType> softwareTypePageResult = new
+		// PageResult<SoftwareType>();
+		// softwareTypeService.findAll( null);
 
 		String phoneOs_s = "";
-		List<PhoneOs> phoneOsList = (List<PhoneOs>) phoneOsPageResult.getList();
+		List<PhoneOs> phoneOsList = (List<PhoneOs>) phoneOsService.findAll();
 		int size = phoneOsList.size();
 		for (int i = 0; i < phoneOsList.size(); i++) {
 			phoneOs_s += phoneOsList.get(i).getId() + ","
@@ -373,8 +392,8 @@ public class SoftwareInfoAction extends BasicAction {
 		}
 		request.setAttribute("phoneOs_s", phoneOs_s);
 		request.setAttribute("phoneOsList", phoneOsList);
-		request.setAttribute("softwareTypeList", softwareTypePageResult
-				.getList());
+		request.setAttribute("softwareTypeList", softwareTypeService
+				.findAll(null));
 	}
 
 	public String detail() throws Exception {
@@ -703,6 +722,22 @@ public class SoftwareInfoAction extends BasicAction {
 
 	public void setMore(String more) {
 		this.more = more;
+	}
+
+	public ReportService getReportService() {
+		return reportService;
+	}
+
+	public void setReportService(ReportService reportService) {
+		this.reportService = reportService;
+	}
+
+	public int getRid() {
+		return rid;
+	}
+
+	public void setRid(int rid) {
+		this.rid = rid;
 	}
 
 }

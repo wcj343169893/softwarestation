@@ -19,11 +19,11 @@ public class DownloadLogService extends BasicService {
 		StringBuffer hql = new StringBuffer("from DownloadLog a where 1=1");
 		if (beginTime != null && !"".equals(beginTime)
 				&& Tool.stringFormatDate(beginTime, "yyyy-MM-dd") != null) {
-			hql.append(" and a.downloadTime >= '" + beginTime + "'");
+			hql.append(" and DATE_FORMAT(a.downloadTime,'%y %m %d') >= DATE_FORMAT('"+beginTime+"','%y %m %d')");
 		}
 		if (endTime != null && !"".equals(endTime)
 				&& Tool.stringFormatDate(endTime, "yyyy-MM-dd") != null) {
-			hql.append(" and a.downloadTime =< '" + endTime + "'");
+			hql.append(" and DATE_FORMAT(a.downloadTime,'%y %m %d') <= DATE_FORMAT('"+endTime+"','%y %m %d')");
 		}
 		if (sid > 0) {
 			hql.append(" and a.softwareInfo.id = " + sid);

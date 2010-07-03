@@ -9,10 +9,25 @@
 <script type="text/javascript" src="/admin/script/common.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>品牌列表</title>
+<script type="text/javascript">
+function mysearch(p){
+	if(p==-1){
+			p=document.getElementById("pageNo").value;
+	}
+	var myform=document.getElementById("myform");
+	myform.action="phoneBrand!list.action?p="+p;
+	myform.submit();
+}
+</script>
 </head>
 <body>
-
 <div class="page_title">管理中心 &gt; 品牌列表</div>
+<div class="page_search" style="float: left; width: 800px;">
+<form action="" method="post" id="myform">
+品牌名称<input type="text" name="name" value="${name}">
+<input type="button" value="查询" onclick="mysearch(1)">
+</form>
+</div>
 <div class="button_bar">
 <input type="button" value="新增品牌" onclick="to('/admin/phone/phoneBrandUpdate.jsp')"/>
 </div>
@@ -49,11 +64,13 @@
 	</c:choose>
 </table>
 <div class="pager">
-<c:set var="page" value="${pageResult}"></c:set> 共${page.recTotal }条记录 每页<input
+		<c:set var="page" value="${pageResult}"></c:set> 共${page.recTotal }条记录 每页<input
 			value="${page.pageSize}" size="2" id="pageSize"/>条 第<input value="${page.pageNo}" size="2"/>页/共${page.pageTotal}页
-		<a href="phoneBrand!list.action?p=1">第一页</a> <c:if test="${page.pageNo!=1}"><a href="phoneBrand!list.action?p=${page.pageNo-1 }">上一页</a> </c:if>
-				<c:if test="${page.pageNo<page.pageTotal}"><a href="phoneBrand!list.action?p=${page.pageNo+1 }">下一页</a> </c:if> <a
-			href="phoneBrand!list.action?p=${page.pageTotal}">最后一页</a> 
-		</div>
+		<a href="javascript:mysearch(1)">第一页</a> <c:if test="${page.pageNo!=1}"><a href="javascript:mysearch(${page.pageNo-1 })">上一页</a> </c:if>
+				<c:if test="${page.pageNo<page.pageTotal}"><a href="javascript:mysearch(${page.pageNo+1 })">下一页</a> </c:if> <a
+			href="javascript:mysearch(${page.pageTotal})">最后一页</a> 转到<input
+			value="${page.pageNo}" size="2" id="pageNo" />页
+		<button onclick="javascript:mysearch(-1)">GO</button>
+</div>
 </body>
 </html>

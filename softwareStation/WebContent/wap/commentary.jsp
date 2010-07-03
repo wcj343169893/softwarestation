@@ -8,6 +8,7 @@
 <wml>
 <card title="评论">
 <p>
+<jsp:include page="notices.jsp"></jsp:include>
 <a href="showsoftwareInfo.php?id=${softwareInfo.id}&amp;mid=${mid }">${softwareInfo.name }</a><br />
 【浏览+发表评论】<br />
 <input name="content" />
@@ -52,7 +53,7 @@
 </anchor>
 ------------------------------<br />
 <a href="index.php?mid=${mid }">首页</a>&gt;手机软件<br />
-------------------------------<br />
+<jsp:include page="detail.jsp"></jsp:include>
 </p>
 </card>
 </wml>

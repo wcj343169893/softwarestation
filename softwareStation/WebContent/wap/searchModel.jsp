@@ -6,6 +6,7 @@
 <wml>
 <card title="设置我的手机">
 <p>
+<jsp:include page="notices.jsp"></jsp:include>
 <anchor>
 	<go href="setmodel.php?mid=${mid }"></go>返回
 </anchor>
@@ -48,7 +49,7 @@
 3.建议您设置完机型或平台后将本站收藏(存为书签),方便您下次访问无需再次设置机型,还能节省您宝贵的流量.<br />
 --------------------<br />
 <a href="index.php?mid=${mid }">首页</a>&gt;<a href="setmodel.php?mid=${mid }">设置机型</a>&gt;机型搜索<br />
---------------------<br />
+<jsp:include page="detail.jsp"></jsp:include>
 </p>
 </card>
 </wml>
