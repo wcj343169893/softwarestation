@@ -4,7 +4,7 @@
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE wml PUBLIC "-//WAPFORUM//DTD WML 1.3//EN" "http://www.wapforum.org/DTD/wml13.dtd">
 <wml>
-<card title="软件站">
+<card title="手机软件 - 361软件站">
 <p>
 <jsp:include page="notices.jsp"></jsp:include>
 <c:if test="${indexDTO eq null}">
@@ -21,6 +21,7 @@
 	</c:otherwise>
 </c:choose>
 <img src="/img/logo.gif" alt="361软件站" /><br />
+网址:361rj.com<br />
 <a href="newsindex.php?mid=${mid }">最新</a>|<a href="commendindex.php?mid=${mid }">推荐</a>|<a href="rankindex.php?mid=${mid }">排行</a>|<a href="lsst.php?mid=${mid }">分类</a><br />
 <c:forEach items="${indexDTO.software_topsList}" var="softwareInfo">
 	<a href="showsoftwareInfo.php?id=${softwareInfo.id}&amp;mid=${mid }">${softwareInfo.name}</a><br/>
