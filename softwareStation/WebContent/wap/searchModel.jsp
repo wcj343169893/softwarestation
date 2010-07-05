@@ -18,7 +18,7 @@
 	</c:when>
 	<c:otherwise>
 		<c:forEach items="${pageResult.list}" var="model" varStatus="vs">
-		${vs.count }.<a href="index.php?mid=${model.id }">${model.phoneseries.brand.name }${model.name }</a><br />
+		${vs.count }.<a href="suremodel.php?mid=${model.id }">${model.phoneseries.brand.name }${model.name }</a><br />
 		</c:forEach>
 		<c:set var="page" value="${pageResult}"></c:set>
 			<c:if test="${page.pageNo!=1}"><a href="searchmodel.php?keyword=${keyword }&amp;p=${page.pageNo-1 }&amp;mid=${mid }">上页</a></c:if>

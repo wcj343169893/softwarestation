@@ -34,7 +34,7 @@
 	<fmt:formatDate value="${softwareInfo.createTime }" pattern="yyyy-MM-dd" var="ct"/>
 	[更新]${ct}<br/>
 	[资费]${softwareInfo.traffic >0 ?softwareInfo.traffic:"完全免费"}<br/>
-	[安全]${softwareInfo.safety}<br/>
+	[安全]<a href="help.php?mid=${mid }&amp;no=4">${softwareInfo.safety}</a><br/>
 	[软件简介]
 		<c:choose>
 			<c:when test="${more eq null}">

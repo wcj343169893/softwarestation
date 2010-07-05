@@ -94,7 +94,6 @@ public class SoftwareInfoAction extends BasicAction {
 	 */
 	private int rid;
 
-
 	public String d() throws Exception {
 		softwareInfo = softwareInfoService.findById(id);
 		if (softwareInfo.getVote() != null) {
@@ -139,6 +138,9 @@ public class SoftwareInfoAction extends BasicAction {
 		softwareInfo.setPromotionWay(softwareForm.getPromotionWay());
 		softwareInfo.setDescription(softwareForm.getDescription());
 		softwareInfo.setTops(softwareForm.getTops());
+		softwareInfo.setShortName(softwareForm.getShortName());
+		softwareInfo.setIsRename(softwareForm.getIsRename());
+		softwareInfo.setVote(0);
 
 		// 判断是否有截图
 		if (softwareForm.getImage() != null) {
@@ -181,7 +183,10 @@ public class SoftwareInfoAction extends BasicAction {
 				if (extenIsTrue(maps.get(ids.get(i)), fileName
 						.substring(fileName.lastIndexOf(".")))) {
 					System.out.println(fileName);
-					// fileName = rename(calendar, fileName);
+					if (softwareInfo.getIsRename() != null
+							&& softwareInfo.getIsRename() == 1) {
+						fileName = rename(calendar, fileName);
+					}
 					Tool.UploadFile(upload.get(i), fileName, uploadPath,
 							Folder.file, softwareInfo.getId());// 上传
 					// 新增软件
@@ -209,7 +214,7 @@ public class SoftwareInfoAction extends BasicAction {
 	 * @return
 	 */
 	private String rename(Calendar calendar, String fileName) {
-		fileName = "[yulezu]"
+		fileName = "[361rj.com]"
 				+ String.valueOf(calendar.getTimeInMillis())
 				+ fileName.substring(fileName.lastIndexOf("."), fileName
 						.length());
@@ -243,6 +248,8 @@ public class SoftwareInfoAction extends BasicAction {
 		softwareInfo.setPromotionWay(softwareForm.getPromotionWay());
 		softwareInfo.setDescription(softwareForm.getDescription());
 		softwareInfo.setTops(softwareForm.getTops());
+		softwareInfo.setShortName(softwareForm.getShortName());
+		softwareInfo.setIsRename(softwareForm.getIsRename());
 		// 修改截图
 		if (softwareForm.getImage() != null) {
 			// 如果之前有截图，则只覆盖文件，如果没有，则新增一个
@@ -320,6 +327,10 @@ public class SoftwareInfoAction extends BasicAction {
 							Tool.deleteFile(uploadPath, Folder.file,
 									softwareInfo.getId(), software
 											.getDownloadPath());
+							if (softwareInfo.getIsRename() != null
+									&& softwareInfo.getIsRename() == 1) {
+								fileName = rename(calendar, fileName);
+							}
 							software.setDownloadPath(fileName);
 							File softwareFile = softwares.get(0);
 							Tool.UploadFile(softwareFile, fileName, uploadPath,
@@ -347,6 +358,10 @@ public class SoftwareInfoAction extends BasicAction {
 				if (extenIsTrue(maps.get(ids.get(i)), fileName
 						.substring(fileName.lastIndexOf(".")))) {
 					File f = upload.get(i);
+					if (softwareInfo.getIsRename() != null
+							&& softwareInfo.getIsRename() == 1) {
+						fileName = rename(calendar, fileName);
+					}
 					System.out.println("fileName:" + fileName + "\t length:"
 							+ f.length());
 					Tool.UploadFile(f, fileName, uploadPath, Folder.file,
@@ -445,7 +460,8 @@ public class SoftwareInfoAction extends BasicAction {
 			System.out.println("后缀1：" + name);
 			for (int i = 0; i < extension.size(); i++) {
 				System.out.println("extension" + extension.get(i).getName());
-				if (extension.get(i).getName().equals(name)) {
+				if (extension.get(i).getName().toLowerCase().equals(
+						name.toLowerCase())) {
 					software_p = software;
 					flag = true;
 					System.out.println("匹配成功！" + name);
@@ -464,7 +480,7 @@ public class SoftwareInfoAction extends BasicAction {
 				name = software.getDownloadPath();
 				name = name.substring(name.lastIndexOf("."));// 获取文件的后缀
 				System.out.println("后缀2：" + name);
-				if (name.equals(".jar")) {
+				if (name.toLowerCase().equals(".jar")) {
 					software_java = software;
 					request.setAttribute("software_java_name", name
 							.substring(1));
@@ -534,7 +550,8 @@ public class SoftwareInfoAction extends BasicAction {
 			for (PhoneOs phoneOs : phoneOsList) {
 				extesionList = phoneOs.getExtensionList();
 				for (Extension extension : extesionList) {
-					if (extension.getName().equals(exten)) {
+					if (extension.getName().trim().toLowerCase().equals(
+							exten.trim().toLowerCase())) {
 						flag = true;
 						break;
 					}

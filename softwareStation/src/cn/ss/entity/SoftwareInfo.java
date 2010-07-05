@@ -51,6 +51,7 @@ public class SoftwareInfo implements java.io.Serializable {
 	private Integer isShow = 1;
 
 	private Integer plusFine = 0;
+	private String shortName;
 
 	/**
 	 * ¶¥Ò»ÏÂ
@@ -315,6 +316,14 @@ public class SoftwareInfo implements java.io.Serializable {
 
 	public void setTops(Integer tops) {
 		this.tops = tops;
+	}
+
+	public String getShortName() {
+		return shortName;
+	}
+
+	public void setShortName(String shortName) {
+		this.shortName = shortName;
 	}
 
 }

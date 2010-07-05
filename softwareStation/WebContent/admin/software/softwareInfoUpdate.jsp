@@ -87,7 +87,6 @@
 				data+="<input type='checkbox' id='all"+ids+"' class='clazz"+i+"' onclick=\"checks('clazz"+i+"',this,1)\"/><label for='all"+ids+"'>全选</label>";
 				data+="</td>";
 				data+="<td>";
-				data+="<input type='checkbox' id='all"+ids+"' class='clazz"+i+"' onclick=\"checks('clazz"+i+"',this,2)\"/><label for='all"+ids+"'>全选</label>";
 				var indexs=1;
 				for(var j=0;j<phoneOs_s2.length;j++){
 					if(j%2==0){
@@ -144,10 +143,14 @@
 	<form action="softwareInfo!add.action" method="post" enctype="multipart/form-data" id="softwareInfoForm1">
 	<table class="query_form_table">
 			<tr>
-				<th>文件数量:</th><td><input id="rows" name="softwareForm.number"/>
+				<th>文件数量:</th>
+				<td colspan="3"><input id="rows" name="softwareForm.number"/>
 					<input type="button" onclick="create()" value="设置"/>
 				</td>
-				<th>软件名称:</th><td><input name="softwareForm.name"/></td>
+			</tr>
+			<tr>
+				<th>软件简称:</th><td><input name="softwareForm.shortName"/></td>
+				<th>软件全称:</th><td><input name="softwareForm.name"/></td>
 			</tr>
 			<tr>
 				<th>分类:</th>
@@ -181,8 +184,15 @@
 			</tr>
 			<tr>
 				<th>开发商:</th>
-				<td colspan="3">
+				<td>
 					<input type="text" name="softwareForm.producer" value="">
+				</td>
+				<th>是否允许重命名:</th>
+				<td>
+					<input type="radio" name="softwareForm.isRename"  value="1" id="isRenameY">
+					<label for="isRenameY">是</label>
+					<input type="radio" name="softwareForm.isRename" checked="checked" value="0" id="isRenameN">
+					<label for="isRenameN">否</label>
 				</td>
 			</tr>
 			<tr>
@@ -258,12 +268,16 @@
 		<form action="softwareInfo!edit.action" method="post" enctype="multipart/form-data" id="softwareInfoForm2">
 			<table class="query_form_table">
 			<tr>
-				<th>文件数量:</th><td>
+				<th>文件数量:</th>
+				<td colspan="3">
 				<c:set value="${fn:length(softwareInfo.softwareList)}" var="softwareNumbers"></c:set>
 					<input id="number" type="hidden"  name="" value="${softwareNumbers }"/>
 					<input id="rows" value="1"/>
 					<input type="button" onclick="addFile()" value="增加"/>
 				</td>
+			</tr>
+			<tr>
+				<th>软件简称:</th><td><input name="softwareForm.shortName" value="${softwareInfo.shortName }"/></td>
 				<th>软件名称:</th><td>
 				<input name="softwareForm.name" value="${softwareInfo.name }"/>
 				<input type="hidden" value="${softwareInfo.id }" name="softwareForm.id">
@@ -301,8 +315,15 @@
 			</tr>
 			<tr>
 				<th>开发商:</th>
-				<td colspan="3">
+				<td>
 					<input type="text" name="softwareForm.producer" value="${softwareInfo.producer }" maxlength="180">
+				</td>
+				<th>是否允许重命名:</th>
+				<td>
+					<input type="radio" name="softwareForm.isRename" <c:if test="${softwareInfo.isRename == 1}">checked</c:if> value="1" id="isRenameY">
+					<label for="isRenameY">是</label>
+					<input type="radio" name="softwareForm.isRename" <c:if test="${softwareInfo.isRename == 0}">checked</c:if> value="0" id="isRenameN">
+					<label for="isRenameN">否</label>
 				</td>
 			</tr>
 			<tr>

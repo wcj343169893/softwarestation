@@ -62,6 +62,12 @@ public class SoftwareForm {
 	private int promotionWay;
 	private String description;
 	private String imgPath;
+	private int isRename;
+	/**
+	 * ¼ò³Æ
+	 */
+	private String shortName;
+
 	/**
 	 * ¶¥Ò»ÏÂ
 	 */
@@ -269,6 +275,22 @@ public class SoftwareForm {
 
 	public void setTops(Integer tops) {
 		this.tops = tops;
+	}
+
+	public String getShortName() {
+		return shortName;
+	}
+
+	public void setShortName(String shortName) {
+		this.shortName = shortName;
+	}
+
+	public int getIsRename() {
+		return isRename;
+	}
+
+	public void setIsRename(int isRename) {
+		this.isRename = isRename;
 	}
 
 }

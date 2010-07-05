@@ -16,6 +16,11 @@
 				<comment>名称</comment>
 			</column>
 		</property>
+		<property name="shortName" type="java.lang.String">
+			<column name="shortName" length="20">
+				<comment>简称</comment>
+			</column>
+		</property>
 		<many-to-one name="softwareType">
 			<column name="type">
 				<comment>分类</comment>

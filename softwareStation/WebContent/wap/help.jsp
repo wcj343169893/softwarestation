@@ -113,7 +113,7 @@
 		3.<a href="help.php?mid=${mid }&amp;no=3">软件安装教程</a><br />
 		4.<a href="help.php?mid=${mid }&amp;no=4">病毒/插件/暗扣</a><br />
 		5.<a href="help.php?mid=${mid }&amp;no=5">查看机型方法说明</a><br />
-		6.<a href="help.php?mid=${mid }&amp;no=6">天网书签使用方法</a><br />
+		6.<a href="help.php?mid=${mid }&amp;no=6">361书签使用方法</a><br />
 		--------------------<br />
 		<a href="index.php?mid=${mid }">首页</a>&gt;帮助
 		<br /> <jsp:include page="detail.jsp"></jsp:include></p>
