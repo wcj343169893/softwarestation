@@ -76,7 +76,9 @@
 <div class="page_title">管理中心 &gt; 软件列表</div>
 <div class="page_search" style="float: left; width: 800px;">
 <form action="" method="post" id="myform">
-<input type="hidden" name="showData" value="${showData }"/>软件分类  
+<input type="hidden" name="showData" value="${showData }"/>
+<input type="hidden" name="promotionWay" value="${promotionWay }"/>
+软件分类  
 <select name="softwareTypeId">
 	<option value="0">全部</option>
 	<c:forEach items="${softwareTypeList }" var="stl">
