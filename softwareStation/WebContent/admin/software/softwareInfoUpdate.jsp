@@ -149,8 +149,8 @@
 				</td>
 			</tr>
 			<tr>
-				<th>软件简称:</th><td><input name="softwareForm.shortName"/></td>
 				<th>软件全称:</th><td><input name="softwareForm.name"/></td>
+				<th>软件简称:</th><td><input name="softwareForm.shortName"/></td>
 			</tr>
 			<tr>
 				<th>分类:</th>
@@ -277,11 +277,11 @@
 				</td>
 			</tr>
 			<tr>
-				<th>软件简称:</th><td><input name="softwareForm.shortName" value="${softwareInfo.shortName }"/></td>
 				<th>软件名称:</th><td>
 				<input name="softwareForm.name" value="${softwareInfo.name }"/>
 				<input type="hidden" value="${softwareInfo.id }" name="softwareForm.id">
 				</td>
+				<th>软件简称:</th><td><input name="softwareForm.shortName" value="${softwareInfo.shortName }"/></td>
 			</tr>
 			<tr>
 				<th>分类:</th>

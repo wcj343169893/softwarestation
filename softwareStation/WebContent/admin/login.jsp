@@ -217,7 +217,6 @@
 <!-- End Save for Web Styles -->
 </head>
 <body style="background-color:#FFFFFF;">
-<!-- Save for Web Slices (login.png) -->
 <div id="__01">
 	<div id="login-01_">
 		<img id="login_01" src="images/login/login_01.gif" width="830" height="120" alt="" />
@@ -303,6 +302,5 @@
 		<img id="login_24" src="images/login/login_24.gif" width="830" height="99" alt="" />
 	</div>
 </div>
-<!-- End Save for Web Slices -->
 </body>
 </html>

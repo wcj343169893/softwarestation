@@ -94,6 +94,8 @@ public class SoftwareInfoAction extends BasicAction {
 	 */
 	private int rid;
 
+	private String ids;
+
 	public String d() throws Exception {
 		softwareInfo = softwareInfoService.findById(id);
 		if (softwareInfo.getVote() != null) {
@@ -106,7 +108,29 @@ public class SoftwareInfoAction extends BasicAction {
 	public String delete() throws Exception {
 		// 先删除文件以及文件的目录
 		init();
-		softwareInfo = softwareInfoService.findById(id);
+		if (ids != null && !"".equals(ids.trim())) {
+			String[] idList = ids.split(",");
+			for (int i = 0; i < idList.length; i++) {
+				if (idList[i] != null && !"".equals(idList[i].trim())) {
+					try {
+						int id = Integer.parseInt(idList[i].trim());
+						// System.out.println("id:"+id);
+						softwareInfo = softwareInfoService.findById(id);
+						deleteSoftwareInfo();
+					} catch (Exception e) {
+						// System.out.println("delete softwareInfo error ,beacuse id is String or it is error");
+						// e.printStackTrace();
+					}
+				}
+			}
+		} else {
+			softwareInfo = softwareInfoService.findById(id);
+			deleteSoftwareInfo();
+		}
+		return list();
+	}
+
+	private void deleteSoftwareInfo() {
 		if (softwareInfo != null && softwareInfo.getId() > 0) {
 			Tool.removeFile(uploadPath + Folder.image + "/"
 					+ softwareInfo.getId());// 删除截图
@@ -114,8 +138,8 @@ public class SoftwareInfoAction extends BasicAction {
 					+ softwareInfo.getId());// 删除软件
 		}
 		// 再删除数据库中的信息
-		softwareInfoService.delete(id);
-		return list();
+		softwareInfoService.delete(softwareInfo.getId());
+		// System.out.println("delete softwareInfo id="+softwareInfo.getId());
 	}
 
 	public String add() throws Exception {
@@ -185,7 +209,7 @@ public class SoftwareInfoAction extends BasicAction {
 					System.out.println(fileName);
 					if (softwareInfo.getIsRename() != null
 							&& softwareInfo.getIsRename() == 1) {
-						fileName = rename(calendar, fileName);
+						fileName = rename(fileName);
 					}
 					Tool.UploadFile(upload.get(i), fileName, uploadPath,
 							Folder.file, softwareInfo.getId());// 上传
@@ -218,6 +242,17 @@ public class SoftwareInfoAction extends BasicAction {
 				+ String.valueOf(calendar.getTimeInMillis())
 				+ fileName.substring(fileName.lastIndexOf("."), fileName
 						.length());
+		return fileName;
+	}
+
+	/**
+	 * 重命名文件，只原文件名前面加上[361rj.com]
+	 * 
+	 * @param fileName
+	 * @return
+	 */
+	private String rename(String fileName) {
+		fileName = "[361rj.com]" + fileName;
 		return fileName;
 	}
 
@@ -329,7 +364,7 @@ public class SoftwareInfoAction extends BasicAction {
 											.getDownloadPath());
 							if (softwareInfo.getIsRename() != null
 									&& softwareInfo.getIsRename() == 1) {
-								fileName = rename(calendar, fileName);
+								fileName = rename(fileName);
 							}
 							software.setDownloadPath(fileName);
 							File softwareFile = softwares.get(0);
@@ -360,7 +395,7 @@ public class SoftwareInfoAction extends BasicAction {
 					File f = upload.get(i);
 					if (softwareInfo.getIsRename() != null
 							&& softwareInfo.getIsRename() == 1) {
-						fileName = rename(calendar, fileName);
+						fileName = rename(fileName);
 					}
 					System.out.println("fileName:" + fileName + "\t length:"
 							+ f.length());
@@ -755,6 +790,14 @@ public class SoftwareInfoAction extends BasicAction {
 
 	public void setRid(int rid) {
 		this.rid = rid;
+	}
+
+	public String getIds() {
+		return ids;
+	}
+
+	public void setIds(String ids) {
+		this.ids = ids;
 	}
 
 }

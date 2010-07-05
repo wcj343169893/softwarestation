@@ -25,6 +25,13 @@ function del(url){
 	}
 	return false;
 }
+function mouseOvers(obj){
+	//obj.style.background="#E3E3E3";
+	//alert(obj.style.background);
+}
+function mouseOuts(obj){
+	//obj.style.background="#3399CC";
+}
 function setCurTime(oid){
 	var now=new Date();
 	var year=now.getYear();

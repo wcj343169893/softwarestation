@@ -20,10 +20,59 @@
 			myform.action="softwareInfo!list.action?p="+p;
 			myform.submit();
 		}
+	
+	function checks(obj){
+		var inputs=document.getElementsByTagName("input");
+		//alert(inputs);
+		//alert(inputs.length);
+		var flag=obj.checked;
+		//alert(flag);
+		var e;
+		for(var i=0;i<inputs.length;i++){
+			e=inputs[i];
+			//alert(e.type);
+			if(e.type=="checkbox" && e.className=="_allcheck"){
+					e.checked=flag;
+			}
+		}
+	}
+	function checks2(obj){
+		var inputs=document.getElementsByTagName("input");
+		var flag=obj.checked;
+		var flag2=true;
+		var e;
+		for(var i=0;i<inputs.length;i++){
+			e=inputs[i];
+			if(e.type=="checkbox" && e.className=="_allcheck"&&e.checked==false){
+				flag2=false;
+				break;	
+			}
+		}
+		var allCheck=document.getElementById("allCheck");
+		allCheck.checked=flag2;
+	}
+	function deletes(){
+		var ids="";
+		var inputs=document.getElementsByTagName("input");
+		//alert(inputs);
+		//alert(inputs.length);
+		var flag=obj.checked;
+		//alert(flag);
+		var e;
+		for(var i=0;i<inputs.length;i++){
+			e=inputs[i];
+			//alert(e.type);
+			if(e.type=="checkbox" && e.className=="_allcheck"&&e.checked==true){
+				ids+=e.value+",";
+			}
+		}
+		//alert(ids);
+		del('softwareInfo!delete.action?ids='+ids);
+	}
 </script>
 </head>
 <body>
-<jsp:useBean id="now" class="java.util.Date" /> 
+<jsp:useBean id="now_date" class="java.util.Date" /> 
 <div class="page_title">管理中心 &gt; 软件列表</div>
 <div class="page_search" style="float: left; width: 800px;">
 <form action="" method="post" id="myform">
@@ -46,9 +95,13 @@
 <c:set value="0" var="ds"></c:set>
 <c:set value="0" var="as"></c:set>
 <c:set value="0" var="allmoney"></c:set>
+<fmt:formatDate value="${now_date }" pattern="yyyy-MM-dd" var="now"/>
 <fmt:formatDate value="${yesterday }" pattern="yyyy-MM-dd" var="n"/>
 <table class="data_list_table">
 	<tr>
+		<th>
+			<input type="checkbox" onclick="javascript:checks(this)" id="allCheck">
+		</th>
 		<th>编号</th>
 		<th>软件名称</th>
 		<th>分类</th>
@@ -83,6 +136,7 @@
 		<c:otherwise>
 			<c:forEach var="softwareInfo" items="${pageResult.list }">
 				<tr>
+					<td><input type="checkbox" class="_allcheck" onclick="javascript:checks2(this)" value="${softwareInfo.id }"></td>
 					<td class="list_data_number">${softwareInfo.id }</td>
 					<td class="list_data_text"><a href="softwareInfo!detail.action?id=${softwareInfo.id }">${fn:substring(softwareInfo.name,0,10) }</a></td>
 					<td class="list_data_text">${softwareInfo.softwareType.name}</td>
@@ -94,19 +148,40 @@
 					<c:set value="0" var="click"></c:set>
 					<!-- 下载数 -->
 					<c:forEach items="${softwareInfo.downloadLogList }" var="downloadLog">
-						<fmt:formatDate value="${downloadLog.downloadTime }" pattern="yyyy-MM-dd" var="dlt"/>
-						<c:if test="${dlt==n }">
-							<c:set value="${dowload+downloadLog.number}" var="dowload"></c:set>
-						</c:if>
+					<c:choose>
+						<c:when test="${showData==1}"><!-- 数据分析昨天 -->
+							<fmt:formatDate value="${downloadLog.downloadTime }" pattern="yyyy-MM-dd" var="dlt"/>
+							<c:if test="${dlt==n }">
+								<c:set value="${dowload+downloadLog.number}" var="dowload"></c:set>
+							</c:if>
+						</c:when>
+						<c:otherwise><!-- 今天 -->
+							<fmt:formatDate value="${downloadLog.downloadTime }" pattern="yyyy-MM-dd" var="dlt"/>
+							<c:if test="${dlt==now }">
+								<c:set value="${dowload+downloadLog.number}" var="dowload"></c:set>
+							</c:if>
+						</c:otherwise>
+					</c:choose>
+						
 					</c:forEach>
 					<!-- 点击数 -->
 					<c:forEach items="${softwareInfo.clickLogList }" var="clickLog">
-						<fmt:formatDate value="${clickLog.clickTime }" pattern="yyyy-MM-dd" var="dlt"/>
-						<c:if test="${dlt==n }">
-							<c:set value="${click+clickLog.number}" var="click"></c:set>
-						</c:if>
+					<c:choose>
+						<c:when test="${showData==1}">
+							<fmt:formatDate value="${clickLog.clickTime }" pattern="yyyy-MM-dd" var="dlt"/>
+							<c:if test="${dlt==n }">
+								<c:set value="${click+clickLog.number}" var="click"></c:set>
+							</c:if>
+						</c:when>
+						<c:otherwise>
+							<fmt:formatDate value="${clickLog.clickTime }" pattern="yyyy-MM-dd" var="dlt"/>
+							<c:if test="${dlt==now }">
+								<c:set value="${click+clickLog.number}" var="click"></c:set>
+							</c:if>
+						</c:otherwise>
+						</c:choose>
 					</c:forEach>
-					
+					<!-- 总点击，总下载 -->
 					<c:set value="${click+cs}" var="cs"></c:set>
 					<c:set value="${dowload+ds}" var="ds"></c:set>
 					<c:set value="0" var="clid"></c:set>
@@ -168,6 +243,9 @@
 		</c:otherwise>
 	</c:choose>
 </table>
+<div>
+<input type="button" value="批量删除" style="float: left; width: 70px" onclick="javascript:deletes()">
+</div>
 	<div class="pager">
 	点击:${cs } 下载:${ds } 激活:${as } 收入:${allmoney }
 		<c:set var="page" value="${pageResult}"></c:set> 共${page.recTotal }条记录 每页<input
