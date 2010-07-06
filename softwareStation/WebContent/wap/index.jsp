@@ -28,23 +28,17 @@
 </c:forEach>
 【今日精品】<br />
 <c:set value="" var="plusFine"></c:set><c:set value="${fn:length(indexDTO.software_plusFineList)}" var="maxlength"></c:set><c:forEach items="${indexDTO.software_plusFineList}" var="softwareInfo" varStatus="vs"><c:set value="${plusFine}|${softwareInfo.name}" var="plusFine"></c:set><a href="showsoftwareInfo.php?id=${softwareInfo.id}&amp;mid=${mid }">${softwareInfo.shortName}</a><c:choose><c:when test="${fn:length(plusFine) > 10}"><br/><c:set value="" var="plusFine"></c:set></c:when><c:when test="${maxlength==vs.count }"><br/><c:set value="" var="plusFine"></c:set></c:when><c:otherwise>|</c:otherwise></c:choose></c:forEach>
+<%
+/*
 【今日推荐】<br />
 <c:set value="" var="recommend"></c:set><c:set value="${fn:length(indexDTO.software_recommendList)}" var="maxlength"></c:set><c:forEach items="${indexDTO.software_recommendList}" var="softwareInfo" varStatus="vs"><c:set value="${softwareInfo.name}|${recommend}" var="recommend"></c:set><a href="showsoftwareInfo.php?id=${softwareInfo.id}&amp;mid=${mid }">${softwareInfo.shortName}</a><c:choose><c:when test="${fn:length(recommend) > 10}"><br/><c:set value="" var="recommend"></c:set></c:when><c:when test="${maxlength==vs.count }"><br/><c:set value="" var="recommend"></c:set></c:when><c:otherwise>|</c:otherwise></c:choose></c:forEach>
-<input name="name" maxlength="15" size="8"/>
-<anchor>
-	<go href="searchsoftwareInfo.php" method="post">
-		<postfield name="name" value="$(name)" />
-		<postfield name="mid" value="${mid }" />
-	</go>搜软件
-</anchor> 
- <anchor>
-		<go href="searchmodel.php" method="post">
-			<postfield name="keyword" value="$(name)" />
-			<postfield name="mid" value="${mid }" />
-		</go>搜机型
-	</anchor>
-<br />
+*/
+%>
+ <!-- 搜索 -->
+<input name="name" maxlength="15" size="8"/><anchor><go href="searchsoftwareInfo.php" method="post"><postfield name="name" value="$(name)" /><postfield name="mid" value="${mid }" /></go>搜软件|</anchor><anchor><go href="searchmodel.php" method="post"><postfield name="keyword" value="$(name)" /><postfield name="mid" value="${mid }" /></go>搜机型</anchor><br />
 【软件分类】<br /><c:forEach items="${indexDTO.softwareTypeList}" var="softwareType"><a href="showst.php?mid=${mid}&amp;id=${softwareType.id}">${softwareType.name }</a><c:choose><c:when test="${softwareType.isWrap==1}"><br/></c:when><c:otherwise>|</c:otherwise></c:choose></c:forEach>
+【361服务】<br />
+友链|<a href="help.php?mid=${mid }&amp;no=6">收藏</a>|<a href="help.php?mid=${mid }&amp;no=8">合作</a>|<a href="help.php?mid=${mid }&amp;no=7">关于</a><br />
 <jsp:include page="detail.jsp"></jsp:include>
 </p>
 </card>

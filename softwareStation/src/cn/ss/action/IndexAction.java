@@ -50,7 +50,7 @@ public class IndexAction extends BasicAction {
 		// 2.推荐 recommend
 		List<SoftwareInfo> sirList = softwareInfoService.findAll(mid, -1, 1);
 		indexDTO.setSoftware_recommendList(sirList);
-		// 3.置顶软件5条
+		// 3.置顶软件20条
 		indexDTO.setSoftware_topsList(softwareInfoService.findAll(mid));
 
 		// 4.软件类型列表

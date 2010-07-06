@@ -53,7 +53,7 @@ public class SoftwareInfoDao extends HibernateDaoSupport {
 		criteria.add(Expression.eq("isShow", new Integer(1)));
 		if (tops==1) {
 			criteria.add(Expression.eq("tops", tops));
-			criteria.setMaxResults(5);
+			criteria.setMaxResults(20);
 		}
 		if (byDate == 1) {
 			criteria.addOrder(Order.desc("si.createTime"));

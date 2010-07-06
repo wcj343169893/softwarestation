@@ -244,13 +244,13 @@
 <!--
 		<img id="login_08" src="images/login/login_08.gif" width="129" height="15" alt="" />
 -->
-<input type="text" style="width: 129px;height: 15px">
+<input type="text" style="width: 129px;height: 15px;border: 0px">
 	</div>
 	<div id="login-09_">
 		<img id="login_09" src="images/login/login_09.gif" width="18" height="94" alt="" />
 	</div>
 	<div id="login-10_">
-	<button id="btn_submit"></button>
+	<button id="btn_submit" style="width: 35px;height: 39px; border: 0px"></button>
 	<!-- 
 		<img id="login_10" src="images/login/login_10.gif" width="35" height="39" alt="" />
 	 -->
@@ -265,7 +265,7 @@
 <!--
 		<img id="login_13" src="images/login/login_13.gif" width="129" height="14" alt="" />
 -->
-<input type="text" style="width: 129px;height: 14px">
+<input type="text" style="width: 129px;height: 14px;border: 0px">
 	</div>
 	</form>
 	<div id="login-14_">

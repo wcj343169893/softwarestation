@@ -100,13 +100,61 @@
 		<br /> <jsp:include page="detail.jsp"></jsp:include></p>
 		</card>
 	</c:when>
+	<c:when test="${no==7}">
+		<card title="关于361" >
+		<p>
+			<jsp:include page="notices.jsp"></jsp:include>
+			【关于361软件站】<br />
+			361软件站（wap.361rj.com）成立于2009年3月，是国内最大最专业的手机软件下载网站。成立1年多来，361软件站一直以提供最专业的手机软<br />
+			件下载服务为理念，专注于精品的内容、周到的人性化服务、健康友好互助的氛围，吸引了大量的手机用户。当前，网站日下载量超过10万，<br />
+			在国内专业WAP下载网站中名列第一，在中国移动统计的WAP站排名中天网跻身50强！<br />
+			未来我们期望能够与各合作伙伴通力合作，打造更为强大的手机软件发行平台，为中国的手机软件产业的发展贡献力量！ <br />
+			-----------------------------------------------------<br />
+			我们的成绩与进步离不开您的鞭策与建议，有任何的建议都可以在线与我们联系，我们有专人跟进并改进工作！谢谢您的支持！<br />
+			〓客服中心〓<br />
+			软件下载:023-68183320<br />
+			客户QQ：551789471<br />
+			客服时间:8:00-17:30(工作日)<br />
+			〓商务合作〓<br />
+			合作QQ:551789471<br />
+			电话:023-68183320<br />
+			〓战略合作〓<br />
+			QQ:727470767<br />
+			MSN:wap.uu3g.cn@qq.com<br />
+			电话:023-68183320<br />
+			<a href="index.php?mid=${mid }">首页</a>&gt;关于361
+			<br /><jsp:include page="detail.jsp"></jsp:include>
+		</p>
+		</card>
+	</c:when>
+	<c:when test="${no==8}">
+		<card title="商务合作" >
+		<p>
+			<jsp:include page="notices.jsp"></jsp:include>
+			       【诚信合作,数据说话】<br />
+				〓客服中心〓<br />
+				软件下载:023-68183320<br />
+				客服QQ：551789471<br />
+				客服时间:8:00-17:30(工作日)<br />
+				〓商务合作〓<br />
+				合作QQ:727470767,551789471<br />
+				电话:023-68183320<br />
+				邮箱:551789471@qq.com<br />
+				目前361软件站日均下载量已经超过10万，在专业WAP软件下载站中名列第一！在中国移动统计的WAP站<br />
+				排名中361软件站跻身50强！361软件站已经成为一个理想的手机软件发布、推广平台，我们热忱欢迎WAP联盟
+				、手机软件运营公司、以及WAP网站前来合作！以诚信与效果创造双赢！<br />
+				<a href="index.php?mid=${mid }">首页</a>&gt;商务合作
+			<br /><jsp:include page="detail.jsp"></jsp:include>
+		</p>
+		</card>
+	</c:when>
 	<c:otherwise>
 	<card title="帮助中心" >
 	<p><jsp:include page="notices.jsp"></jsp:include>
 		【用户帮助中心】<br />
 		=关于本站=<br />
 		免责声明<br />
-		关于我们<br />
+		<a href="help.php?mid=${mid }&amp;no=7">关于我们</a><br />
 		=关于软件下载=<br />
 		1.<a href="help.php?mid=${mid }&amp;no=1">手机平台介绍</a><br />
 		2.<a href="help.php?mid=${mid }&amp;no=2">下载文件格式</a><br />
@@ -117,7 +165,7 @@
 		--------------------<br />
 		<a href="index.php?mid=${mid }">首页</a>&gt;帮助
 		<br /> <jsp:include page="detail.jsp"></jsp:include></p>
-</card>
+	</card>
 	</c:otherwise>
 </c:choose>
 

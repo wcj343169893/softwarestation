@@ -52,17 +52,30 @@ public class TestIndex extends TestCase {
 	}
 
 	public void testSort2() {
-		Map<Integer, String> maps = new HashMap<Integer, String>();
-		maps.put(1, "手机浏览器UC");
-		maps.put(2, "手机浏");
-		maps.put(3, "览器UC");
-		maps.put(4, "手机UC");
-		maps.put(5, "手机浏");
-		maps.put(6, "手览器UC");
-		maps.put(7, "器UC");
-		maps.put(8, "UC");
+		Map<Integer, Integer> maps = new HashMap<Integer, Integer>();
+		maps.put(1, 5);
+		maps.put(2, 5);
+		maps.put(3, 2);
+		maps.put(4, 3);
+		maps.put(5, 4);
+		maps.put(6, 5);
+		maps.put(7, 7);
+		maps.put(8, 9);
+		maps.put(9, 2);
+		maps.put(0, 2);
+
+		Map<Integer, List<Integer>> map2 = new HashMap<Integer, List<Integer>>();
+		int id1 = (int) (Math.random() * map2.size());
+		
+		 System.out.println(id1);
+		
+		//获取maps中的第一个数
+		if (maps.containsKey(id1)) {
+			int number1=maps.get(id1);
+			System.out.println(number1);
+		}
 		for (Integer keys : maps.keySet()) {
-			
+			// System.out.println(keys);
 		}
 	}
 }
