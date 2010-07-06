@@ -22,12 +22,13 @@
 </c:choose>
 <img src="/img/logo.gif" alt="361软件站" /><br />
 网址:361rj.com<br />
-<a href="newsindex.php?mid=${mid }">最新</a>|<a href="commendindex.php?mid=${mid }">推荐</a>|<a href="rankindex.php?mid=${mid }">排行</a>|<a href="lsst.php?mid=${mid }">分类</a><br />
+<a href="newsindex.php?mid=${mid }">最新</a>|<a href="commendindex.php?mid=${mid }">推荐</a>|<a href="rankindex.php?mid=${mid }">排行</a>|<a href="lsst.php?mid=${mid }">分类</a>|主题<br />
 <c:forEach items="${indexDTO.software_topsList}" var="softwareInfo">
 	<a href="showsoftwareInfo.php?id=${softwareInfo.id}&amp;mid=${mid }">${softwareInfo.shortName}</a><br/>
 </c:forEach>
-【今日精品】<br />
+【精品推荐】<c:if test="${!empty s_recommend }"><a href="showsoftwareInfo.php?id=${s_recommend.id}&amp;mid=${mid }">${s_recommend.shortName}</a></c:if> <br />
 <c:set value="" var="plusFine"></c:set><c:set value="${fn:length(indexDTO.software_plusFineList)}" var="maxlength"></c:set><c:forEach items="${indexDTO.software_plusFineList}" var="softwareInfo" varStatus="vs"><c:set value="${plusFine}|${softwareInfo.name}" var="plusFine"></c:set><a href="showsoftwareInfo.php?id=${softwareInfo.id}&amp;mid=${mid }">${softwareInfo.shortName}</a><c:choose><c:when test="${fn:length(plusFine) > 10}"><br/><c:set value="" var="plusFine"></c:set></c:when><c:when test="${maxlength==vs.count }"><br/><c:set value="" var="plusFine"></c:set></c:when><c:otherwise>|</c:otherwise></c:choose></c:forEach>
+<c:if test="${maxlength==0}">暂无适合您机型的软件<br/></c:if>
 <%
 /*
 【今日推荐】<br />
@@ -35,10 +36,10 @@
 */
 %>
  <!-- 搜索 -->
-<input name="name" maxlength="15" size="8"/><anchor><go href="searchsoftwareInfo.php" method="post"><postfield name="name" value="$(name)" /><postfield name="mid" value="${mid }" /></go>搜软件|</anchor><anchor><go href="searchmodel.php" method="post"><postfield name="keyword" value="$(name)" /><postfield name="mid" value="${mid }" /></go>搜机型</anchor><br />
-【软件分类】<br /><c:forEach items="${indexDTO.softwareTypeList}" var="softwareType"><a href="showst.php?mid=${mid}&amp;id=${softwareType.id}">${softwareType.name }</a><c:choose><c:when test="${softwareType.isWrap==1}"><br/></c:when><c:otherwise>|</c:otherwise></c:choose></c:forEach>
+<input name="name" maxlength="15" size="8"/><anchor><go href="searchsoftwareInfo.php" method="post"><postfield name="name" value="$(name)" /><postfield name="mid" value="${mid }" /></go>搜软件</anchor>|<anchor><go href="searchmodel.php" method="post"><postfield name="keyword" value="$(name)" /><postfield name="mid" value="${mid }" /></go>搜机型</anchor><br />
+【软件大全】<br /><c:forEach items="${indexDTO.softwareTypeList}" var="softwareType"><a href="showst.php?mid=${mid}&amp;id=${softwareType.id}">${softwareType.name }</a><c:choose><c:when test="${softwareType.isWrap==1}"><br/></c:when><c:otherwise>|</c:otherwise></c:choose></c:forEach>
 【361服务】<br />
-友链|<a href="help.php?mid=${mid }&amp;no=6">收藏</a>|<a href="help.php?mid=${mid }&amp;no=8">合作</a>|<a href="help.php?mid=${mid }&amp;no=7">关于</a><br />
+<a href="http://top.361rj.com/">友链</a>|<a href="help.php?mid=${mid }&amp;no=6">收藏</a>|<a href="help.php?mid=${mid }&amp;no=8">合作</a>|<a href="help.php?mid=${mid }&amp;no=7">关于</a><br />
 <jsp:include page="detail.jsp"></jsp:include>
 </p>
 </card>

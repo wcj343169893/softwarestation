@@ -1,14 +1,13 @@
 package cn.ss.action;
 
-import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 import cn.common.action.BasicAction;
 import cn.common.util.PageResult;
 import cn.ss.dto.IndexDTO;
 import cn.ss.entity.PhoneModel;
 import cn.ss.entity.SoftwareInfo;
-import cn.ss.entity.SoftwareType;
 import cn.ss.service.PhoneBrandService;
 import cn.ss.service.PhoneModelService;
 import cn.ss.service.SoftwareInfoService;
@@ -49,6 +48,17 @@ public class IndexAction extends BasicAction {
 		indexDTO.setSoftware_plusFineList(sipList);
 		// 2.ÍÆ¼ö recommend
 		List<SoftwareInfo> sirList = softwareInfoService.findAll(mid, -1, 1);
+		SoftwareInfo s_recommend = null;
+		Random ran = new Random();
+		int size = sirList.size();
+		for (int i = 0; i < size; i++) {
+			int o = ran.nextInt(sirList.size() - 1);
+			if (sirList.get(o) != null) {
+				s_recommend = sirList.get(o);
+				break;
+			}
+		}
+		request.setAttribute("s_recommend", s_recommend);
 		indexDTO.setSoftware_recommendList(sirList);
 		// 3.ÖÃ¶¥Èí¼þ20Ìõ
 		indexDTO.setSoftware_topsList(softwareInfoService.findAll(mid));

@@ -31,8 +31,8 @@
 	<c:if test="${!empty software_java}">
 		<a href="downloadsoftware.php?id=${software_java.id}&amp;id2=${softwareInfo.id}&amp;mid=${mid}">${model.name }免费下载/${software_java_name }/${software_java.size }k</a><br/>
 	</c:if>
-	<fmt:formatDate value="${softwareInfo.createTime }" pattern="yyyy-MM-dd" var="ct"/>
-	[更新]${ct}<br/>
+	<fmt:formatDate value="${softwareInfo.createTime }" pattern="yyyy-MM-dd" var="cts"/>
+	[更新]${cts}<br/>
 	[资费]${softwareInfo.traffic >0 ? "部分功能收费" :"完全免费"}<br/>
 	[安全]<a href="help.php?mid=${mid }&amp;no=4">${softwareInfo.safety} </a><br/>
 	[软件简介]
