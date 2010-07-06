@@ -22,7 +22,7 @@
 </c:choose>
 <img src="/img/logo.gif" alt="361软件站" /><br />
 网址:361rj.com<br />
-<a href="newsindex.php?mid=${mid }">最新</a>|<a href="commendindex.php?mid=${mid }">推荐</a>|<a href="rankindex.php?mid=${mid }">排行</a>|<a href="lsst.php?mid=${mid }">分类</a>|主题<br />
+<a href="newsindex.php?mid=${mid }">最新</a>|<a href="commendindex.php?mid=${mid }">推荐</a>|<a href="rankindex.php?mid=${mid }">排行</a>|<a href="lsst.php?mid=${mid }">分类</a>|<a href="http://top.361rj.com/top/ShowLink.asp?ID=103">主题</a><br />
 <c:forEach items="${indexDTO.software_topsList}" var="softwareInfo">
 	<a href="showsoftwareInfo.php?id=${softwareInfo.id}&amp;mid=${mid }">${softwareInfo.shortName}</a><br/>
 </c:forEach>
