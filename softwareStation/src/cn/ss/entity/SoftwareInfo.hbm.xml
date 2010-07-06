@@ -12,12 +12,12 @@
 			<generator class="native" />
 		</id>
 		<property name="name" type="java.lang.String">
-			<column name="name" length="20">
+			<column name="name">
 				<comment>名称</comment>
 			</column>
 		</property>
 		<property name="shortName" type="java.lang.String">
-			<column name="shortName" length="20">
+			<column name="shortName">
 				<comment>简称</comment>
 			</column>
 		</property>
@@ -159,6 +159,7 @@
 			</key>
 			<one-to-many class="cn.ss.entity.DownloadLog" />
 		</bag>
+		
 		<bag name="commentaryList" cascade="all">
 			<key>
 				<column name="softwareInfoId">
@@ -166,6 +167,14 @@
 				</column>
 			</key>
 			<one-to-many class="cn.ss.entity.Commentary" />
+		</bag>
+		<bag name="reportList" cascade="all">
+			<key>
+				<column name="softwareInfoId">
+					<comment>软件报错</comment>
+				</column>
+			</key>
+			<one-to-many class="cn.ss.entity.Report" />
 		</bag>
 	</class>
 </hibernate-mapping>

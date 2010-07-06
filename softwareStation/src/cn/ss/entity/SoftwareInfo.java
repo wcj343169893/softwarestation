@@ -102,6 +102,11 @@ public class SoftwareInfo implements java.io.Serializable {
 	 */
 	private List<Commentary> commentaryList = new ArrayList<Commentary>();
 
+	/**
+	 * ±¨´í
+	 */
+	private List<Report> reportList = new ArrayList<Report>();
+
 	public List<Software> getSoftwareList() {
 		return softwareList;
 	}
@@ -324,6 +329,14 @@ public class SoftwareInfo implements java.io.Serializable {
 
 	public void setShortName(String shortName) {
 		this.shortName = shortName;
+	}
+
+	public List<Report> getReportList() {
+		return reportList;
+	}
+
+	public void setReportList(List<Report> reportList) {
+		this.reportList = reportList;
 	}
 
 }

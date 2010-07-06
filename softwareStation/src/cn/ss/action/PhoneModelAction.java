@@ -72,7 +72,7 @@ public class PhoneModelAction extends BasicAction {
 
 	public String sure() throws Exception {
 		init();
-		phoneModel=phoneModelService.findById(mid);
+		phoneModel = phoneModelService.findById(mid);
 		if (from != null) {
 			System.out.println(from);
 			if (from.indexOf("?") != -1) {
@@ -106,8 +106,10 @@ public class PhoneModelAction extends BasicAction {
 		if (p != 0) {
 			modelPageResult.setPageNo(p);
 		}
-		phoneModelService.findAll(modelPageResult, phoneModel, 0, keyword);
-		request.setAttribute("pageResult", modelPageResult);
+		if (keyword != null && !"".equals(keyword.trim())) {
+			phoneModelService.findAll(modelPageResult, phoneModel, 0, keyword);
+			request.setAttribute("pageResult", modelPageResult);
+		}
 		return "search";
 	}
 

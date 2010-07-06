@@ -10,7 +10,7 @@
 <c:set value="${fn:length(pageResult.list)}" var="resultSize"></c:set>
 "${name }"的软件搜索结果共有${resultSize }个:<br />
 <c:choose>
-	<c:when test="${resultSize==0}">暂无相关软件</c:when>
+	<c:when test="${resultSize==0}">暂无相关软件<br/></c:when>
 	<c:otherwise>
 		<c:forEach items="${pageResult.list}" var="si" varStatus="vs">
 			${vs.count }.<c:if test="${si.recommend==1}"><img src="img/commend.gif" alt="推荐" /></c:if><a href="showsoftwareInfo.php?id=${si.id}&amp;mid=${mid }">[${si.softwareType.name }]${si.name }</a><br/>
