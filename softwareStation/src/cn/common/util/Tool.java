@@ -1,15 +1,22 @@
 package cn.common.util;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 
 public class Tool {
@@ -34,6 +41,25 @@ public class Tool {
 				+ fileName);
 		if (file.isFile()) {
 			file.delete();
+			flag = true;
+		}
+		return flag;
+	}
+
+	/**
+	 * 删除文件
+	 * 
+	 * @param path
+	 * @param folder
+	 * @param fileName
+	 * @return
+	 */
+	public static boolean deleteFile(String path, Folder folder, String fileName) {
+		boolean flag = false;
+		File file = new File(path + folder + "/" + fileName);
+		if (file.isFile()) {
+			file.delete();
+			flag = true;
 		}
 		return flag;
 	}
@@ -48,6 +74,11 @@ public class Tool {
 		removeFile(new File(path));
 	}
 
+	/**
+	 * 删除文件和文件夹
+	 * 
+	 * @param path
+	 */
 	public static void removeFile(File path) {
 		System.out.println("removing file " + path.getPath());
 		if (path.isDirectory()) {
@@ -177,6 +208,110 @@ public class Tool {
 	}
 
 	/**
+	 * 写入文件
+	 * 
+	 * @param arg
+	 * @param path
+	 * @param folder
+	 * @param fileName
+	 * @return
+	 */
+	public static boolean writeFile(String arg, String path, Folder folder,
+			String fileName) {
+		boolean flag = false;
+		OutputStream out = null;
+		try {
+			File file = new File(path + folder.index + "/" + fileName);
+			out = new FileOutputStream(file);
+			byte[] buffer = new byte[8192];
+			buffer = arg.getBytes();
+			out.write(buffer);
+			out.close();
+			flag = true;
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return flag;
+	}
+
+	/**
+	 * 读取文件内容
+	 * 
+	 * @param path
+	 * @param folder
+	 * @param fileName
+	 * @return
+	 */
+	public static String readFile(String path, Folder folder, String fileName) {
+		StringBuffer sb = new StringBuffer();
+		try {
+			File file = new File(path + folder.index + "/" + fileName);
+			BufferedReader br = new BufferedReader(new FileReader(file));
+			String tmp;
+			while ((tmp = br.readLine()) != null) {
+				if (!"".equals(tmp.trim())) {
+					sb.append(tmp);
+				}
+			}
+			br.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return sb.toString();
+	}
+
+	/**
+	 * 读取指定文件
+	 * 
+	 * @param file
+	 * @return
+	 */
+	public static String readFile(File file) {
+		StringBuffer sb = new StringBuffer();
+		try {
+			BufferedReader br = new BufferedReader(new FileReader(file));
+			String tmp;
+			while ((tmp = br.readLine()) != null) {
+				if (!"".equals(tmp.trim())) {
+					sb.append(tmp);
+				}
+			}
+			br.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return sb.toString();
+	}
+
+	/**
+	 * 读取指定文件夹下的所有文件内容
+	 * 
+	 * @param path
+	 * @param folder
+	 * @return
+	 */
+	public static Map<String, String> readFile(String path, Folder folder) {
+		Map<String, String> maps = new HashMap<String, String>();
+		File file = new File(path + folder);
+		if (file.isDirectory()) {
+			File[] child = file.listFiles();
+			for (int i = 0; i < child.length; i++) {
+				String s = readFile(child[i]);
+				if (s != null && !"".equals(s.trim())) {
+					maps.put(child[i].getName(), s);
+				}
+			}
+		}
+		return maps;
+	}
+
+	/**
 	 * String转date
 	 * 
 	 * @param date
@@ -282,6 +417,12 @@ public class Tool {
 		return null;
 	}
 
+	/**
+	 * 过滤特殊字符
+	 * 
+	 * @param string
+	 * @return
+	 */
 	public static String filterString(String string) {
 		String s = string;
 		if (s != null && !"".equals(s.trim())) {

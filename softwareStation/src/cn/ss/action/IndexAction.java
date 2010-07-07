@@ -1,10 +1,16 @@
 package cn.ss.action;
 
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 import cn.common.action.BasicAction;
+import cn.common.util.Folder;
 import cn.common.util.PageResult;
+import cn.common.util.Tool;
 import cn.ss.dto.IndexDTO;
 import cn.ss.entity.PhoneModel;
 import cn.ss.entity.SoftwareInfo;
@@ -39,6 +45,72 @@ public class IndexAction extends BasicAction {
 	 * 0：日榜.1：月榜.2：总榜
 	 */
 	private int ranks;
+
+	/**
+	 * 主页排版
+	 */
+	private Map<String, String> maps = new HashMap<String, String>();
+	/**
+	 * 主页单个排版
+	 */
+	private String index_str;
+	private String fileName;
+
+	// private int no;
+
+	/**
+	 * 写入主页排版文件
+	 * 
+	 * @return
+	 * @throws Exception
+	 */
+	public String write() throws Exception {
+		// for (int i = 0; i < index_str.size(); i++) {
+		// Tool.writeFile(index_str.get(i), path, Folder.index, String
+		// .valueOf(i));
+		// }
+		init();
+		response.setContentType("text/html");
+		response.setCharacterEncoding("UTF-8");
+		PrintWriter out = response.getWriter();
+		if (index_str != null && !"".equals(index_str.trim())) {
+			try {
+				index_str = new String(index_str.getBytes("ISO-8859-1"),
+						"UTF-8");
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			Tool.writeFile(index_str, path, Folder.index, fileName);
+			out.print("1");
+		}
+		return null;
+	}
+
+	/**
+	 * 读取主页排版文件
+	 * 
+	 * @return
+	 * @throws Exception
+	 */
+	public String read() throws Exception {
+		init();
+		maps = Tool.readFile(path, Folder.index);
+		return "index";
+	}
+
+	public String delete() throws Exception {
+		init();
+		response.setContentType("text/html");
+		response.setCharacterEncoding("UTF-8");
+		PrintWriter out = response.getWriter();
+		if (Tool.deleteFile(path, Folder.index, fileName)) {
+			out.print(2);
+		} else {
+			out.print(0);
+		}
+		return null;
+	}
 
 	@Override
 	public String execute() throws Exception {
@@ -138,7 +210,7 @@ public class IndexAction extends BasicAction {
 		if (p != 0) {
 			pageResult.setPageNo(p);
 		}
-		softwareInfoService.findAll(pageResult, mid, isJava, commend);
+		softwareInfoService.findAll(pageResult, mid, isJava, 1);
 		return "commend";
 	}
 
@@ -244,6 +316,30 @@ public class IndexAction extends BasicAction {
 
 	public void setRanks(int ranks) {
 		this.ranks = ranks;
+	}
+
+	public Map<String, String> getMaps() {
+		return maps;
+	}
+
+	public void setMaps(Map<String, String> maps) {
+		this.maps = maps;
+	}
+
+	public String getIndex_str() {
+		return index_str;
+	}
+
+	public void setIndex_str(String indexStr) {
+		index_str = indexStr;
+	}
+
+	public String getFileName() {
+		return fileName;
+	}
+
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
 	}
 
 }

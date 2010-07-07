@@ -66,6 +66,7 @@ public class SoftwareInfoDao extends HibernateDaoSupport {
 		}
 		if (recommend == 0 || recommend == 1) {
 			criteria.add(Expression.eq("si.recommend", recommend));
+			criteria.addOrder(Order.desc("si.createTime"));
 		}
 		if (recommend == 2) {
 			criteria.addOrder(Order.desc("si.recommend"));

@@ -93,6 +93,7 @@
 			<result name="news">/wap/new.jsp</result>
 			<result name="rank">/wap/rank.jsp</result>
 			<result name="commend">/wap/commend.jsp</result>
+			<result name="index">/admin/software/indexTypesetting.jsp</result>
 		</action>
 		<action name="*st" class="SoftwareTypeAction" method="{1}">
 			<result name="success">/index.jsp</result>

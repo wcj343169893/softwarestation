@@ -50,6 +50,7 @@
 						<li><span class="file"><a href="softwareType!list.action" target="workCenter">分类管理</a></span></li>
 						<li><span class="file"><a href="data/lscommentary.action" target="workCenter">评论管理</a></span></li>
 						<li><span class="file"><a href="wap/listreport.action" target="workCenter">报错管理</a></span></li>
+						<li><span class="file"><a href="index!read.action" target="workCenter">主页排版</a></span></li>
 					</ul>
 				</li>
 				<li><span class="folder">数据管理</span>

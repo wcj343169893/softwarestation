@@ -12,11 +12,14 @@ public class BasicAction extends ActionSupport {
 	protected HttpServletRequest request;
 	protected HttpServletResponse response;
 	protected String uploadPath;
+	protected String path;
 
 	public void init() {
 		request = ServletActionContext.getRequest();
 		response = ServletActionContext.getResponse();
-		uploadPath=ServletActionContext.getServletContext().getRealPath("/")+"upload/";
+		uploadPath = ServletActionContext.getServletContext().getRealPath("/")
+				+ "upload/";
+		path = ServletActionContext.getServletContext().getRealPath("/");
 	}
 
 }

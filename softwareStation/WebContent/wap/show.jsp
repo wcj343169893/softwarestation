@@ -33,7 +33,7 @@
 	</c:if>
 	<fmt:formatDate value="${softwareInfo.createTime }" pattern="yyyy-MM-dd" var="cts"/>
 	[更新]${cts}<br/>
-	[资费]${softwareInfo.traffic >0 ? "部分功能收费" :"完全免费"}<br/>
+	[性质]${softwareInfo.traffic >0 ? "共享软件" :"完全免费"}<br/>
 	[安全]<a href="help.php?mid=${mid }&amp;no=4">${softwareInfo.safety} </a><br/>
 	[软件简介]
 		<c:choose>
