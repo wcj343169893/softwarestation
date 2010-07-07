@@ -131,6 +131,52 @@
 		}
 			
 </script>
+<script type="text/javascript">
+ var xmlHttp;
+function ajaxFunction()
+ {
+ try
+    {
+   // Firefox, Opera 8.0+, Safari
+    xmlHttp=new XMLHttpRequest();
+    }
+ catch (e)
+    {
+  // Internet Explorer
+   try
+      {
+      xmlHttp=new ActiveXObject("Msxml2.XMLHTTP");
+      }
+   catch (e)
+      {
+      try
+         {
+         xmlHttp=new ActiveXObject("Microsoft.XMLHTTP");
+         }
+      catch (e)
+         {
+         alert("您的浏览器不支持AJAX！");
+         return false;
+         }
+      }
+    }
+ var name=document.getElementById("name");
+ 	if(xmlHttp){ 
+		 xmlHttp.open("POST","softwareInfo!add_name.action?name="+name.value, true);
+		 xmlHttp.setRequestHeader("Content-Type","text/html;charset=UTF-8");
+		 xmlHttp.onreadystatechange = complete; 
+		 xmlHttp.send(null);
+	 } 
+ }
+ function complete(){
+	if (xmlHttp.readyState == 4) {
+		if (xmlHttp.status == 200) { 
+			//alert(xmlHttp.responseText);
+				document.getElementById("name_error").innerHTML=xmlHttp.responseText;
+			}
+	}
+}
+</script>
 </head>
 <body>
 <input type="hidden" value="${phoneOs_s }" id="phoneOs_s"/>
@@ -149,7 +195,7 @@
 				</td>
 			</tr>
 			<tr>
-				<th>软件全称:</th><td><input name="softwareForm.name"/></td>
+				<th>软件全称:</th><td><input name="softwareForm.name" id="name" onblur="ajaxFunction()"/><span id="name_error" class="red_test"></span> </td>
 				<th>软件简称:</th><td><input name="softwareForm.shortName"/></td>
 			</tr>
 			<tr>

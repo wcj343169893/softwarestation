@@ -1,12 +1,17 @@
 package cn.ss.action;
 
 import java.io.File;
+import java.io.PrintWriter;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import com.sun.xml.internal.bind.v2.runtime.output.Encoded;
 
 import cn.common.action.BasicAction;
 import cn.common.util.Config;
@@ -142,8 +147,43 @@ public class SoftwareInfoAction extends BasicAction {
 		// System.out.println("delete softwareInfo id="+softwareInfo.getId());
 	}
 
+	public String add_name() throws Exception {
+		init();
+		// request.setCharacterEncoding("UTF-8");
+		// 判断是否存在同样名字的软件
+		response.setContentType("text/html");
+		response.setCharacterEncoding("UTF-8");
+		PrintWriter out = response.getWriter();
+		System.out.println(name);
+		if (name != null && !"".equals(name.trim())) {
+			try {
+				name = new String(name.getBytes("ISO-8859-1"), "UTF-8");
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			System.out.println("name:"+name);
+			List<SoftwareInfo> softwareInfoList = softwareInfoService
+					.findByName(name);
+			boolean flag = false;
+			if (softwareInfoList != null && softwareInfoList.size() > 0) {
+				flag = true;
+			}
+
+			if (flag) {
+				out.print(name + "已存在!");
+			} else {
+				out.print("可以提交!");
+			}
+		} else {
+			out.print("不能为空");
+		}
+		return null;
+	}
+
 	public String add() throws Exception {
 		init();
+
 		Calendar calendar = Calendar.getInstance();
 		softwareInfo = new SoftwareInfo();
 		softwareInfo.setSoftwareType(softwareTypeService.findById(this
@@ -185,7 +225,8 @@ public class SoftwareInfoAction extends BasicAction {
 		List<File> upload = softwareForm.getUpload();
 		List<String> uploadFileName = softwareForm.getUploadFileName();
 		Software software = null;
-		if (upload != null && upload.size() > 0) {// 判断是否有文件上传
+		if (upload != null && softwareForm.getPhoneOs() != null
+				&& upload.size() > 0) {// 判断是否有文件上传
 			// 查询所有的平台,存放到Map中
 			Map<Integer, List<PhoneOs>> maps = new HashMap<Integer, List<PhoneOs>>();
 			List<PhoneOs> os_int = null;

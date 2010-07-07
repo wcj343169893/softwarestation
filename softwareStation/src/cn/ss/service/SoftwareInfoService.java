@@ -157,7 +157,13 @@ public class SoftwareInfoService extends BasicService {
 	 */
 	public List<SoftwareInfo> findAll(PageResult<SoftwareInfo> pageResult,
 			int mid, int isJava) {
-		return softwareInfoDao.list(mid, -1, 2, -1, isJava, pageResult, 2, 0);
+		return softwareInfoDao.list(mid, -1, 2, -1, isJava, pageResult, 1, 0);
+	}
+
+	public List<SoftwareInfo> findByName(String name) {
+		name = Tool.filterString(name);
+		String hql = "from SoftwareInfo where name='" + name+"'";
+		return dao.list(hql);
 	}
 
 	/**
