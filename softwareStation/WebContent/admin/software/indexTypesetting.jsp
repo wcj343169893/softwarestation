@@ -15,6 +15,7 @@
 function addFile(ele1,ele2)
  {
 	var index_str=document.getElementById(ele1);
+	//alert(index_str.value);
 	ajaxFunction("index!write.action?fileName="+ele2+"&index_str="+index_str.value);
  }
 function ajaxFunction(url){
@@ -44,6 +45,7 @@ function ajaxFunction(url){
       }
     }
  	if(xmlHttp){ 
+ 	 	//alert(url);
 		 xmlHttp.open("POST",url, true);
 		 xmlHttp.setRequestHeader("Content-Type","text/html;charset=UTF-8");
 		 xmlHttp.onreadystatechange = complete; 
@@ -69,18 +71,12 @@ var divId=1;
       //动态生成单纯的div
       function CreateOuterDiv()
       {
-      	//alert(divId);
-      	
-         // if(document.getElementById("abc").value==1){
-      	//	divId=document.getElementById("abc").value;
-         // }
-      	//alert(divId);
       		var txtName="";
           	var obj=document.createElement("div");
           	obj.id="myDiv"+divId;
 	        var ta= document.createElement("textarea");
 	        ta.id="new"+divId;
-	        txtName=ta.id+".txt";
+	        txtName=getNames();
 	        ta.rows="10";
 	        ta.cols="50";
        	 	obj.appendChild(ta);
@@ -105,6 +101,11 @@ var divId=1;
 	      	var mydiv=document.getElementById(ele1);
 	      	document.body.removeChild(mydiv);
          }
+    function getNames(){
+    	var date=new Date();
+       	var txtName=date.getYear()+""+(date.getMonth()+1)+"" +date.getDate()+""+date.getHours()+""+date.getMinutes()+""+date.getSeconds()+".txt";
+       	return txtName;
+        }
 </script>
 <style type="text/css">
 	div{
@@ -120,8 +121,8 @@ var divId=1;
 <c:if test="${empty maps}">
 	<div id="myDiv0">
 		<textarea rows="10" cols="50" id="index_str0"></textarea>
-		<input type="button" value="保存到0.txt" onclick="addFile('index_str0','0.txt')">
-		<input type="button" value="删除" onclick="moveDiv('myDiv0','0.txt')">
+		<input type="button" value="保存到first.txt" onclick="addFile('index_str0','first.txt')">
+		<input type="button" value="删除" onclick="moveDiv('myDiv0','first.txt')">
 	</div>
 </c:if>
 <c:set value="0" var="fileCount"></c:set>

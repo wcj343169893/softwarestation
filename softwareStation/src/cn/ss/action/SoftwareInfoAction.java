@@ -157,7 +157,7 @@ public class SoftwareInfoAction extends BasicAction {
 		System.out.println(name);
 		if (name != null && !"".equals(name.trim())) {
 			try {
-				name = new String(name.getBytes("ISO-8859-1"), "UTF-8");
+				name = new String(name.getBytes("ISO-8859-1"), "GB2312");
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

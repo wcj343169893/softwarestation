@@ -1,11 +1,10 @@
 package cn.ss.action;
 
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import java.util.Set;
 
 import cn.common.action.BasicAction;
 import cn.common.util.Folder;
@@ -65,10 +64,6 @@ public class IndexAction extends BasicAction {
 	 * @throws Exception
 	 */
 	public String write() throws Exception {
-		// for (int i = 0; i < index_str.size(); i++) {
-		// Tool.writeFile(index_str.get(i), path, Folder.index, String
-		// .valueOf(i));
-		// }
 		init();
 		response.setContentType("text/html");
 		response.setCharacterEncoding("UTF-8");
@@ -76,7 +71,7 @@ public class IndexAction extends BasicAction {
 		if (index_str != null && !"".equals(index_str.trim())) {
 			try {
 				index_str = new String(index_str.getBytes("ISO-8859-1"),
-						"UTF-8");
+						"GB2312");
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -115,28 +110,41 @@ public class IndexAction extends BasicAction {
 	@Override
 	public String execute() throws Exception {
 		init();
-		// 1.查询软件加精 plusFine
-		List<SoftwareInfo> sipList = softwareInfoService.findAll(mid, 1, -1);
-		indexDTO.setSoftware_plusFineList(sipList);
-		// 2.推荐 recommend
-		List<SoftwareInfo> sirList = softwareInfoService.findAll(mid, -1, 1);
-		SoftwareInfo s_recommend = null;
-		Random ran = new Random();
-		int size = sirList.size();
-		for (int i = 0; i < size; i++) {
-			int o = ran.nextInt(sirList.size() - 1);
-			if (sirList.get(o) != null) {
-				s_recommend = sirList.get(o);
-				break;
-			}
+		maps = Tool.readFile(path, Folder.index);
+		if (maps != null && maps.size() > 0) {
+			int size = maps.size();
+			Random ran = new Random();
+			int index = ran.nextInt(size);
+			Set set = maps.keySet();
+			Object[] obj = set.toArray();
+			index_str =maps.get(obj[index]);
+			System.out.println(index_str);
 		}
-		request.setAttribute("s_recommend", s_recommend);
-		indexDTO.setSoftware_recommendList(sirList);
-		// 3.置顶软件20条
-		indexDTO.setSoftware_topsList(softwareInfoService.findAll(mid));
+		request.setAttribute("index_str", index_str);
+
+		//		
+		// // 1.查询软件加精 plusFine
+		// List<SoftwareInfo> sipList = softwareInfoService.findAll(mid, 1, -1);
+		// indexDTO.setSoftware_plusFineList(sipList);
+		// // 2.推荐 recommend
+		// List<SoftwareInfo> sirList = softwareInfoService.findAll(mid, -1, 1);
+		// SoftwareInfo s_recommend = null;
+		// Random ran = new Random();
+		// int size = sirList.size();
+		// for (int i = 0; i < size; i++) {
+		// int o = ran.nextInt(sirList.size());
+		// if (sirList.get(o) != null) {
+		// s_recommend = sirList.get(o);
+		// break;
+		// }
+		// }
+		// request.setAttribute("s_recommend", s_recommend);
+		// indexDTO.setSoftware_recommendList(sirList);
+		// // 3.置顶软件20条
+		// indexDTO.setSoftware_topsList(softwareInfoService.findAll(mid));
 
 		// 4.软件类型列表
-		indexDTO.setSoftwareTypeList(softwareTypeService.findAll(null));
+		 indexDTO.setSoftwareTypeList(softwareTypeService.findAll(null));
 		if (mid > 0) {
 			indexDTO.setModel(phoneModelService.findById(mid));
 		} else {

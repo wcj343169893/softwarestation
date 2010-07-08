@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.Set;
 
 import junit.framework.TestCase;
@@ -66,16 +67,21 @@ public class TestIndex extends TestCase {
 
 		Map<Integer, List<Integer>> map2 = new HashMap<Integer, List<Integer>>();
 		int id1 = (int) (Math.random() * map2.size());
-		
-		 System.out.println(id1);
-		
-		//获取maps中的第一个数
+
+		System.out.println(id1);
+
+		// 获取maps中的第一个数
 		if (maps.containsKey(id1)) {
-			int number1=maps.get(id1);
+			int number1 = maps.get(id1);
 			System.out.println(number1);
 		}
 		for (Integer keys : maps.keySet()) {
 			// System.out.println(keys);
 		}
+	}
+
+	public static void main(String[] args) {
+		Random ran = new Random();
+		System.out.println(ran.nextInt(2));
 	}
 }

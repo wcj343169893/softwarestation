@@ -217,7 +217,7 @@ function ajaxFunction()
 				<td>
 					<select name="softwareForm.traffic">
 						<option value="0">使用完全免费</option>
-						<option value="1">部分功能收费</option>
+						<option value="1">共享软件</option>
 					</select>
 				</td>
 				<th>提示:</th>
