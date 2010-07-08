@@ -45,6 +45,7 @@
 			<result name="show">/wap/show.jsp</result>
 			<result name="search">/wap/searchSoftwareInfo.jsp</result>
 			<result name="dingnidefei" type="redirect">showsoftwareInfo.php?id=${id}&amp;mid=${mid}</result>
+			<result name="error">/wap/softwareError.jsp</result>
 		</action>
 		<action name="*software" class="SoftwareAction" method="{1}">
 			<result name="success" type="redirectAction">softwareInfo!list.action</result>

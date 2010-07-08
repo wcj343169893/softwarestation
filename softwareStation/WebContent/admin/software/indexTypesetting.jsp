@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>I主页排版</title>
+<title>主页排版</title>
 <link rel="stylesheet" href="/admin/css/style.css" />
 <script type="text/javascript" src="/admin/script/common.js"></script>
 <script type="text/javascript">
@@ -116,7 +116,9 @@ var divId=1;
 </head>
 <body>
 <div class="page_title">管理中心 &gt; 软件管理&gt; 主页排版</div>
-<input type="button" onclick="CreateOuterDiv()" value="创建">
+<input type="button" onclick="CreateOuterDiv()" value="创建">&nbsp;&nbsp;例如:
+<strong><c:out value="<a href=\"showsoftwareInfo.php?id=10\">我来测试</a><br/>" escapeXml="true"></c:out></strong>
+
 <br>
 <c:if test="${empty maps}">
 	<div id="myDiv0">

@@ -117,8 +117,10 @@ public class IndexAction extends BasicAction {
 			int index = ran.nextInt(size);
 			Set set = maps.keySet();
 			Object[] obj = set.toArray();
-			index_str =maps.get(obj[index]);
-			System.out.println(index_str);
+			index_str = maps.get(obj[index]);
+		}
+		if (index_str != null) {
+			index_str = index_str.replaceAll("id=", "mid=" + mid + "&amp;id=");
 		}
 		request.setAttribute("index_str", index_str);
 
@@ -144,7 +146,7 @@ public class IndexAction extends BasicAction {
 		// indexDTO.setSoftware_topsList(softwareInfoService.findAll(mid));
 
 		// 4.软件类型列表
-		 indexDTO.setSoftwareTypeList(softwareTypeService.findAll(null));
+		indexDTO.setSoftwareTypeList(softwareTypeService.findAll(null));
 		if (mid > 0) {
 			indexDTO.setModel(phoneModelService.findById(mid));
 		} else {

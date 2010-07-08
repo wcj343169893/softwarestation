@@ -162,7 +162,7 @@ public class SoftwareInfoAction extends BasicAction {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			System.out.println("name:"+name);
+			System.out.println("name:" + name);
 			List<SoftwareInfo> softwareInfoList = softwareInfoService
 					.findByName(name);
 			boolean flag = false;
@@ -512,6 +512,10 @@ public class SoftwareInfoAction extends BasicAction {
 		init();
 		// dataInit();
 		softwareInfo = softwareInfoService.findById(id);
+		if (softwareInfo == null) {
+			return "error";
+		}
+
 		// 查询该软件下面的某个包，支持mid
 		PhoneOs phoneOs = null;
 		PhoneModel model = null;
@@ -530,6 +534,7 @@ public class SoftwareInfoAction extends BasicAction {
 		Software software_java = null;// 通用版
 		boolean flag = false;
 		String name = "";
+
 		for (Software software : softwareInfo.getSoftwareList()) {// 判断是否有适合机型的软件
 			name = software.getDownloadPath();
 			name = name.substring(name.lastIndexOf("."));// 获取文件的后缀
