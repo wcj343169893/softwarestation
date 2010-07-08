@@ -38,6 +38,7 @@
 						<li><span class="file"><a href="phone/phoneBrandUpdate.jsp" target="workCenter">新增品牌</a></span></li>
 						 -->
 						<li><span class="file"><a href="phoneSeries!list.action" target="workCenter">机型列表</a></span></li>
+						<li><span class="file"><a href="reportModel!list.action" target="workCenter">报告机型</a></span></li>
 						<!-- 
 						<li><span class="file"><a href="phoneSeries!addInit.action" target="workCenter">新增机型</a></span></li>
 						 -->

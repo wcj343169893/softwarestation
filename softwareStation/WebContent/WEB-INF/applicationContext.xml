@@ -37,6 +37,8 @@
 				<value>cn/ss/entity/SoftwareOs.hbm.xml</value>
 				<value>cn/ss/entity/Commentary.hbm.xml</value>
 				<value>cn/ss/entity/Report.hbm.xml</value>
+				<value>cn/ss/entity/Message.hbm.xml</value>
+				<value>cn/ss/entity/ReportModel.hbm.xml</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">
@@ -126,6 +128,12 @@
 	<bean id="reportService" class="cn.ss.service.ReportService">
 		<property name="dao" ref="commonDAO"></property>
 	</bean>
+	<bean id="messageService" class="cn.ss.service.MessageService">
+		<property name="dao" ref="commonDAO"></property>
+	</bean>
+	<bean id="reportModelService" class="cn.ss.service.ReportModelService">
+		<property name="dao" ref="commonDAO"></property>
+	</bean>
 	<!-- action	 -->
 	<bean id="PhoneOsAction" class="cn.ss.action.PhoneOsAction">
 		<property name="phoneOsService" ref="phoneOsService"></property>
@@ -200,6 +208,13 @@
 		<property name="phoneModelService" ref="phoneModelService"></property>
 		<property name="reportService" ref="reportService"></property>
 		<property name="softwareInfoService" ref="softwareInfoService"></property>
+	</bean>
+	<bean id="MessageAction" class="cn.ss.action.MessageAction">
+		<property name="messageService" ref="messageService"></property>
+	</bean>
+	<bean id="ReportModelAction" class="cn.ss.action.ReportModelAction">
+		<property name="reportModelService" ref="reportModelService"></property>
+		<property name="phoneModelService" ref="phoneModelService"></property>
 	</bean>
 	<!-- 事物管理 -->
 	<tx:advice id="txAdvice" transaction-manager="transactionManager">

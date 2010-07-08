@@ -29,6 +29,15 @@
 			<result name="list">/admin/phone/phoneSeriesList.jsp</result>
 			<result name="detail">/admin/phone/phoneSeriesUpdate.jsp</result>
 		</action>
+		<action name="*reportModel" class="ReportModelAction" method="{1}">
+			<result name="rm" type="redirect">okreportModel.action?mid=${mid}</result>
+			<result name="ok">/wap/success.jsp</result>
+			<result name="error">/wap/error.jsp</result>
+			<result name="success">/wap/model.jsp</result>
+			<result name="input">/index.jsp</result>
+			<result name="list">/admin/phone/reportPhoneModelList.jsp</result>
+			<result name="detail">/admin/phone/phoneSeriesUpdate.jsp</result>
+		</action>
 	</package>
 	<package name="software"  extends="struts-default">
 		<action name="softwareType" class="SoftwareTypeAction">
@@ -80,7 +89,12 @@
 			<result name="list">/wap/commentary.jsp</result>
 			<result name="add" type="redirect">listcommentary.action?sid=${sid}&amp;mid=${mid}</result>
 		</action>
-		
+		<action name="*message" class="MessageAction" method="{1}">
+			<result name="success">/index.jsp</result>
+			<result name="input">/index.jsp</result>
+			<result name="list">/admin/phone/phoneSeriesList.jsp</result>
+			<result name="detail">/admin/phone/phoneSeriesUpdate.jsp</result>
+		</action>
 	</package>
 	<package name="wap"  extends="struts-default" >
 		<action name="*model" class="PhoneModelAction" method="{1}">

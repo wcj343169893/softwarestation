@@ -12,6 +12,7 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 import cn.common.util.PageResult;
+import cn.common.util.Tool;
 import cn.ss.entity.SoftwareInfo;
 
 /**
@@ -47,11 +48,11 @@ public class SoftwareInfoDao extends HibernateDaoSupport {
 	 */
 	public List<SoftwareInfo> list(int mid, int plusFine, int recommend,
 			int softwareTypeId, int show_java,
-			PageResult<SoftwareInfo> pageResult, int byDate,int tops) {
+			PageResult<SoftwareInfo> pageResult, int byDate, int tops) {
 		Criteria criteria = this.getSession().createCriteria(
 				SoftwareInfo.class, "si");
 		criteria.add(Expression.eq("isShow", new Integer(1)));
-		if (tops==1) {
+		if (tops == 1) {
 			criteria.add(Expression.eq("tops", tops));
 			criteria.setMaxResults(20);
 		}
@@ -117,6 +118,43 @@ public class SoftwareInfoDao extends HibernateDaoSupport {
 		return list;
 	}
 
+	public void list(PageResult<SoftwareInfo> pageResult,
+			SoftwareInfo softwareInfo, String beginTime, String endTime,
+			String name, int oi, int od, int softwareTypeId, String producer,
+			int promotionWay) {
+		Criteria criteria = this.getSession()
+				.createCriteria(SoftwareInfo.class);
+
+		if (beginTime != null && !"".equals(beginTime)
+				&& Tool.stringFormatDate(beginTime, "yyyy-MM-dd") != null) {
+			criteria
+					.add(Expression
+							.sql("DATE_FORMAT(si.createTime ,'%Y %c %e')>=DATE_FORMAT('"
+									+ beginTime + "','%Y %c %e')"));
+		}
+		if (endTime != null && !"".equals(endTime)
+				&& Tool.stringFormatDate(endTime, "yyyy-MM-dd") != null) {
+			criteria
+					.add(Expression
+							.sql(" DATE_FORMAT(si.createTime ,'%Y %c %e') <= DATE_FORMAT('"
+									+ endTime + "','%Y %c %e')"));
+		}
+		if (name != null && !"".equals(name)) {
+			name = name.replace("'", "");
+			criteria.add(Expression.like("si.name", name + "%"));
+		}
+		if (softwareTypeId > 0) {
+			criteria.add(Expression.eq("si.softwareType.id", softwareTypeId));
+		}
+		if (producer != null && !"".equals(producer)) {
+			producer = producer.replace("'", "");
+			criteria.add(Expression.like("si.producer", producer + "%"));
+		}
+		if (promotionWay == 3) {
+			criteria.add(Expression.eq("si.promotionWay",new Integer(0)));
+		}
+	}
+
 	/**
 	 * 专门处理排行
 	 * 
@@ -132,7 +170,7 @@ public class SoftwareInfoDao extends HibernateDaoSupport {
 		Date date = new Date();
 		Criteria si = this.getSession().createCriteria(SoftwareInfo.class);
 		Criteria dl = si.createCriteria("downloadLogList", "dl");
-		si.addOrder(Order.desc("recommend"));
+		// si.addOrder(Order.desc("recommend"));
 		si.add(Expression.eq("isShow", new Integer(1)));
 		dl.setProjection(Projections.projectionList().add(
 				Projections.sum("number"), "downloads").add(
@@ -156,7 +194,7 @@ public class SoftwareInfoDao extends HibernateDaoSupport {
 					"phoneOsList");
 			Criteria extenssions = cOs.createCriteria("extensionList", "ext");
 			cOs.createCriteria("phoneseriesList").createCriteria(
-					"phoneModelList","pm").add(
+					"phoneModelList", "pm").add(
 					Restrictions.or(Expression.eq("pm.id", mid), Expression.eq(
 							"ext.name", ".jar")));
 		}

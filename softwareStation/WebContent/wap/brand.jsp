@@ -24,7 +24,7 @@
 	<c:forEach items="${brandDTO.phoneBrandList}" var="brand" varStatus="vs" begin="1"><a href="setmodel.php?bid=${brand.id}&amp;mid=${mid }">${brand.name}</a><c:choose><c:when test="${vs.count % 4 == 0 ||maxsize== vs.count}"><br/></c:when><c:otherwise>|</c:otherwise></c:choose></c:forEach>
 	【温馨提示】<br/>
 	1.建议您设置完机型或平台后将本站<a href="help.php?no=6&amp;mid=${mid}">收藏(存为书签)</a>,方便您下次访问无需再次设置,还能节省您宝贵的流量!<br/>
-	2.如未找到您的机型,请您将手机品牌及机型报告给我们.<br/>
+	2.如未找到您的机型,请您将手机品牌及机型<a href="reportModel.php?mid=${mid}">报告给我们</a>.<br/>
 	<a href="index.php?mid=${mid }">首页</a> &gt;设置机型<br/>
 	<jsp:include page="detail.jsp"></jsp:include>
 </p>

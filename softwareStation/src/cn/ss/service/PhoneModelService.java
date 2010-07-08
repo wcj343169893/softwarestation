@@ -32,6 +32,26 @@ public class PhoneModelService extends BasicService {
 	}
 
 	/**
+	 * 根据名称查询机型
+	 * 
+	 * @param model
+	 *            机型名称
+	 * @param brand
+	 *            品牌名称
+	 * @return
+	 */
+	public List<PhoneModel> findALl(String model, String brand) {
+		String sql = "from PhoneModel pm where 1=1 ";
+		if (model != null && !"".equals(model.trim())) {
+			sql += " and pm.phoneseries.brand.name='" + brand + "'";
+		}
+		if (brand != null && !"".equals(brand.trim())) {
+			sql += " and pm.name='" + model + "'";
+		}
+		return dao.list(sql);
+	}
+
+	/**
 	 * 根据品牌id查询
 	 * 
 	 * @param bid

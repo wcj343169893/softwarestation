@@ -7,11 +7,25 @@
 <card title="失败" >
 <p>
 <jsp:include page="notices.jsp"></jsp:include>
-文件下载失败！<a href="showsoftwareInfo.php?id=${id2}&amp;mid=${mid }">返回</a><br />
-可能原因：<br />
-1.请求路径有误<br />
-2.此软件已经被删除或者禁止下载<br />
-<a href="index.php?mid=${mid }">首页</a> &gt;文件下载<br/>
+<c:choose>
+	<c:when test="${empty t}">
+		文件下载失败！<a href="showsoftwareInfo.php?id=${id2}&amp;mid=${mid }">返回</a><br />
+		可能原因：<br />
+		1.请求路径有误<br />
+		2.此软件已经被删除或者禁止下载<br />
+		<a href="index.php?mid=${mid }">首页</a> &gt;文件下载<br/>
+	</c:when>
+	<c:when test="${t==1}">
+		提交机型失败<br/>
+		原因:${error }<br/>
+		<c:forEach items="${phoneModelList}" var="model" varStatus="vs">
+			${vs.count }.<a href="suremodel.php?mid=${model.id }">${model.phoneseries.brand.name }${model.name }</a><br />
+		</c:forEach>
+		<a href="reportModel.php?mid=${mid}">返回</a>
+		<br/>---------------<br />
+		<a href="index.php?mid=${mid }">首页</a>&gt;提交机型<br/>
+	</c:when>
+</c:choose>
 <jsp:include page="detail.jsp"></jsp:include>
 </p>
 </card>
