@@ -15,7 +15,8 @@ ${ranks==2 ?"总榜":"<a href='rankindex.php?mid="}${ranks==2?"":mid}${ranks==2?
 <c:choose>
 	<c:when test="${fn:length(pageResult.list)==0}">暂无相关软件</c:when>
 	<c:otherwise>
-		<c:forEach items="${pageResult.list}" var="si" varStatus="vs">${vs.count }.<c:if test="${si[1].recommend==1}"><img src="img/commend.gif" alt="推荐" /></c:if><a href="showsoftwareInfo.php?id=${si[1].id}&amp;mid=${mid }">[${si[1].softwareType.name }]${si[1].name }</a><br/>
+		<c:forEach items="${pageResult.list}" var="si" varStatus="vs">
+			${vs.count }.<c:if test="${si[1].recommend==1}"><img src="img/commend.gif" alt="推荐" /></c:if><a href="showsoftwareInfo.php?id=${si[1].id}&amp;mid=${mid }">[${si[1].softwareType.name }]${si[1].name }</a><br/>
 		</c:forEach>
 		<c:set var="page" value="${pageResult}"></c:set>
 			<c:if test="${page.pageNo!=1}"><a href="rankindex.php?p=${page.pageNo-1 }&amp;mid=${mid }&amp;ranks=${ranks}">上页</a> </c:if>

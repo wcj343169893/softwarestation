@@ -18,10 +18,10 @@
 	&gt; &gt;<a href="help.php?no=5&amp;mid=${mid}">如何查看自已的手机型号</a><br />
 	【诺基亚】<br/>
 	<c:set value="0" var="maxsize"></c:set>
-	<c:forEach items="${brandDTO.phoneModelList}" var="model" varStatus="vs"><a href="suremodel.php?mid=${model.id }">${model.name}</a><c:choose><c:when test="${vs.count % 5 == 0}"><br/></c:when><c:otherwise>|</c:otherwise></c:choose></c:forEach><a href="setmodel.php?bid=1&amp;mid=${mid }">诺基亚全部机型</a><br />
+	<c:forEach items="${brandDTO.phoneModelList}" var="model" varStatus="vs"><a href="suremodel.php?mid=${model.id }">${model.name}</a><c:choose><c:when test="${vs.count % 5 == 0}"><br/></c:when><c:otherwise>|</c:otherwise></c:choose></c:forEach><a href="setmodel.php?bid=1&amp;mid=${mid }&amp;p=1">诺基亚全部机型</a><br />
 	【其他品牌】<br/>
 	<c:set value="${fn:length(brandDTO.phoneBrandList)-1}" var="maxsize"></c:set>
-	<c:forEach items="${brandDTO.phoneBrandList}" var="brand" varStatus="vs" begin="1"><a href="setmodel.php?bid=${brand.id}&amp;mid=${mid }">${brand.name}</a><c:choose><c:when test="${vs.count % 4 == 0 ||maxsize== vs.count}"><br/></c:when><c:otherwise>|</c:otherwise></c:choose></c:forEach>
+	<c:forEach items="${brandDTO.phoneBrandList}" var="brand" varStatus="vs" begin="1"><a href="setmodel.php?bid=${brand.id}&amp;mid=${mid }&amp;p=1">${brand.name}</a><c:choose><c:when test="${vs.count % 4 == 0 ||maxsize== vs.count}"><br/></c:when><c:otherwise>|</c:otherwise></c:choose></c:forEach>
 	【温馨提示】<br/>
 	1.建议您设置完机型或平台后将本站<a href="help.php?no=6&amp;mid=${mid}">收藏(存为书签)</a>,方便您下次访问无需再次设置,还能节省您宝贵的流量!<br/>
 	2.如未找到您的机型,请您将手机品牌及机型<a href="reportModel.php?mid=${mid}">报告给我们</a>.<br/>

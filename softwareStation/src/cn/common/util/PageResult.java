@@ -1,7 +1,9 @@
 package cn.common.util;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @SuppressWarnings("unchecked")
 public class PageResult<E> {
@@ -11,6 +13,8 @@ public class PageResult<E> {
 	private int pageNo = 1; // 实际页号
 	private int pageSize = 10; // 每页记录数
 	private int recTotal = 0; // 总记录数
+	private List<Object> tmp = new ArrayList<Object>();// 备用数组
+	private Map<Object, Object> temp2 = new HashMap<Object, Object>();
 
 	public List<E> getList() {
 		return list;
@@ -72,6 +76,22 @@ public class PageResult<E> {
 
 	public void setSort(String sort) {
 		this.sort = sort;
+	}
+
+	public List<Object> getTmp() {
+		return tmp;
+	}
+
+	public void setTmp(List<Object> tmp) {
+		this.tmp = tmp;
+	}
+
+	public Map<Object, Object> getTemp2() {
+		return temp2;
+	}
+
+	public void setTemp2(Map<Object, Object> temp2) {
+		this.temp2 = temp2;
 	}
 
 }

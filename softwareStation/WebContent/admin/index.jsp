@@ -6,7 +6,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>管理主页</title>
 </head>
-<frameset rows="80,*" border="1">
+<frameset rows="10,*" border="1">
 	<frame name="top" src="top.jsp" scrolling="no"  noresize="noresize">
 	<frameset cols="160,*" border="1">
 		<frame name="menu" src="menu.jsp"  scrolling="auto" noresize="noresize">

@@ -361,7 +361,7 @@ function ajaxFunction()
 				<td>
 					<select name="softwareForm.traffic">
 						<option value="0" <c:if test="${softwareInfo.traffic == 0}">selected</c:if>>使用完全免费</option>
-						<option value="1" <c:if test="${softwareInfo.traffic == 1}">selected</c:if>>部分功能收费</option>
+						<option value="1" <c:if test="${softwareInfo.traffic == 1}">selected</c:if>>共享软件</option>
 					</select>
 				</td>
 				<th>提示:</th>

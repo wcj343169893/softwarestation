@@ -33,8 +33,7 @@ public class ActiveLogAction extends BasicAction {
 		SoftwareInfo softwareInfo = softwareInfoService.findById(sid);
 		if (softwareInfo != null) {// 如果提交的日期已存在，则修改
 			List<ActiveLog> list = activeLogService.findByDate(Tool
-					.dateFormatString(Tool.stringFormatDate(beginTime,
-							"yyyy-MM-dd"), "yyyy-MM-dd"), null, sid);
+					.stringFormatDate(beginTime, "yyyy-MM-dd"), null, sid);
 			if (list != null && list.size() > 0) {
 				activeLog = list.get(0);
 				editActiveLog(softwareInfo);
@@ -52,17 +51,21 @@ public class ActiveLogAction extends BasicAction {
 	 */
 	private void addActiveLog(SoftwareInfo softwareInfo) {
 		List<DownloadLog> dowloadLogList = softwareInfo.getDownloadLogList();
-		int yesterdayNumber = 0;
-		for (int i = 0; i < dowloadLogList.size(); i++) {//判断更新日期是否有数据
-			if (Tool.dateIsEque(Tool.beforeOrAfterDate(Tool.stringFormatDate(beginTime, "yyyy-MM-dd"), -1),
-					dowloadLogList.get(i).getDownloadTime(), "yyyy-MM-dd")) {
-				yesterdayNumber = dowloadLogList.get(i).getNumber();
-			}
-		}
+		// int yesterdayNumber = 0;
+		// for (int i = 0; i < dowloadLogList.size(); i++) {//判断更新日期是否有数据
+		// if
+		// (Tool.dateIsEque(Tool.beforeOrAfterDate(Tool.stringFormatDate(beginTime,
+		// "yyyy-MM-dd"), -1),
+		// dowloadLogList.get(i).getDownloadTime(), "yyyy-MM-dd")) {
+		// yesterdayNumber = dowloadLogList.get(i).getNumber();
+		// }
+		// }
 		activeLog = new ActiveLog();
 		activeLog.setActiveTime(new Date());
-		activeLog
-				.setNumber(number > yesterdayNumber ? yesterdayNumber : number);// 判断激活数与下载数量
+		// activeLog
+		// .setNumber(number > yesterdayNumber ? yesterdayNumber : number);//
+		// 判断激活数与下载数量
+		activeLog.setNumber(number);
 		activeLog.setPrice(price);
 		activeLog.setActiveTime(Tool.stringFormatDate(beginTime, "yyyy-MM-dd"));
 		activeLog.setSoftwareInfo(softwareInfo);

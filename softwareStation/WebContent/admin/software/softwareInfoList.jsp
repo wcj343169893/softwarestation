@@ -116,9 +116,9 @@
 软件名称:<input type="text" name="name" value="${name }">更新日期
 <input type="text" name="beginTime" onClick="WdatePicker()" value="${beginTime }" readonly="readonly" size="10">
 到<input type="text" name="endTime" onClick="WdatePicker()" value="${endTime }" readonly="readonly" size="10">
-<input  value="${od }"  size="2" name="od" id="od">
-<input  value="${oi }" size="2" name="oi" id="oi">
-<input  value="${pageResult.pageNo }"  size="2" name="p" id="p">
+<input  value="${od }" type="hidden" size="2" name="od" id="od">
+<input  value="${oi }" type="hidden" size="2" name="oi" id="oi">
+<input  value="${pageResult.pageNo }" type="hidden" size="2" name="p" id="p">
 <input type="button" onclick="mysearch(1)" value="查询">
 </form>
 </div>
@@ -191,6 +191,7 @@
 					<c:set value="0" var="dowload"></c:set>
 					<c:set value="0" var="click"></c:set>
 					<!-- 下载数 -->
+					<c:set value="0" var="dowload_all"></c:set>
 					<c:forEach items="${softwareInfo.downloadLogList }" var="downloadLog">
 					<c:choose>
 						<c:when test="${showData==1}"><!-- 数据分析昨天 -->
@@ -206,9 +207,10 @@
 							</c:if>
 						</c:otherwise>
 					</c:choose>
-						
+					<c:set value="${downloadLog.number+dowload_all}" var="dowload_all"></c:set>
 					</c:forEach>
 					<!-- 点击数 -->
+					<c:set value="0" var="click_all"></c:set>
 					<c:forEach items="${softwareInfo.clickLogList }" var="clickLog">
 					<c:choose>
 						<c:when test="${showData==1}">
@@ -224,13 +226,14 @@
 							</c:if>
 						</c:otherwise>
 						</c:choose>
+						<c:set value="${click_all+clickLog.number}" var="click_all"></c:set>
 					</c:forEach>
 					<!-- 总点击，总下载 -->
 					<c:set value="${click+cs}" var="cs"></c:set>
 					<c:set value="${dowload+ds}" var="ds"></c:set>
 					<c:set value="0" var="clid"></c:set>
-					<td class="list_data_text">${click}</td>
-					<td class="list_data_text">${dowload}</td>
+					<td class="list_data_text">${click}/${click_all }</td>
+					<td class="list_data_text">${dowload}/${dowload_all }</td>
 					<td class="list_data_text">
 					<c:set value="0" var="stp"></c:set>
 					<c:set value="0" var="alu"></c:set>

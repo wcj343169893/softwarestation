@@ -3,7 +3,9 @@ package cn.ss.dao;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Expression;
@@ -130,14 +132,14 @@ public class SoftwareInfoDao extends HibernateDaoSupport {
 				&& Tool.stringFormatDate(beginTime, "yyyy-MM-dd") != null) {
 			criteria
 					.add(Expression
-							.sql("DATE_FORMAT(si.createTime ,'%Y %c %e')>=DATE_FORMAT('"
+							.sql("DATE_FORMAT(createTime ,'%Y %c %e')>=DATE_FORMAT('"
 									+ beginTime + "','%Y %c %e')"));
 		}
 		if (endTime != null && !"".equals(endTime)
 				&& Tool.stringFormatDate(endTime, "yyyy-MM-dd") != null) {
 			criteria
 					.add(Expression
-							.sql(" DATE_FORMAT(si.createTime ,'%Y %c %e') <= DATE_FORMAT('"
+							.sql(" DATE_FORMAT(createTime ,'%Y %c %e') <= DATE_FORMAT('"
 									+ endTime + "','%Y %c %e')"));
 		}
 		if (name != null && !"".equals(name)) {
@@ -191,7 +193,7 @@ public class SoftwareInfoDao extends HibernateDaoSupport {
 				criteria.addOrder(Order.asc("si.createTime"));
 				break;
 			default:
-				criteria.addOrder(Order.desc("si.id"));
+				criteria.addOrder(Order.asc("si.id"));
 				break;
 			}
 			break;
@@ -246,11 +248,14 @@ public class SoftwareInfoDao extends HibernateDaoSupport {
 			if (oi == 4 || oi == 5 || oi == 6) {
 				List list = criteria.list();
 				List<SoftwareInfo> softwareInfoList = new ArrayList<SoftwareInfo>();
+				// Map<Object, Object> maps = new HashMap<Object, Object>();
 				for (int i = 0; i < list.size(); i++) {
 					Object[] obj = (Object[]) list.get(i);
-					System.out.println(obj[0]);
+					// maps.put(((SoftwareInfo) obj[1]).getId(), Integer
+					// .valueOf(obj[0].toString()));
 					softwareInfoList.add((SoftwareInfo) obj[1]);
 				}
+				// pageResult.setTemp2(maps);
 				pageResult.setList(softwareInfoList);
 			} else {
 				pageResult.setList(criteria.list());
@@ -307,7 +312,7 @@ public class SoftwareInfoDao extends HibernateDaoSupport {
 			si.setFirstResult((pageResult.getPageNo() - 1)
 					* pageResult.getPageSize());
 			si.setMaxResults(pageResult.getPageSize());
-			pageResult.setList(list);
+			pageResult.setList(si.list());
 		}
 		// List<SoftwareInfo> list = criteria.list();
 	}
