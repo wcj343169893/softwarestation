@@ -23,39 +23,40 @@ public class SoftwareInfoService extends BasicService {
 			SoftwareInfo softwareInfo, String beginTime, String endTime,
 			String name, int oi, int od, int softwareTypeId, String producer,
 			int promotionWay) {
-		StringBuffer hql = new StringBuffer("FROM SoftwareInfo si where 1=1 ");
-		if (beginTime != null && !"".equals(beginTime)
-				&& Tool.stringFormatDate(beginTime, "yyyy-MM-dd") != null) {
-			hql
-					.append(" and DATE_FORMAT(si.createTime ,'%Y %c %e')>=DATE_FORMAT('"
-							+ beginTime + "','%Y %c %e')");
-		}
-		if (endTime != null && !"".equals(endTime)
-				&& Tool.stringFormatDate(endTime, "yyyy-MM-dd") != null) {
-			hql
-					.append(" and DATE_FORMAT(si.createTime ,'%Y %c %e') <= DATE_FORMAT('"
-							+ endTime + "','%Y %c %e')");
-		}
-		if (name != null && !"".equals(name)) {
-			name = name.replace("'", "");
-			hql.append(" and si.name like '%" + name + "%'");
-		}
-		if (softwareTypeId > 0) {
-			hql.append(" and si.softwareType.id =" + softwareTypeId + "");
-		}
-		if (producer != null && !"".equals(producer)) {
-			producer = producer.replace("'", "");
-			hql.append(" and si.producer like '%" + producer + "%'");
-		}
-		if (promotionWay == 3) {
-			hql.append(" and si.promotionWay = 0");
-		}
-
-		// 更新softwareinfo里面的点击，下载，激活，总价 暂时未实现
-
-		hql.append(" ORDER BY " + getOrderString(oi));
-		hql.append(od == 0 ? " desc" : " asc");
-		dao.listByPage(hql.toString(), pageResult);
+//		StringBuffer hql = new StringBuffer("FROM SoftwareInfo si where 1=1 ");
+//		if (beginTime != null && !"".equals(beginTime)
+//				&& Tool.stringFormatDate(beginTime, "yyyy-MM-dd") != null) {
+//			hql
+//					.append(" and DATE_FORMAT(si.createTime ,'%Y %c %e')>=DATE_FORMAT('"
+//							+ beginTime + "','%Y %c %e')");
+//		}
+//		if (endTime != null && !"".equals(endTime)
+//				&& Tool.stringFormatDate(endTime, "yyyy-MM-dd") != null) {
+//			hql
+//					.append(" and DATE_FORMAT(si.createTime ,'%Y %c %e') <= DATE_FORMAT('"
+//							+ endTime + "','%Y %c %e')");
+//		}
+//		if (name != null && !"".equals(name)) {
+//			name = name.replace("'", "");
+//			hql.append(" and si.name like '%" + name + "%'");
+//		}
+//		if (softwareTypeId > 0) {
+//			hql.append(" and si.softwareType.id =" + softwareTypeId + "");
+//		}
+//		if (producer != null && !"".equals(producer)) {
+//			producer = producer.replace("'", "");
+//			hql.append(" and si.producer like '%" + producer + "%'");
+//		}
+//		if (promotionWay == 3) {
+//			hql.append(" and si.promotionWay = 0");
+//		}
+//
+//		// 更新softwareinfo里面的点击，下载，激活，总价 暂时未实现
+//
+//		hql.append(" ORDER BY " + getOrderString(oi));
+//		hql.append(od == 0 ? " desc" : " asc");
+//		dao.listByPage(hql.toString(), pageResult);
+		softwareInfoDao.list(pageResult, softwareInfo, beginTime, endTime, name, oi, od, softwareTypeId, producer, promotionWay);
 	}
 
 	public String getOrderString(int oi) {

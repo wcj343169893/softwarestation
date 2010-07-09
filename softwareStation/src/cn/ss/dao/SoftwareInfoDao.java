@@ -1,6 +1,7 @@
 package cn.ss.dao;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -122,8 +123,8 @@ public class SoftwareInfoDao extends HibernateDaoSupport {
 			SoftwareInfo softwareInfo, String beginTime, String endTime,
 			String name, int oi, int od, int softwareTypeId, String producer,
 			int promotionWay) {
-		Criteria criteria = this.getSession()
-				.createCriteria(SoftwareInfo.class);
+		Criteria criteria = this.getSession().createCriteria(
+				SoftwareInfo.class, "si");
 
 		if (beginTime != null && !"".equals(beginTime)
 				&& Tool.stringFormatDate(beginTime, "yyyy-MM-dd") != null) {
@@ -151,7 +152,109 @@ public class SoftwareInfoDao extends HibernateDaoSupport {
 			criteria.add(Expression.like("si.producer", producer + "%"));
 		}
 		if (promotionWay == 3) {
-			criteria.add(Expression.eq("si.promotionWay",new Integer(0)));
+			criteria.add(Expression.eq("si.promotionWay", new Integer(0)));
+		}
+		switch (od) {
+		case 0:// asc
+			switch (oi) {
+			case 1:// id
+				criteria.addOrder(Order.asc("si.id"));
+				break;
+			case 2:// 名称
+				criteria.addOrder(Order.asc("si.name"));
+				break;
+			case 3:// 软件个数
+				criteria.addOrder(Order.asc("si.number"));
+				break;
+			case 4:// 点击
+				criteria.createCriteria("clickLogList", "cl").setProjection(
+						Projections.projectionList().add(
+								Projections.sum("cl.number"), "clNumber").add(
+								Projections.groupProperty("cl.softwareInfo")));
+				criteria.addOrder(Order.asc("clNumber"));
+				break;
+			case 5:// 下载
+				criteria.createCriteria("downloadLogList", "dl").setProjection(
+						Projections.projectionList().add(
+								Projections.sum("dl.number"), "dlNumber").add(
+								Projections.groupProperty("dl.softwareInfo")));
+				criteria.addOrder(Order.asc("dlNumber"));
+				break;
+			case 6:// 激活
+				criteria.createCriteria("activeLogList", "al").setProjection(
+						Projections.projectionList().add(
+								Projections.sum("al.number"), "alNumber").add(
+								Projections.groupProperty("al.softwareInfo")));
+				criteria.addOrder(Order.asc("alNumber"));
+				break;
+			case 7:// 时间
+				criteria.addOrder(Order.asc("si.createTime"));
+				break;
+			default:
+				criteria.addOrder(Order.desc("si.id"));
+				break;
+			}
+			break;
+		case 1:// desc
+			switch (oi) {
+			case 1:// id
+				criteria.addOrder(Order.desc("si.id"));
+				break;
+			case 2:// 名称
+				criteria.addOrder(Order.desc("si.name"));
+				break;
+			case 3:// 软件个数
+				criteria.addOrder(Order.desc("si.number"));
+				break;
+			case 4:// 点击
+				criteria.createCriteria("clickLogList", "cl").setProjection(
+						Projections.projectionList().add(
+								Projections.sum("cl.number"), "clNumber").add(
+								Projections.groupProperty("cl.softwareInfo")));
+				criteria.addOrder(Order.desc("clNumber"));
+				break;
+			case 5:// 下载
+				criteria.createCriteria("downloadLogList", "dl").setProjection(
+						Projections.projectionList().add(
+								Projections.sum("dl.number"), "dlNumber").add(
+								Projections.groupProperty("dl.softwareInfo")));
+				criteria.addOrder(Order.desc("dlNumber"));
+				break;
+			case 6:// 激活
+				criteria.createCriteria("activeLogList", "al").setProjection(
+						Projections.projectionList().add(
+								Projections.sum("al.number"), "alNumber").add(
+								Projections.groupProperty("al.softwareInfo")));
+				criteria.addOrder(Order.desc("alNumber"));
+				break;
+			case 7:// 时间
+				criteria.addOrder(Order.desc("si.createTime"));
+				break;
+			default:
+				criteria.addOrder(Order.desc("si.id"));
+				break;
+			}
+			break;
+		default:
+			break;
+		}
+		if (pageResult != null) {
+			pageResult.setRecTotal(criteria.list().size());
+			criteria.setFirstResult((pageResult.getPageNo() - 1)
+					* pageResult.getPageSize());
+			criteria.setMaxResults(pageResult.getPageSize());
+			if (oi == 4 || oi == 5 || oi == 6) {
+				List list = criteria.list();
+				List<SoftwareInfo> softwareInfoList = new ArrayList<SoftwareInfo>();
+				for (int i = 0; i < list.size(); i++) {
+					Object[] obj = (Object[]) list.get(i);
+					System.out.println(obj[0]);
+					softwareInfoList.add((SoftwareInfo) obj[1]);
+				}
+				pageResult.setList(softwareInfoList);
+			} else {
+				pageResult.setList(criteria.list());
+			}
 		}
 	}
 

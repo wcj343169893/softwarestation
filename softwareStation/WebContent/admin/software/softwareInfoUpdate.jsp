@@ -195,8 +195,10 @@ function ajaxFunction()
 				</td>
 			</tr>
 			<tr>
-				<th>软件全称:</th><td><input name="softwareForm.name" id="name" onblur="ajaxFunction()"/><span id="name_error" class="red_test"></span> </td>
+				<th>软件全称:</th><td colspan="3"><input name="softwareForm.name" id="name" onblur="ajaxFunction()"/><span id="name_error" class="red_test"></span> </td>
+				<!-- 
 				<th>软件简称:</th><td><input name="softwareForm.shortName"/></td>
+				 -->
 			</tr>
 			<tr>
 				<th>分类:</th>
@@ -242,6 +244,7 @@ function ajaxFunction()
 				</td>
 			</tr>
 			<tr>
+			<!-- 
 				<th>是否置顶:</th>
 				<td>
 					<input type="radio" name="softwareForm.tops"  value="1" id="topsY">
@@ -249,15 +252,20 @@ function ajaxFunction()
 					<input type="radio" name="softwareForm.tops" checked="checked" value="0" id="topsN">
 					<label for="topsN">否</label>
 				</td>
+			 -->
 				<th>是否推荐:</th>
 				<td>
+					 <input  name="softwareForm.tops" type="hidden"  value="0"/>
+					  <input  name="softwareForm.plusFine" type="hidden"  value="0"/>
 					<input type="radio" name="softwareForm.recommend" checked="checked" value="1" id="recommendY">
 					<label for="recommendY">是</label>
 					<input type="radio" name="softwareForm.recommend" value="0" id="recommendN">
 					<label for="recommendN">否</label>
 				</td>
+				<!-- 
 			</tr>
 			<tr>
+				 -->
 				<th>是否显示:</th>
 				<td>
 					<input type="radio" name="softwareForm.isShow" checked="checked" value="1" id="isShowY">
@@ -265,6 +273,7 @@ function ajaxFunction()
 					<input type="radio" name="softwareForm.isShow" value="0" id="isShowN">
 					<label for="isShowN">否</label>
 				</td>
+				<!-- 
 				<th>是否加精:</th>
 				<td>
 					<input type="radio" name="softwareForm.plusFine" checked="checked" value="1" id="plusFineY">
@@ -272,6 +281,7 @@ function ajaxFunction()
 					<input type="radio" name="softwareForm.plusFine" value="0" id="plusFineN">
 					<label for="plusFineN">否</label>
 				</td>
+				 -->
 			</tr>
 			<tr>
 				<th>推广方式:</th>
@@ -323,11 +333,14 @@ function ajaxFunction()
 				</td>
 			</tr>
 			<tr>
-				<th>软件名称:</th><td>
-				<input name="softwareForm.name" value="${softwareInfo.name }"/>
-				<input type="hidden" value="${softwareInfo.id }" name="softwareForm.id">
+				<th>软件名称:</th>
+				<td colspan="3">
+					<input name="softwareForm.name" value="${softwareInfo.name }"/>
+					<input type="hidden" value="${softwareInfo.id }" name="softwareForm.id">
 				</td>
+				<!-- 
 				<th>软件简称:</th><td><input name="softwareForm.shortName" value="${softwareInfo.shortName }"/></td>
+				 -->
 			</tr>
 			<tr>
 				<th>分类:</th>
@@ -373,6 +386,7 @@ function ajaxFunction()
 				</td>
 			</tr>
 			<tr>
+			<!-- 
 				<th>是否置顶:</th>
 				<td>
 					<input type="radio" name="softwareForm.tops"  <c:if test="${softwareInfo.tops == 1}">checked</c:if> value="1" id="topsY">
@@ -380,15 +394,19 @@ function ajaxFunction()
 					<input type="radio" name="softwareForm.tops"  <c:if test="${softwareInfo.tops == 0}">checked</c:if> value="0" id="topsN">
 					<label for="topsN">否</label>
 				</td>
+			 -->
 				<th>是否推荐:</th>
-				<td>
+				<td> <input  name="softwareForm.tops" type="hidden"  value="0"/>
+					  <input  name="softwareForm.plusFine" type="hidden"  value="0"/>
 					<input type="radio" name="softwareForm.recommend" <c:if test="${softwareInfo.recommend == 1}">checked</c:if> value="1" id="recommendY">
 					<label for="recommendY">是</label>
 					<input type="radio" name="softwareForm.recommend" <c:if test="${softwareInfo.recommend == 0}">checked</c:if> value="0" id="recommendN">
 					<label for="recommendN">否</label>
 				</td>
+				<!-- 
 			</tr>
 			<tr>
+				 -->
 				<th>是否显示:</th>
 				<td>
 					<input type="radio" name="softwareForm.isShow" <c:if test="${softwareInfo.isShow == 1}">checked</c:if> value="1" id="isShowY">
@@ -396,6 +414,7 @@ function ajaxFunction()
 					<input type="radio" name="softwareForm.isShow"  <c:if test="${softwareInfo.isShow == 0}">checked</c:if> value="0" id="isShowN">
 					<label for="isShowN">否</label>
 				</td>
+				<!-- 
 				<th>是否加精:</th>
 				<td>
 					<input type="radio" name="softwareForm.plusFine" <c:if test="${softwareInfo.plusFine == 1}">checked</c:if> value="1" id="plusFineY">
@@ -403,6 +422,7 @@ function ajaxFunction()
 					<input type="radio" name="softwareForm.plusFine" <c:if test="${softwareInfo.plusFine == 0}">checked</c:if> value="0" id="plusFineN">
 					<label for="plusFineN">否</label>
 				</td>
+				 -->
 			</tr>
 			<tr>
 				<th>推广方式:</th>

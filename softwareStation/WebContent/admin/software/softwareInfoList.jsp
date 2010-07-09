@@ -11,6 +11,11 @@
 <script type="text/javascript" src="/admin/DatePicker/WdatePicker.js"></script> 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>软件列表</title>
+<style type="text/css">
+	a{
+		text-decoration: none;
+	}
+</style>
 <script type="text/javascript">
 	function mysearch(p){
 			var myform=	document.getElementById("myform");
@@ -20,7 +25,29 @@
 			myform.action="softwareInfo!list.action?p="+p;
 			myform.submit();
 		}
-	
+	function xianrenzhang(ele){
+		//alert(ele);
+		var od;
+		var sorts;
+		var oi;
+		sorts=document.getElementById("sorts");
+		od=document.getElementById("od");
+		if(ele==-1){
+			sorts.innerHTML="<a href='#' onclick='xianrenzhang(-2)'>升序</a>";
+			od.value=0;
+			//alert(od.value);
+		}else if(ele==-2){
+			sorts.innerHTML="<a href='#' onclick='xianrenzhang(-1)'>倒序</a>";
+			od.value=1;
+			//alert(od.value);
+		}else{
+			oi=document.getElementById("oi");
+			oi.value=ele;
+		}
+		var myform=	document.getElementById("myform");
+		myform.action="softwareInfo!list.action";
+		myform.submit();
+	}
 	function checks(obj){
 		var inputs=document.getElementsByTagName("input");
 		//alert(inputs);
@@ -77,7 +104,7 @@
 <div class="page_search" style="float: left; width: 800px;">
 <form action="" method="post" id="myform">
 <input type="hidden" name="showData" value="${showData }"/>
-<input type="hidden" name="promotionWay" value="${promotionWay }"/>
+<input type="hidden"  name="promotionWay" value="${promotionWay }"/>
 软件分类  
 <select name="softwareTypeId">
 	<option value="0">全部</option>
@@ -89,6 +116,9 @@
 软件名称:<input type="text" name="name" value="${name }">更新日期
 <input type="text" name="beginTime" onClick="WdatePicker()" value="${beginTime }" readonly="readonly" size="10">
 到<input type="text" name="endTime" onClick="WdatePicker()" value="${endTime }" readonly="readonly" size="10">
+<input  value="${od }"  size="2" name="od" id="od">
+<input  value="${oi }" size="2" name="oi" id="oi">
+<input  value="${pageResult.pageNo }"  size="2" name="p" id="p">
 <input type="button" onclick="mysearch(1)" value="查询">
 </form>
 </div>
@@ -104,16 +134,16 @@
 		<th>
 			<input type="checkbox" onclick="javascript:checks(this)" id="allCheck">
 		</th>
-		<th>编号</th>
-		<th>软件名称</th>
+		<th><a href="javascript:xianrenzhang(1)">编号</a></th>
+		<th><a href="javascript:xianrenzhang(2)">软件名称</a></th>
 		<th>分类</th>
 		<c:if test="${showData==0}">
-			<th>软件数量</th>
+			<th><a href="javascript:xianrenzhang(3)">软件数量</a></th>
 			<th>开发商</th>
 		</c:if>
-		<th>点击</th>
-		<th>下载</th>
-		<th>激活</th>
+		<th><a href="javascript:xianrenzhang(4)">点击</a></th>
+		<th><a href="javascript:xianrenzhang(5)">下载</a></th>
+		<th><a href="javascript:xianrenzhang(6)">激活</a></th>
 		<th>单价(元)</th>
 		
 		<th>收入(元)</th>
@@ -121,18 +151,30 @@
 		<th>激活/下载</th>
 		<th>激活/点击</th>
 		<th>收入/点击</th>
+		<!-- 
 		<th>置顶</th>
+		 -->
 		<th>显示</th>
+		<!-- 
 		<th>加精</th>
+		 -->
 		<th>推荐</th>
 		<th>方式</th>
-		<th>时间</th>
-		<th>操作</th>
+		<th><a href="javascript:xianrenzhang(7)">时间</a></th>
+		<th>操作 
+			<span id="sorts">
+				<c:choose>
+					<c:when test="${od==1}"><a href="#" onclick="xianrenzhang(-1)">倒序</a></c:when>
+					<c:otherwise><a href="#" onclick="xianrenzhang(-2)">升序</a></c:otherwise>
+				</c:choose>
+				
+			</span> 
+		</th>
 	</tr>
 	<c:choose>
-		<c:when test="${pageResult.list eq null}">
+		<c:when test="${empty pageResult.list}">
 			<tr >
-				<td colspan="12" align="center">暂无数据</td>
+				<td colspan="20" align="center">暂无数据</td>
 			</tr>
 		</c:when>
 		<c:otherwise>
@@ -219,9 +261,14 @@
 					<td>${ac_ }</td>
 					<fmt:formatNumber value="${click!=0 ? (stp*alu/click) : 0  }" type="number" pattern="0.00"  var="sa_"/>
 					<td><span class="red_test">${sa_ }</span></td>
+					<!-- 
 					<td class="list_data_number">${softwareInfo.tops==0?"<span class='red_test'>否</span>":"是"}</td>
+					 -->
+					
 					<td class="list_data_number">${softwareInfo.isShow==0?"<span class='red_test'>否</span>":"是"}</td>
+					<!-- 
 					<td class="list_data_number">${softwareInfo.plusFine==0?"<span class='red_test'>否</span>":"是"}</td>
+					 -->
 					<td class="list_data_number">${softwareInfo.recommend==0?"<span class='red_test'>否</span>":"是"}</td>
 					<td class="list_data_number">${softwareInfo.promotionWay == 0?'提成':'免费'}</td>
 					<td class="list_data_text">
