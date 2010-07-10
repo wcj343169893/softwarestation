@@ -12,6 +12,7 @@ import org.hibernate.criterion.Expression;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
+import org.hibernate.criterion.SimpleExpression;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 import cn.common.util.PageResult;
@@ -127,20 +128,48 @@ public class SoftwareInfoDao extends HibernateDaoSupport {
 			int promotionWay) {
 		Criteria criteria = this.getSession().createCriteria(
 				SoftwareInfo.class, "si");
-
+		Criteria al = null;
+		if (oi == 6
+				|| (promotionWay == 3 && ((beginTime != null
+						&& !"".equals(beginTime) && Tool.stringFormatDate(
+						beginTime, "yyyy-MM-dd") != null) || (endTime != null
+						&& !"".equals(endTime) && Tool.stringFormatDate(
+						endTime, "yyyy-MM-dd") != null)))) {
+			al = criteria.createCriteria("activeLogList", "al").setProjection(
+					Projections.projectionList().add(
+							Projections.groupProperty("al.softwareInfo")));
+		}
 		if (beginTime != null && !"".equals(beginTime)
 				&& Tool.stringFormatDate(beginTime, "yyyy-MM-dd") != null) {
-			criteria
-					.add(Expression
-							.sql("DATE_FORMAT(createTime ,'%Y %c %e')>=DATE_FORMAT('"
-									+ beginTime + "','%Y %c %e')"));
+			if (promotionWay == 3) {
+				al
+						.add(Expression
+								.sql("DATE_FORMAT(activeTime ,'%Y %c %e') >= DATE_FORMAT('"
+										+ beginTime + "','%Y %c %e')"));
+				// criteria.add(Restrictions.ge("al.activeTime", Tool
+				// .stringFormatDate(beginTime, "yyyy-MM-dd")));// 大于等于
+			} else {
+				criteria
+						.add(Expression
+								.sql("DATE_FORMAT(createTime ,'%Y %c %e')>=DATE_FORMAT('"
+										+ beginTime + "','%Y %c %e')"));
+			}
 		}
 		if (endTime != null && !"".equals(endTime)
 				&& Tool.stringFormatDate(endTime, "yyyy-MM-dd") != null) {
-			criteria
-					.add(Expression
-							.sql(" DATE_FORMAT(createTime ,'%Y %c %e') <= DATE_FORMAT('"
-									+ endTime + "','%Y %c %e')"));
+			if (promotionWay == 3) {
+				al
+						.add(Expression
+								.sql("DATE_FORMAT(activeTime ,'%Y %c %e') <= DATE_FORMAT('"
+										+ endTime + "','%Y %c %e')"));
+				// criteria.add(Restrictions.le("al.activeTime", Tool
+				// .stringFormatDate(endTime, "yyyy-MM-dd")));// 小于等于
+			} else {
+				criteria
+						.add(Expression
+								.sql(" DATE_FORMAT(createTime ,'%Y %c %e') <= DATE_FORMAT('"
+										+ endTime + "','%Y %c %e')"));
+			}
 		}
 		if (name != null && !"".equals(name)) {
 			name = name.replace("'", "");
@@ -183,10 +212,9 @@ public class SoftwareInfoDao extends HibernateDaoSupport {
 				criteria.addOrder(Order.asc("dlNumber"));
 				break;
 			case 6:// 激活
-				criteria.createCriteria("activeLogList", "al").setProjection(
-						Projections.projectionList().add(
-								Projections.sum("al.number"), "alNumber").add(
-								Projections.groupProperty("al.softwareInfo")));
+				criteria.setProjection(Projections.projectionList().add(
+						Projections.sum("al.number"), "alNumber").add(
+						Projections.groupProperty("al.softwareInfo")));
 				criteria.addOrder(Order.asc("alNumber"));
 				break;
 			case 7:// 时间
@@ -223,10 +251,9 @@ public class SoftwareInfoDao extends HibernateDaoSupport {
 				criteria.addOrder(Order.desc("dlNumber"));
 				break;
 			case 6:// 激活
-				criteria.createCriteria("activeLogList", "al").setProjection(
-						Projections.projectionList().add(
-								Projections.sum("al.number"), "alNumber").add(
-								Projections.groupProperty("al.softwareInfo")));
+				criteria.setProjection(Projections.projectionList().add(
+						Projections.sum("al.number"), "alNumber").add(
+						Projections.groupProperty("al.softwareInfo")));
 				criteria.addOrder(Order.desc("alNumber"));
 				break;
 			case 7:// 时间

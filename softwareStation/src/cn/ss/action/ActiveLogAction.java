@@ -89,16 +89,18 @@ public class ActiveLogAction extends BasicAction {
 	 */
 	private void editActiveLog(SoftwareInfo softwareInfo) {
 		List<DownloadLog> dowloadLogList = softwareInfo.getDownloadLogList();
-		int yesterdayNumber = 0;
-		for (int i = 0; i < dowloadLogList.size(); i++) {
-			if (Tool.dateIsEque(Tool.beforeOrAfterDate(new Date(), -1),
-					dowloadLogList.get(i).getDownloadTime(), "yyyy-MM-dd")) {
-				yesterdayNumber = dowloadLogList.get(i).getNumber();
-			}
-		}
+		// int yesterdayNumber = 0;
+		// for (int i = 0; i < dowloadLogList.size(); i++) {
+		// if (Tool.dateIsEque(Tool.beforeOrAfterDate(new Date(), -1),
+		// dowloadLogList.get(i).getDownloadTime(), "yyyy-MM-dd")) {
+		// yesterdayNumber = dowloadLogList.get(i).getNumber();
+		// }
+		// }
 		activeLog.setActiveTime(new Date());
-		activeLog
-				.setNumber(number > yesterdayNumber ? yesterdayNumber : number);// 判断激活数与下载数量
+		// activeLog
+		// .setNumber(number > yesterdayNumber ? yesterdayNumber : number);//
+		// 判断激活数与下载数量
+		activeLog.setNumber(number);
 		activeLog.setPrice(price);
 		activeLog.setActiveTime(Tool.stringFormatDate(beginTime, "yyyy-MM-dd"));
 		activeLog.setSoftwareInfo(softwareInfo);

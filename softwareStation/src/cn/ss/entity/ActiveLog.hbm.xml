@@ -28,5 +28,10 @@
 				<comment>激活价格</comment>
 			</column>
 		</property>
+		<many-to-one name="bop" class="cn.ss.entity.Bop">
+			<column name="bopId">
+				<comment>每日账单</comment>
+			</column>
+		</many-to-one>
 	</class>
 </hibernate-mapping>

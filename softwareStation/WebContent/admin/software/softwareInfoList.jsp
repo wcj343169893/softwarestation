@@ -101,7 +101,7 @@
 <body>
 <jsp:useBean id="now_date" class="java.util.Date" /> 
 <div class="page_title">管理中心 &gt; 软件列表</div>
-<div class="page_search" style="float: left; width: 800px;">
+<div class="page_search" style="float: left; width: 900px;">
 <form action="" method="post" id="myform">
 <input type="hidden" name="showData" value="${showData }"/>
 <input type="hidden"  name="promotionWay" value="${promotionWay }"/>
@@ -113,8 +113,18 @@
 	</c:forEach>
 </select>  
 软件开发商:<input name="producer" value="${producer }">
-软件名称:<input type="text" name="name" value="${name }">更新日期
-<input type="text" name="beginTime" onClick="WdatePicker()" value="${beginTime }" readonly="readonly" size="10">
+软件名称:<input type="text" name="name" value="${name }">
+<!-- 
+<c:if test="${showData==1}">
+是否录入
+<select name="isac">
+	<option value="0">全部</option>
+	<option value="1">已录入</option>
+	<option value="2">未录入</option>
+</select>
+</c:if>
+ -->
+更新日期<input type="text" name="beginTime" onClick="WdatePicker()" value="${beginTime }" readonly="readonly" size="10">
 到<input type="text" name="endTime" onClick="WdatePicker()" value="${endTime }" readonly="readonly" size="10">
 <input  value="${od }" type="hidden" size="2" name="od" id="od">
 <input  value="${oi }" type="hidden" size="2" name="oi" id="oi">
@@ -298,8 +308,8 @@
 <div>
 <input type="button" value="批量删除" style="float: left; width: 70px" onclick="javascript:deletes()">
 </div>
-	<div class="pager">
-	点击:${cs } 下载:${ds } 激活:${as } 收入:${allmoney }
+	<div class="pager"><fmt:formatNumber value="${allmoney}" type="number" pattern="0.00"  var="allmoney_"/>
+	点击:${cs } 下载:${ds } 激活:${as } 收入:${allmoney_ }
 		<c:set var="page" value="${pageResult}"></c:set> 共${page.recTotal }条记录 每页<input
 			value="${page.pageSize}" size="2" id="pageSize"/>条 第<input value="${page.pageNo}" size="2"/>页/共${page.pageTotal}页
 		<a href="javascript:mysearch(1)">第一页</a> <c:if test="${page.pageNo!=1}"><a href="javascript:mysearch(${page.pageNo-1 })">上一页</a> </c:if>

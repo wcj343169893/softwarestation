@@ -101,6 +101,11 @@ public class SoftwareInfoAction extends BasicAction {
 
 	private String ids;
 
+	/**
+	 * 查询是否录入
+	 */
+	private Integer isac;
+
 	public String d() throws Exception {
 		softwareInfo = softwareInfoService.findById(id);
 		if (softwareInfo.getVote() != null) {
@@ -538,14 +543,14 @@ public class SoftwareInfoAction extends BasicAction {
 		for (Software software : softwareInfo.getSoftwareList()) {// 判断是否有适合机型的软件
 			name = software.getDownloadPath();
 			name = name.substring(name.lastIndexOf("."));// 获取文件的后缀
-			//System.out.println("后缀1：" + name);
+			// System.out.println("后缀1：" + name);
 			for (int i = 0; i < extension.size(); i++) {
-				//System.out.println("extension" + extension.get(i).getName());
+				// System.out.println("extension" + extension.get(i).getName());
 				if (extension.get(i).getName().toLowerCase().equals(
 						name.toLowerCase())) {
 					software_p = software;
 					flag = true;
-					//System.out.println("匹配成功！" + name);
+					// System.out.println("匹配成功！" + name);
 					request.setAttribute("name", name.substring(1));
 					break;
 				}
@@ -555,13 +560,14 @@ public class SoftwareInfoAction extends BasicAction {
 				break;
 			}
 		}
-		//System.out.println("name:" + name);
+		// System.out.println("name:" + name);
 		if (phoneOs != null && !phoneOs.getName().equals("java") && !flag) {
 			for (Software software : softwareInfo.getSoftwareList()) {
 				name = software.getDownloadPath();
 				name = name.substring(name.lastIndexOf("."));// 获取文件的后缀
-				//System.out.println("后缀2：" + name);
-				if (name.toLowerCase().equals(".jar")||name.toLowerCase().equals(".jad")) {
+				// System.out.println("后缀2：" + name);
+				if (name.toLowerCase().equals(".jar")
+						|| name.toLowerCase().equals(".jad")) {
 					software_java = software;
 					request.setAttribute("software_java_name", name
 							.substring(1));
@@ -844,6 +850,14 @@ public class SoftwareInfoAction extends BasicAction {
 
 	public void setIds(String ids) {
 		this.ids = ids;
+	}
+
+	public Integer getIsac() {
+		return isac;
+	}
+
+	public void setIsac(Integer isac) {
+		this.isac = isac;
 	}
 
 }

@@ -23,88 +23,8 @@ public class SoftwareInfoService extends BasicService {
 			SoftwareInfo softwareInfo, String beginTime, String endTime,
 			String name, int oi, int od, int softwareTypeId, String producer,
 			int promotionWay) {
-//		StringBuffer hql = new StringBuffer("FROM SoftwareInfo si where 1=1 ");
-//		if (beginTime != null && !"".equals(beginTime)
-//				&& Tool.stringFormatDate(beginTime, "yyyy-MM-dd") != null) {
-//			hql
-//					.append(" and DATE_FORMAT(si.createTime ,'%Y %c %e')>=DATE_FORMAT('"
-//							+ beginTime + "','%Y %c %e')");
-//		}
-//		if (endTime != null && !"".equals(endTime)
-//				&& Tool.stringFormatDate(endTime, "yyyy-MM-dd") != null) {
-//			hql
-//					.append(" and DATE_FORMAT(si.createTime ,'%Y %c %e') <= DATE_FORMAT('"
-//							+ endTime + "','%Y %c %e')");
-//		}
-//		if (name != null && !"".equals(name)) {
-//			name = name.replace("'", "");
-//			hql.append(" and si.name like '%" + name + "%'");
-//		}
-//		if (softwareTypeId > 0) {
-//			hql.append(" and si.softwareType.id =" + softwareTypeId + "");
-//		}
-//		if (producer != null && !"".equals(producer)) {
-//			producer = producer.replace("'", "");
-//			hql.append(" and si.producer like '%" + producer + "%'");
-//		}
-//		if (promotionWay == 3) {
-//			hql.append(" and si.promotionWay = 0");
-//		}
-//
-//		// 更新softwareinfo里面的点击，下载，激活，总价 暂时未实现
-//
-//		hql.append(" ORDER BY " + getOrderString(oi));
-//		hql.append(od == 0 ? " desc" : " asc");
-//		dao.listByPage(hql.toString(), pageResult);
-		softwareInfoDao.list(pageResult, softwareInfo, beginTime, endTime, name, oi, od, softwareTypeId, producer, promotionWay);
-	}
-
-	public String getOrderString(int oi) {
-		String str = "";
-		// 新增一个无语的排序
-		if (oi > -1) {
-			switch (oi) {
-			case 0:
-				str = "si.id";
-				break;
-			case 1:// 点击
-				str = "cl.number";
-				break;
-			case 2:// 下载
-				str = "dl.number";
-				break;
-			case 3:// 激活
-				str = "al.number";
-				break;
-			case 4:// 单价(元)
-				str = "al.price";
-				break;
-			case 5:// 收入(元)
-				str = "al.number*al.price";
-				break;
-			case 6:// 下载/点击
-				str = "dl.number/cl.number";
-				break;
-			case 7:// 激活/下载
-				str = "al.number/dl.number";
-				break;
-			case 8:// 激活/点击
-				str = "al.number/cl.number";
-				break;
-			case 9:// 收入/点击
-				str = "al.number*al.price/cl.number";
-				break;
-			case 10:// 是否免费
-				str = "si.promotionWay";
-				break;
-			case 11:// 是否加精(特殊 前台查询)
-				str = "si.recommend desc , si.promotionWay";
-				break;
-			default:
-				break;
-			}
-		}
-		return str;
+		softwareInfoDao.list(pageResult, softwareInfo, beginTime, endTime,
+				name, oi, od, softwareTypeId, producer, promotionWay);
 	}
 
 	/**
@@ -163,7 +83,7 @@ public class SoftwareInfoService extends BasicService {
 
 	public List<SoftwareInfo> findByName(String name) {
 		name = Tool.filterString(name);
-		String hql = "from SoftwareInfo where name='" + name+"'";
+		String hql = "from SoftwareInfo where name='" + name + "'";
 		return dao.list(hql);
 	}
 

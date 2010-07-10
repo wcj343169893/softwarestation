@@ -1,6 +1,7 @@
 package cn.ss.action;
 
 import java.util.List;
+
 import cn.common.action.BasicAction;
 import cn.common.util.PageResult;
 import cn.common.util.Tool;
@@ -8,11 +9,13 @@ import cn.ss.entity.Account;
 import cn.ss.entity.AccountType;
 import cn.ss.service.AccountService;
 import cn.ss.service.AccountTypeService;
+import cn.ss.service.ActiveLogService;
 
 public class AccountAction extends BasicAction {
 	private static final long serialVersionUID = 7896831671543589893L;
 	private AccountService accountService;
 	private AccountTypeService accountTypeService;
+	private ActiveLogService activeLogService;
 	private Account account;
 	private int p;
 	private int id;
@@ -88,6 +91,15 @@ public class AccountAction extends BasicAction {
 		request.setAttribute("beginTime", beginTime);
 		request.setAttribute("endTime", endTime);
 		return "list";
+	}
+
+	/**查询收支明细
+	 * @return
+	 * @throws Exception
+	 */
+	public String money() throws Exception {
+		
+		return null;
 	}
 
 	private void initData() {
@@ -186,6 +198,14 @@ public class AccountAction extends BasicAction {
 
 	public void setEndTime(String endTime) {
 		this.endTime = endTime;
+	}
+
+	public ActiveLogService getActiveLogService() {
+		return activeLogService;
+	}
+
+	public void setActiveLogService(ActiveLogService activeLogService) {
+		this.activeLogService = activeLogService;
 	}
 
 }

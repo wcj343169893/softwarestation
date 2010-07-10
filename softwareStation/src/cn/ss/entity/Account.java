@@ -14,6 +14,15 @@ public class Account implements java.io.Serializable {
 	private AccountType accType;
 	private String explanation;
 	private Date createTime;
+	private Bop bop;
+
+	public Bop getBop() {
+		return bop;
+	}
+
+	public void setBop(Bop bop) {
+		this.bop = bop;
+	}
 
 	public Integer getId() {
 		return this.id;

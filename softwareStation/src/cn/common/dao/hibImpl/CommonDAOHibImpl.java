@@ -72,14 +72,7 @@ public class CommonDAOHibImpl extends HibernateDaoSupport implements CommonDAO {
 		query.setFirstResult(pageResult.getFirstRec());
 		query.setMaxResults(pageResult.getPageSize());
 		query.setCacheable(true);
-		
-		List ret = query.list();
-		List<SoftwareInfoDTO> SoftwareInfoDTOList=new ArrayList<SoftwareInfoDTO>();
-		if (ret!=null&&ret.size()>0) {
-			
-		}
-		
-		pageResult.setList(SoftwareInfoDTOList);
+		pageResult.setList(query.list());
 	}
 
 	public void listByPage(String hql, PageResult pageResult) {

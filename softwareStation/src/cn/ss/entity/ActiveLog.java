@@ -14,6 +14,15 @@ public class ActiveLog implements java.io.Serializable {
 	private Integer number;
 	private Date activeTime;
 	private double price;
+	private Bop bop;
+
+	public Bop getBop() {
+		return bop;
+	}
+
+	public void setBop(Bop bop) {
+		this.bop = bop;
+	}
 
 	public double getPrice() {
 		return price;

@@ -231,7 +231,7 @@ function ajaxFunction()
 				</td>
 			</tr>
 			<tr>
-				<th>开发商:</th>
+				<th>广告商:</th>
 				<td>
 					<input type="text" name="softwareForm.producer" value="">
 				</td>
@@ -373,7 +373,7 @@ function ajaxFunction()
 				</td>
 			</tr>
 			<tr>
-				<th>开发商:</th>
+				<th>广告商:</th>
 				<td>
 					<input type="text" name="softwareForm.producer" value="${softwareInfo.producer }" maxlength="180">
 				</td>

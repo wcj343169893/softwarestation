@@ -51,9 +51,10 @@ public class ActiveLogService extends BasicService {
 	public List<ActiveLog> findByDate(Date beginTime, Date endTime, int sid) {
 		StringBuffer hql = new StringBuffer("from ActiveLog a where 1=1");
 		if (beginTime != null) {
+			
 			hql
 					.append(" and DATE_FORMAT(a.activeTime,'%y %m %d') = DATE_FORMAT('"
-							+ beginTime + "','%y %m %d')");
+							+ Tool.dateFormatString(beginTime,"yyyy-MM-dd") + "','%y %m %d')");
 		}
 		if (sid > 0) {
 			hql.append(" and a.softwareInfo.id=" + sid);

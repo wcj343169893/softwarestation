@@ -1,5 +1,7 @@
 package cn.ss.service;
 
+import java.util.List;
+
 import cn.common.service.BasicService;
 import cn.common.util.PageResult;
 import cn.common.util.Tool;
@@ -15,21 +17,30 @@ public class AccountService extends BasicService {
 	public void findAll(PageResult<Account> pageResult, Account account,
 			String beginTime, String endTime, int atId) {
 		StringBuffer hql = new StringBuffer("from Account a where 1=1");
-		if (beginTime != null
-				&& !"".equals(beginTime)
+		if (beginTime != null && !"".equals(beginTime)
 				&& Tool.stringFormatDate(beginTime, "yyyy-MM-dd") != null) {
-			hql.append(" and DATE_FORMAT(a.createTime,'%y %m %d') >= DATE_FORMAT('"+beginTime+"','%y %m %d')");
+			hql
+					.append(" and DATE_FORMAT(a.createTime,'%y %m %d') >= DATE_FORMAT('"
+							+ beginTime + "','%y %m %d')");
 		}
-		if (endTime != null
-				&& !"".equals(endTime)
+		if (endTime != null && !"".equals(endTime)
 				&& Tool.stringFormatDate(endTime, "yyyy-MM-dd") != null) {
-			hql.append(" and DATE_FORMAT(a.createTime,'%y %m %d') <= DATE_FORMAT('"+endTime+"','%y %m %d')");
+			hql
+					.append(" and DATE_FORMAT(a.createTime,'%y %m %d') <= DATE_FORMAT('"
+							+ endTime + "','%y %m %d')");
 		}
 		if (atId > 0) {
 			hql.append(" and a.accType.id = " + atId);
 		}
 		hql.append(" order by a.id desc");
 		dao.listByPage(hql.toString(), pageResult);
+	}
+
+	public List findMoney(PageResult<Object> pageResult, String beginTime,
+			String endTime) {
+		String sql="";
+		dao.list(sql, pageResult);
+		return null;
 	}
 
 	/**
