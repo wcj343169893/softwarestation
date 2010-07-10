@@ -33,7 +33,7 @@
 	<table class="query_form_table">
 		<tr>
 			<th>日期：</th>
-			<td><input type="text" name="beginTime" onClick="WdatePicker()" value="${account.createTime }"></td>
+			<td><input type="text" name="beginTime" onClick="WdatePicker()" value="${account.createTime }">(必填)</td>
 		</tr><tr>
 			<th>分类：</th>
 			<td>
@@ -45,7 +45,7 @@
 			</td>
 		</tr><tr>
 			<th>金额：</th>
-			<td><input name="price" value="${account.price }"></td>
+			<td><input name="price" value="${account.price }">(必填)</td>
 		</tr><tr>
 			<th>说明：</th>
 			<td>

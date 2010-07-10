@@ -12,7 +12,7 @@ import java.util.List;
  */
 public class Bop implements java.io.Serializable {
 
-	private Integer id;
+	private int id;
 	private Date createtime;
 	private Date modifyTime;
 	private Integer isvisible;

@@ -475,7 +475,7 @@ public class SoftwareInfoAction extends BasicAction {
 		// PageResult<SoftwareType> softwareTypePageResult = new
 		// PageResult<SoftwareType>();
 		// softwareTypeService.findAll( null);
-
+		init();
 		String phoneOs_s = "";
 		List<PhoneOs> phoneOsList = (List<PhoneOs>) phoneOsService.findAll();
 		int size = phoneOsList.size();

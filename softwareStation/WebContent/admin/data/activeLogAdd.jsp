@@ -33,20 +33,20 @@
 		<tr>
 			<th>激活数</th>
 			<td>
-			<input name="number" value="${activeLog.number }">
+			<input name="number" value="${activeLog.number }">(必填)
 			</td>
 		</tr>
 		<tr>
 			<th>激单价(元)</th>
 			<td>
-			<input name="price" value="${activeLog.price }">
+			<input name="price" value="${activeLog.price }">(必填)
 			</td>
 		</tr>
 		<tr>
 			<th>日期</th>
 			<td>
 			<fmt:formatDate value="${activeLog.activeTime }" pattern="yyyy-MM-dd" var="alt"/>
-			<input type="text" name="beginTime" onClick="WdatePicker()" value="${alt }" readonly="readonly" size="10">
+			<input type="text" name="beginTime" onClick="WdatePicker()" value="${alt }" readonly="readonly" size="10">(必填)
 			</td>
 		</tr>
 		<tr>

@@ -39,6 +39,7 @@
 				<value>cn/ss/entity/Report.hbm.xml</value>
 				<value>cn/ss/entity/Message.hbm.xml</value>
 				<value>cn/ss/entity/ReportModel.hbm.xml</value>
+				<value>cn/ss/entity/Bop.hbm.xml</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">
@@ -134,6 +135,9 @@
 	<bean id="reportModelService" class="cn.ss.service.ReportModelService">
 		<property name="dao" ref="commonDAO"></property>
 	</bean>
+	<bean id="bopService" class="cn.ss.service.BopService">
+		<property name="dao" ref="commonDAO"></property>
+	</bean>
 	<!-- action	 -->
 	<bean id="PhoneOsAction" class="cn.ss.action.PhoneOsAction">
 		<property name="phoneOsService" ref="phoneOsService"></property>
@@ -154,8 +158,7 @@
 		<property name="phoneModelService" ref="phoneModelService"></property>
 		<property name="softwareInfoService" ref="softwareInfoService"></property>
 	</bean>
-	<bean id="SoftwareInfoAction" class="cn.ss.action.SoftwareInfoAction"
-		scope="prototype">
+	<bean id="SoftwareInfoAction" class="cn.ss.action.SoftwareInfoAction">
 		<property name="softwareInfoService" ref="softwareInfoService"></property>
 		<property name="softwareService" ref="softwareService"></property>
 		<property name="phoneOsService" ref="phoneOsService"></property>
@@ -174,7 +177,7 @@
 	<bean id="AccountAction" class="cn.ss.action.AccountAction" scope="prototype">
 		<property name="accountService" ref="accountService"></property>
 		<property name="accountTypeService" ref="accountTypeService"></property>
-		<property name="activeLogService" ref="activeLogService"></property>
+		<property name="bopService" ref="bopService"></property>
 	</bean>
 	<bean id="AccountTypeAction" class="cn.ss.action.AccountTypeAction">
 		<property name="accountTypeService" ref="accountTypeService"></property>
@@ -182,6 +185,7 @@
 	<bean id="ActiveLogAction" class="cn.ss.action.ActiveLogAction">
 		<property name="activeLogService" ref="activeLogService"></property>
 		<property name="softwareInfoService" ref="softwareInfoService"></property>
+		<property name="bopService" ref="bopService"></property>
 	</bean>
 	<bean id="ExtensionAction" class="cn.ss.action.ExtensionAction"
 		scope="prototype">
@@ -216,6 +220,9 @@
 	<bean id="ReportModelAction" class="cn.ss.action.ReportModelAction">
 		<property name="reportModelService" ref="reportModelService"></property>
 		<property name="phoneModelService" ref="phoneModelService"></property>
+	</bean>
+	<bean id="BopAction" class="cn.ss.action.BopAction">
+		<property name="bopService" ref="bopService"></property>
 	</bean>
 	<!-- 事物管理 -->
 	<tx:advice id="txAdvice" transaction-manager="transactionManager">

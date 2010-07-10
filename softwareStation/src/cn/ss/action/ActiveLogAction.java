@@ -6,15 +6,18 @@ import java.util.List;
 import cn.common.action.BasicAction;
 import cn.common.util.Tool;
 import cn.ss.entity.ActiveLog;
+import cn.ss.entity.Bop;
 import cn.ss.entity.DownloadLog;
 import cn.ss.entity.SoftwareInfo;
 import cn.ss.service.ActiveLogService;
+import cn.ss.service.BopService;
 import cn.ss.service.SoftwareInfoService;
 
 public class ActiveLogAction extends BasicAction {
 	private static final long serialVersionUID = 7896831671543589893L;
 	private ActiveLogService activeLogService;
 	private SoftwareInfoService softwareInfoService;
+	private BopService bopService;
 	private ActiveLog activeLog;
 	private int p;
 	private int id;
@@ -23,6 +26,7 @@ public class ActiveLogAction extends BasicAction {
 	private int number;
 	private String beginTime;
 	private String endTime;
+	private Bop bop;
 
 	public String delete() throws Exception {
 		activeLogService.delete(id);
@@ -31,10 +35,12 @@ public class ActiveLogAction extends BasicAction {
 
 	public String add() throws Exception {
 		SoftwareInfo softwareInfo = softwareInfoService.findById(sid);
-		if (softwareInfo != null) {// 如果提交的日期已存在，则修改
+		if (softwareInfo != null) {// 如果软件不存在，则不执行操作
+			// 判断账单是否存在
+			isExistBop();
 			List<ActiveLog> list = activeLogService.findByDate(Tool
 					.stringFormatDate(beginTime, "yyyy-MM-dd"), null, sid);
-			if (list != null && list.size() > 0) {
+			if (list != null && list.size() > 0) {// 如果提交的日期已存在，则修改
 				activeLog = list.get(0);
 				editActiveLog(softwareInfo);
 			} else {
@@ -42,6 +48,20 @@ public class ActiveLogAction extends BasicAction {
 			}
 		}
 		return "add";
+	}
+
+	private void isExistBop() {
+		bop = bopService.findByDate(Tool.stringFormatDate(beginTime,
+				"yyyy-MM-dd"));
+		if (bop == null) {
+			bop = new Bop();
+			bop.setCreatetime(Tool.stringFormatDate(beginTime, "yyyy-MM-dd"));// 创建日期
+			bop.setIsvisible(1);
+			bopService.add(bop);
+		} else {
+			bop.setModifyTime(Tool.stringFormatDate(beginTime, "yyyy-MM-dd"));// 修改日期
+			bopService.update(bop);
+		}
 	}
 
 	/**
@@ -61,12 +81,12 @@ public class ActiveLogAction extends BasicAction {
 		// }
 		// }
 		activeLog = new ActiveLog();
-		activeLog.setActiveTime(new Date());
 		// activeLog
 		// .setNumber(number > yesterdayNumber ? yesterdayNumber : number);//
 		// 判断激活数与下载数量
 		activeLog.setNumber(number);
 		activeLog.setPrice(price);
+		activeLog.setBop(bop);
 		activeLog.setActiveTime(Tool.stringFormatDate(beginTime, "yyyy-MM-dd"));
 		activeLog.setSoftwareInfo(softwareInfo);
 		activeLogService.add(activeLog);
@@ -226,6 +246,22 @@ public class ActiveLogAction extends BasicAction {
 
 	public void setSoftwareInfoService(SoftwareInfoService softwareInfoService) {
 		this.softwareInfoService = softwareInfoService;
+	}
+
+	public BopService getBopService() {
+		return bopService;
+	}
+
+	public void setBopService(BopService bopService) {
+		this.bopService = bopService;
+	}
+
+	public Bop getBop() {
+		return bop;
+	}
+
+	public void setBop(Bop bop) {
+		this.bop = bop;
 	}
 
 }
