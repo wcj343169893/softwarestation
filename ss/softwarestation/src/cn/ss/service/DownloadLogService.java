@@ -87,16 +87,18 @@ public class DownloadLogService extends BasicService {
 		List<DownloadLog> DownloadLogList = findByDate(Tool.dateFormatString(
 				downloadLog.getDownloadTime(), "yyyy-MM-dd"), downloadLog
 				.getSoftwareInfo().getId());
-		System.out.println(DownloadLogList);
+		//System.out.println(DownloadLogList);
 		if (DownloadLogList != null && DownloadLogList.size() > 0) {
-			System.out.println(DownloadLogList.size());
+			//System.out.println(DownloadLogList.size());
 			// ÐÞ¸Ä
 			downloadLog = DownloadLogList.get(0);
 			downloadLog.setNumber(downloadLog.getNumber() + 1);
 			dao.update(downloadLog);
+			System.out.println("update downloadLog ");
 		} else {
 			// ÐÂÔö
 			dao.add(downloadLog);
+			System.out.println("add downloadLog ");
 		}
 	}
 

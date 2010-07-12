@@ -90,32 +90,21 @@ public class SoftwareAction extends BasicAction {
 				System.out.println(path);
 				File file = new File(path);
 				if (file.exists()) {
-					// SmartUpload su = new SmartUpload();
-					// // 初始化
-					// su.initialize(ServletActionContext.getPageContext());
-					// // 设定contentDisposition为null以禁止浏览器自动打开文件，
-					// // 保证点击链接后是下载文件。若不设定，则下载的文件扩展名为
-					// // doc时，浏览器将自动用word打开它。扩展名为pdf时，
-					// // 浏览器将用acrobat打开。
-					// su.setContentDisposition(null);
-					// // 下载文件
-					// su.downloadFile(path);
-
-					// response.reset();// 来清除首部的空白行
-					response.setContentType("application/octet-stream");
-					response.setHeader("Content-Disposition", "attachment;"
-							+ " filename=" + software.getDownloadPath());
-					FileInputStream fileInputStream = new FileInputStream(file);
-					ServletOutputStream servletOutputStream = response
-							.getOutputStream();
-					byte[] b = new byte[1024];
-					int len = 0;
-					while ((len = fileInputStream.read(b, 0, 1024)) > -1) {
-						servletOutputStream.write(b, 0, len);
-					}
-					servletOutputStream.flush();
-					servletOutputStream.close();
-					fileInputStream.close();
+					// response.setContentType("application/octet-stream");
+					// response.setHeader("Content-Disposition", "attachment;"
+					// + " filename=" + software.getDownloadPath());
+					// FileInputStream fileInputStream = new
+					// FileInputStream(file);
+					// ServletOutputStream servletOutputStream = response
+					// .getOutputStream();
+					// byte[] b = new byte[1024];
+					// int len = 0;
+					// while ((len = fileInputStream.read(b, 0, 1024)) > -1) {
+					// servletOutputStream.write(b, 0, len);
+					// }
+					// servletOutputStream.flush();
+					// servletOutputStream.close();
+					// fileInputStream.close();
 
 					// 下载记录
 					DownloadLog downloadLog = new DownloadLog();
@@ -123,6 +112,8 @@ public class SoftwareAction extends BasicAction {
 					downloadLog.setSoftwareInfo(softwareInfo);
 					downloadLog.setDownloadTime(new Date());
 					downloadLogService.add(downloadLog);
+
+					response.sendRedirect("downLoad?path=" + path);
 				} else {
 					return "error";
 				}
