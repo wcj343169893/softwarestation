@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+	<session-factory name="hibernate">
+		<property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+		<property name="hibernate.connection.password">520520</property>
+		<property name="hibernate.connection.url">jdbc:mysql://localhost:3306/softwareStation</property>
+		<property name="hibernate.connection.username">root</property>
+		<property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+		<property name="hibernate.show_sql">true</property>
+		<mapping resource="cn/ss/entity/Account.hbm.xml" />
+		<mapping resource="cn/ss/entity/AccountType.hbm.xml" />
+		<mapping resource="cn/ss/entity/ActiveLog.hbm.xml" />
+		<mapping resource="cn/ss/entity/ClickLog.hbm.xml" />
+		<mapping resource="cn/ss/entity/DownloadLog.hbm.xml" />
+		<mapping resource="cn/ss/entity/Extension.hbm.xml" />
+		<mapping resource="cn/ss/entity/ExtensionOs.hbm.xml" />
+		<mapping resource="cn/ss/entity/PhoneBrand.hbm.xml" />
+		<mapping resource="cn/ss/entity/PhoneModel.hbm.xml" />
+		<mapping resource="cn/ss/entity/PhoneOs.hbm.xml" />
+		<mapping resource="cn/ss/entity/PhoneSeries.hbm.xml" />
+		<mapping resource="cn/ss/entity/SoftwareInfo.hbm.xml" />
+		<mapping resource="cn/ss/entity/SoftwareType.hbm.xml" />
+		<mapping resource="cn/ss/entity/Software.hbm.xml" />
+		<mapping resource="cn/ss/entity/SoftwareOs.hbm.xml" />
+		<mapping resource="cn/ss/entity/Commentary.hbm.xml" />
+		<mapping resource="cn/ss/entity/Report.hbm.xml" />
+	</session-factory>
+</hibernate-configuration>

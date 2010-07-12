@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+	<!-- Generated 2010-6-21 8:51:34 by Hibernate Tools 3.2.4.GA -->
+<hibernate-mapping>
+	<class name="cn.ss.entity.DownloadLog" table="downloadLog"
+		catalog="softwarestation">
+		<id name="id" type="java.lang.Integer">
+			<column name="id" />
+			<generator class="identity" />
+		</id>
+		<many-to-one name="softwareInfo" class="cn.ss.entity.SoftwareInfo">
+			<column name="softwareId">
+				<comment>&#228;&#184;?&#189;&#189;??&#189;&#175;&#228;&#187;?</comment>
+			</column>
+		</many-to-one>
+		<property name="downloadTime" type="timestamp">
+			<column name="downloadTime" length="19">
+				<comment>&#228;&#184;?&#189;&#189;?&#182;&#233;?</comment>
+			</column>
+		</property>
+		<property name="downloadPrice" type="java.lang.Double">
+			<column name="downloadPrice" precision="22" scale="0">
+				<comment>&#228;&#184;?&#189;&#189;?&#182;&#231;???&#187;&#183;</comment>
+			</column>
+		</property>
+		<property name="number" type="java.lang.Integer">
+			<column name="number">
+				<comment>每日下载数量</comment>
+			</column>
+		</property>
+	</class>
+</hibernate-mapping>

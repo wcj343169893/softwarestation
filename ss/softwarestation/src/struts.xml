@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.0.dtd" >
+<struts>
+	<constant name="struts.enable.DynamicMethodInvocation" value="true" />
+	<constant name="struts.objectFactory" value="spring" />
+	 <constant name="struts.devMode" value="true" />
+	<package name="phone"  extends="struts-default">
+		<action name="phoneOs" class="PhoneOsAction">
+			<result name="success">/index.jsp</result>
+			<result name="input">/index.jsp</result>
+			<result name="list">/admin/phone/phoneOsList.jsp</result>
+			<result name="detail">/admin/phone/phoneOsUpdate.jsp</result>
+		</action>
+		<action name="extension" class="ExtensionAction">
+			<result name="success">/index.jsp</result>
+			<result name="input">/index.jsp</result>
+			<result name="list">/admin/phone/extentionList.jsp</result>
+			<result name="detail">/admin/phone/extentionUpdate.jsp</result>
+		</action>
+		<action name="phoneBrand" class="PhoneBrandAction">
+			<result name="success">/index.jsp</result>
+			<result name="input">/index.jsp</result>
+			<result name="list">/admin/phone/phoneBrandList.jsp</result>
+			<result name="detail">/admin/phone/phoneBrandUpdate.jsp</result>
+		</action>
+		<action name="phoneSeries" class="PhoneSeriesAction">
+			<result name="success">/index.jsp</result>
+			<result name="input">/index.jsp</result>
+			<result name="list">/admin/phone/phoneSeriesList.jsp</result>
+			<result name="detail">/admin/phone/phoneSeriesUpdate.jsp</result>
+		</action>
+		<action name="*reportModel" class="ReportModelAction" method="{1}">
+			<result name="rm" type="redirect">okreportModel.action?mid=${mid}</result>
+			<result name="ok">/wap/success.jsp</result>
+			<result name="error">/wap/error.jsp</result>
+			<result name="success">/wap/model.jsp</result>
+			<result name="input">/index.jsp</result>
+			<result name="list">/admin/phone/reportPhoneModelList.jsp</result>
+			<result name="detail">/admin/phone/phoneSeriesUpdate.jsp</result>
+		</action>
+	</package>
+	<package name="software"  extends="struts-default">
+		<action name="softwareType" class="SoftwareTypeAction">
+			<result name="success">/index.jsp</result>
+			<result name="input">/index.jsp</result>
+			<result name="list">/admin/software/softwareTypeList.jsp</result>
+			<result name="detail">/admin/software/softwareTypeUpdate.jsp</result>
+		</action>
+		<action name="*softwareInfo" class="SoftwareInfoAction"  method="{1}">
+			<result name="success">/index.jsp</result>
+			<result name="input">/index.jsp</result>
+			<result name="list">/admin/software/softwareInfoList.jsp</result>
+			<result name="detail">/admin/software/softwareInfoUpdate.jsp</result>
+			<result name="show">/wap/show.jsp</result>
+			<result name="search">/wap/searchSoftwareInfo.jsp</result>
+			<result name="dingnidefei" type="redirect">showsoftwareInfo.php?id=${id}&amp;mid=${mid}</result>
+			<result name="error">/wap/softwareError.jsp</result>
+		</action>
+		<action name="*software" class="SoftwareAction" method="{1}">
+			<result name="success" type="redirectAction">softwareInfo!list.action</result>
+			<result name="delete" type="redirect">softwareInfo!detail.action?id=${id2 }</result>
+			<result name="input">/index.jsp</result>
+			<result name="error">/wap/error.jsp</result>
+		</action>
+	</package>
+	<package name="data"  extends="struts-default">
+		<action name="account" class="AccountAction">
+			<result name="success">/index.jsp</result>
+			<result name="input">/index.jsp</result>
+			<result name="list">/admin/data/accountList.jsp</result>
+			<result name="detail">/admin/data/accountUpdate.jsp</result>
+		</action>
+		<action name="accountType" class="AccountTypeAction">
+			<result name="success">/index.jsp</result>
+			<result name="input">/index.jsp</result>
+			<result name="list">/admin/data/accountTypeList.jsp</result>
+			<result name="detail">/admin/data/accountTypeUpdate.jsp</result>
+		</action>
+		<action name="activeLog" class="ActiveLogAction">
+			<result name="success">/index.jsp</result>
+			<result name="input">/index.jsp</result>
+			<result name="list">/admin/data/activeLogList.jsp</result>
+			<result name="detail">/admin/data/activeLogAdd.jsp</result>
+			<result name="add" type="redirect">softwareInfo!list.action?showData=1</result>
+		</action>
+		<action name="*commentary" class="CommentaryAction" method="{1}">
+			<result name="ls">/admin/report/commentaryList.jsp</result>
+			<result name="input">/index.jsp</result>
+			<result name="list">/wap/commentary.jsp</result>
+			<result name="add" type="redirect">listcommentary.action?sid=${sid}&amp;mid=${mid}</result>
+		</action>
+		<action name="*message" class="MessageAction" method="{1}">
+			<result name="success">/index.jsp</result>
+			<result name="input">/index.jsp</result>
+			<result name="list">/admin/phone/phoneSeriesList.jsp</result>
+			<result name="detail">/admin/phone/phoneSeriesUpdate.jsp</result>
+		</action>
+		<action name="bop" class="BopAction" method="{1}">
+			<result name="success">/index.jsp</result>
+			<result name="input">/index.jsp</result>
+			<result name="list">/admin/data/dataList.jsp</result>
+		</action>
+	</package>
+	<package name="sys"  extends="struts-default" >
+		<action name="user" class="UserAction">
+			<result name="success">/admin/index.jsp</result>
+			<result name="error">/admin/login.jsp</result>
+			<result name="input">/index.jsp</result>
+			<result name="list">/admin/index.jsp</result>
+		</action>
+		<action name="sysLog" class="SysLogAction" method="{1}">
+			<result name="input">/index.jsp</result>
+		</action>
+	</package>
+	<package name="wap"  extends="struts-default" >
+		<action name="*model" class="PhoneModelAction" method="{1}">
+			<result name="list">/wap/brand.jsp</result>
+			<result name="detail">/wap/setModel.jsp</result>
+			<result name="search">/wap/searchModel.jsp</result>
+			<result name="sure">/wap/sure.jsp</result>
+		</action>
+		<action name="*index" class="IndexAction" method="{1}">
+			<result name="success">/wap/index.jsp</result>
+			<result name="news">/wap/new.jsp</result>
+			<result name="rank">/wap/rank.jsp</result>
+			<result name="commend">/wap/commend.jsp</result>
+			<result name="index">/admin/software/indexTypesetting.jsp</result>
+		</action>
+		<action name="*st" class="SoftwareTypeAction" method="{1}">
+			<result name="success">/index.jsp</result>
+			<result name="input">/index.jsp</result>
+			<result name="list">/admin/software/softwareTypeList.jsp</result>
+			<result name="detail">/admin/software/softwareTypeUpdate.jsp</result>
+			<result name="ls">/wap/types.jsp</result>
+			<result name="show">/wap/tshow.jsp</result>
+		</action>
+		<action name="*help" class="HelpAction" method="{1}">
+			<result name="success">/wap/help.jsp</result>
+			<result name="input">/index.jsp</result>
+		</action>
+		<action name="*report" class="ReportAction" method="{1}">
+			<result name="success" type="redirect">okreport.action?sid=${sid}&amp;mid=${mid}</result>
+			<result name="report">/wap/report.jsp</result>
+			<result name="ok">/wap/success.jsp</result>
+			<result name="input">/index.jsp</result>
+			<result name="list">/admin/report/reportList.jsp</result>
+		</action>
+	</package>
+</struts>

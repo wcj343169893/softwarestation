@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+	<!-- Generated 2010-6-21 8:51:34 by Hibernate Tools 3.2.4.GA -->
+<hibernate-mapping>
+	<class name="cn.ss.entity.Commentary" table="commentary" catalog="softwarestation">
+		<id name="id" type="java.lang.Integer">
+			<column name="id" />
+			<generator class="identity" />
+		</id>
+		<many-to-one name="softwareInfo" class="cn.ss.entity.SoftwareInfo">
+			<column name="softwareInfoId">
+				<comment>&#228;&#184;?&#189;&#189;??&#189;&#175;&#228;&#187;?</comment>
+			</column>
+		</many-to-one>
+		<property name="commentTime" type="timestamp">
+			<column name="commentTime" length="19">
+				<comment>评论时间</comment>
+			</column>
+		</property>
+		<property name="content" type="java.lang.String">
+			<column name="content">
+				<comment>评论内容</comment>
+			</column>
+		</property>
+		<many-to-one name="phoneModel" class="cn.ss.entity.PhoneModel">
+			<column name="phonemodelId">
+				<comment>评论的机型</comment>
+			</column>
+		</many-to-one>
+	</class>
+</hibernate-mapping>

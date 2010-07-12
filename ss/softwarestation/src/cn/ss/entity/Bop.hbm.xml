@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+	<!-- Generated 2010-6-21 8:51:34 by Hibernate Tools 3.2.4.GA -->
+<hibernate-mapping>
+	<class name="cn.ss.entity.Bop" table="bop" catalog="softwarestation">
+		<id name="id" type="java.lang.Integer">
+			<column name="id" />
+			<generator class="identity" />
+		</id>
+		<property name="isvisible" type="java.lang.Integer">
+			<column name="isvisible">
+				<comment>是否显示</comment>
+			</column>
+		</property>
+		<property name="createtime" type="timestamp">
+			<column name="createtime" length="19">
+				<comment>创建时间</comment>
+			</column>
+		</property>
+		<property name="modifyTime" type="timestamp">
+			<column name="modifyTime" length="19">
+				<comment>修改时间</comment>
+			</column>
+		</property>
+		<bag name="accountList">
+			<key>
+				<column name="bopId">
+					<comment>推广费用</comment>
+				</column>
+			</key>
+			<one-to-many class="cn.ss.entity.Account" />
+		</bag>
+		<bag name="activeLogList">
+			<key>
+				<column name="bopId">
+					<comment>激活收入</comment>
+				</column>
+			</key>
+			<one-to-many class="cn.ss.entity.ActiveLog" />
+		</bag>
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+	<!-- Generated 2010-6-21 8:51:34 by Hibernate Tools 3.2.4.GA -->
+<hibernate-mapping>
+	<class name="cn.ss.entity.SysLog" table="syslog" catalog="softwarestation">
+		<id name="id" type="java.lang.Integer">
+			<column name="id" />
+			<generator class="identity" />
+		</id>
+		<property name="ip" type="java.lang.String">
+			<column name="ip">
+				<comment>登录ip</comment>
+			</column>
+		</property>
+		<property name="logTime" type="timestamp">
+			<column name="logTime" length="19">
+				<comment>登录时间</comment>
+			</column>
+		</property>
+		<many-to-one name="user" class="cn.ss.entity.User">
+			<column name="uid">
+				<comment>用户</comment>
+			</column>
+		</many-to-one>
+	</class>
+</hibernate-mapping>

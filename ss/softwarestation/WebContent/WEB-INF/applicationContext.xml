@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="
+			http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+			http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
+			http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
+
+	<bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<property name="url"
+			value="jdbc:mysql://localhost:3306/softwarestation?useUnicode=true&amp;characterEncoding=utf-8" />
+		<property name="username" value="root" />
+		<property name="password" value="520520" />
+	</bean>
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="mappingResources">
+			<list>
+				<value>cn/ss/entity/Account.hbm.xml</value>
+				<value>cn/ss/entity/AccountType.hbm.xml</value>
+				<value>cn/ss/entity/ActiveLog.hbm.xml</value>
+				<value>cn/ss/entity/ClickLog.hbm.xml</value>
+				<value>cn/ss/entity/DownloadLog.hbm.xml</value>
+				<value>cn/ss/entity/Extension.hbm.xml</value>
+				<value>cn/ss/entity/ExtensionOs.hbm.xml</value>
+				<value>cn/ss/entity/PhoneBrand.hbm.xml</value>
+				<value>cn/ss/entity/PhoneModel.hbm.xml</value>
+				<value>cn/ss/entity/PhoneOs.hbm.xml</value>
+				<value>cn/ss/entity/PhoneSeries.hbm.xml</value>
+				<value>cn/ss/entity/SoftwareInfo.hbm.xml</value>
+				<value>cn/ss/entity/SoftwareType.hbm.xml</value>
+				<value>cn/ss/entity/Software.hbm.xml</value>
+				<value>cn/ss/entity/SoftwareOs.hbm.xml</value>
+				<value>cn/ss/entity/Commentary.hbm.xml</value>
+				<value>cn/ss/entity/Report.hbm.xml</value>
+				<value>cn/ss/entity/Message.hbm.xml</value>
+				<value>cn/ss/entity/ReportModel.hbm.xml</value>
+				<value>cn/ss/entity/Bop.hbm.xml</value>
+				<value>cn/ss/entity/SysLog.hbm.xml</value>
+				<value>cn/ss/entity/User.hbm.xml</value>
+			</list>
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+				<prop key="hibernate.generate_statistics">true</prop>
+				<prop key="hibernate.show_sql">true</prop>
+			</props>
+		</property>
+		<property name="eventListeners">
+			<map>
+				<entry key="merge">
+					<bean
+						class="org.springframework.orm.hibernate3.support.IdTransferringMergeEventListener" />
+				</entry>
+			</map>
+		</property>
+	</bean>
+
+	<!-- transactionManager -->
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<!-- dao -->
+	<bean id="commonDAO" class="cn.common.dao.hibImpl.CommonDAOHibImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="softwareInfoDao" class="cn.ss.dao.SoftwareInfoDao">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="phoneSeriesDao" class="cn.ss.dao.PhoneSeriesDao">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<!-- form -->
+	<bean id="softwareForm" class="cn.ss.form.SoftwareForm" scope="prototype"></bean>
+
+	<!-- dto -->
+	<bean id="indexDTO" class="cn.ss.dto.IndexDTO"></bean>
+	<bean id="brandDTO" class="cn.ss.dto.BrandDTO"></bean>
+	<bean id="softwareInfoDTO.java" class="cn.ss.dto.SoftwareInfoDTO"></bean>
+	<!-- service 	-->
+	<bean id="phoneOsService" class="cn.ss.service.PhoneOsService">
+		<property name="dao" ref="commonDAO"></property>
+	</bean>
+	<bean id="phoneBrandService" class="cn.ss.service.PhoneBrandService">
+		<property name="dao" ref="commonDAO"></property>
+	</bean>
+	<bean id="phoneSeriesService" class="cn.ss.service.PhoneSeriesService">
+		<property name="dao" ref="commonDAO"></property>
+		<property name="phoneSeriesDao" ref="phoneSeriesDao"></property>
+	</bean>
+	<bean id="phoneModelService" class="cn.ss.service.PhoneModelService">
+		<property name="dao" ref="commonDAO"></property>
+	</bean>
+	<bean id="softwareTypeService" class="cn.ss.service.SoftwareTypeService">
+		<property name="dao" ref="commonDAO"></property>
+	</bean>
+	<bean id="softwareInfoService" class="cn.ss.service.SoftwareInfoService">
+		<property name="dao" ref="commonDAO"></property>
+		<property name="softwareInfoDao" ref="softwareInfoDao"></property>
+	</bean>
+	<bean id="softwareService" class="cn.ss.service.SoftwareService">
+		<property name="dao" ref="commonDAO"></property>
+	</bean>
+	<bean id="accountService" class="cn.ss.service.AccountService">
+		<property name="dao" ref="commonDAO"></property>
+	</bean>
+	<bean id="accountTypeService" class="cn.ss.service.AccountTypeService">
+		<property name="dao" ref="commonDAO"></property>
+	</bean>
+	<bean id="activeLogService" class="cn.ss.service.ActiveLogService">
+		<property name="dao" ref="commonDAO"></property>
+	</bean>
+	<bean id="extensionService" class="cn.ss.service.ExtensionService">
+		<property name="dao" ref="commonDAO"></property>
+	</bean>
+	<bean id="clickLogService" class="cn.ss.service.ClickLogService">
+		<property name="dao" ref="commonDAO"></property>
+	</bean>
+	<bean id="downloadLogService" class="cn.ss.service.DownloadLogService">
+		<property name="dao" ref="commonDAO"></property>
+	</bean>
+	<bean id="commentaryService" class="cn.ss.service.CommentaryService">
+		<property name="dao" ref="commonDAO"></property>
+	</bean>
+	<bean id="reportService" class="cn.ss.service.ReportService">
+		<property name="dao" ref="commonDAO"></property>
+	</bean>
+	<bean id="messageService" class="cn.ss.service.MessageService">
+		<property name="dao" ref="commonDAO"></property>
+	</bean>
+	<bean id="reportModelService" class="cn.ss.service.ReportModelService">
+		<property name="dao" ref="commonDAO"></property>
+	</bean>
+	<bean id="bopService" class="cn.ss.service.BopService">
+		<property name="dao" ref="commonDAO"></property>
+	</bean>
+	<bean id="userService" class="cn.ss.service.UserService">
+		<property name="dao" ref="commonDAO"></property>
+	</bean>
+	<bean id="sysLogService" class="cn.ss.service.SysLogService">
+		<property name="dao" ref="commonDAO"></property>
+	</bean>
+	<!-- action	 -->
+	<bean id="PhoneOsAction" class="cn.ss.action.PhoneOsAction">
+		<property name="phoneOsService" ref="phoneOsService"></property>
+		<property name="extensionService" ref="extensionService"></property>
+	</bean>
+	<bean id="PhoneBrandAction" class="cn.ss.action.PhoneBrandAction">
+		<property name="phoneBrandService" ref="phoneBrandService"></property>
+	</bean>
+	<bean id="PhoneSeriesAction" class="cn.ss.action.PhoneSeriesAction"
+		scope="prototype">
+		<property name="phoneBrandService" ref="phoneBrandService"></property>
+		<property name="phoneOsService" ref="phoneOsService"></property>
+		<property name="phoneSeriesService" ref="phoneSeriesService"></property>
+		<property name="phoneModelService" ref="phoneModelService"></property>
+	</bean>
+	<bean id="SoftwareTypeAction" class="cn.ss.action.SoftwareTypeAction">
+		<property name="softwareTypeService" ref="softwareTypeService"></property>
+		<property name="phoneModelService" ref="phoneModelService"></property>
+		<property name="softwareInfoService" ref="softwareInfoService"></property>
+	</bean>
+	<bean id="SoftwareInfoAction" class="cn.ss.action.SoftwareInfoAction"
+		scope="prototype">
+		<property name="softwareInfoService" ref="softwareInfoService"></property>
+		<property name="softwareService" ref="softwareService"></property>
+		<property name="phoneOsService" ref="phoneOsService"></property>
+		<property name="softwareTypeService" ref="softwareTypeService"></property>
+		<property name="softwareForm" ref="softwareForm"></property>
+		<property name="activeLogService" ref="activeLogService"></property>
+		<property name="phoneModelService" ref="phoneModelService"></property>
+		<property name="clickLogService" ref="clickLogService"></property>
+		<property name="reportService" ref="reportService"></property>
+	</bean>
+	<bean id="SoftwareAction" class="cn.ss.action.SoftwareAction">
+		<property name="softwareService" ref="softwareService"></property>
+		<property name="softwareInfoService" ref="softwareInfoService"></property>
+		<property name="downloadLogService" ref="downloadLogService"></property>
+	</bean>
+	<bean id="AccountAction" class="cn.ss.action.AccountAction" scope="prototype">
+		<property name="accountService" ref="accountService"></property>
+		<property name="accountTypeService" ref="accountTypeService"></property>
+		<property name="bopService" ref="bopService"></property>
+	</bean>
+	<bean id="AccountTypeAction" class="cn.ss.action.AccountTypeAction">
+		<property name="accountTypeService" ref="accountTypeService"></property>
+	</bean>
+	<bean id="ActiveLogAction" class="cn.ss.action.ActiveLogAction">
+		<property name="activeLogService" ref="activeLogService"></property>
+		<property name="softwareInfoService" ref="softwareInfoService"></property>
+		<property name="bopService" ref="bopService"></property>
+	</bean>
+	<bean id="ExtensionAction" class="cn.ss.action.ExtensionAction"
+		scope="prototype">
+		<property name="extensionService" ref="extensionService"></property>
+	</bean>
+	<bean id="PhoneModelAction" class="cn.ss.action.PhoneModelAction">
+		<property name="phoneBrandService" ref="phoneBrandService"></property>
+		<property name="phoneModelService" ref="phoneModelService"></property>
+		<property name="brandDTO" ref="brandDTO"></property>
+	</bean>
+	<bean id="IndexAction" class="cn.ss.action.IndexAction" scope="prototype">
+		<property name="phoneBrandService" ref="phoneBrandService"></property>
+		<property name="softwareInfoService" ref="softwareInfoService"></property>
+		<property name="phoneModelService" ref="phoneModelService"></property>
+		<property name="indexDTO" ref="indexDTO"></property>
+		<property name="softwareTypeService" ref="softwareTypeService"></property>
+	</bean>
+	<bean id="HelpAction" class="cn.ss.action.HelpAction" scope="prototype"></bean>
+	<bean id="CommentaryAction" class="cn.ss.action.CommentaryAction">
+		<property name="softwareInfoService" ref="softwareInfoService"></property>
+		<property name="commentaryService" ref="commentaryService"></property>
+		<property name="phoneModelService" ref="phoneModelService"></property>
+	</bean>
+	<bean id="ReportAction" class="cn.ss.action.ReportAction">
+		<property name="phoneModelService" ref="phoneModelService"></property>
+		<property name="reportService" ref="reportService"></property>
+		<property name="softwareInfoService" ref="softwareInfoService"></property>
+	</bean>
+	<bean id="MessageAction" class="cn.ss.action.MessageAction">
+		<property name="messageService" ref="messageService"></property>
+	</bean>
+	<bean id="ReportModelAction" class="cn.ss.action.ReportModelAction">
+		<property name="reportModelService" ref="reportModelService"></property>
+		<property name="phoneModelService" ref="phoneModelService"></property>
+	</bean>
+	<bean id="BopAction" class="cn.ss.action.BopAction">
+		<property name="bopService" ref="bopService"></property>
+	</bean>
+	<bean id="UserAction" class="cn.ss.action.UserAction">
+		<property name="sysLogService" ref="sysLogService"></property>
+		<property name="userService" ref="userService"></property>
+	</bean>
+	<bean id="SysLogAction" class="cn.ss.action.SysLogAction">
+		<property name="sysLogService" ref="sysLogService"></property>
+	</bean>
+	<!-- 事物管理 -->
+	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="add*" propagation="REQUIRED" />
+			<tx:method name="update*" propagation="REQUIRED" />
+			<tx:method name="delete*" propagation="REQUIRED" />
+			<tx:method name="find*" read-only="false" />
+		</tx:attributes>
+	</tx:advice>
+	<aop:config>
+		<aop:advisor pointcut="execution(* cn.ss.service.*.*(..))"
+			advice-ref="txAdvice" />
+	</aop:config>
+</beans>
