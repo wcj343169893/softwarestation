@@ -525,11 +525,13 @@ public class SoftwareInfoAction extends BasicAction {
 		// 查询该软件下面的某个包，支持mid
 		PhoneOs phoneOs = null;
 		PhoneModel model = null;
+		int osId = 0;
 		List<Extension> extension = null;
 		if (mid > 0) {
 			model = phoneModelService.findById(mid);
 			phoneOs = model.getPhoneseries().getOs();// 手机的操作系统
 			extension = phoneOs.getExtensionList();
+			osId = phoneOs.getId();
 		} else {
 			String from = "/showsoftwareInfo.php?id=" + id;
 			response.sendRedirect("setmodel.php?from=" + from);
@@ -540,25 +542,34 @@ public class SoftwareInfoAction extends BasicAction {
 		Software software_java = null;// 通用版
 		boolean flag = false;
 		String name = "";
-
-		for (Software software : softwareInfo.getSoftwareList()) {// 判断是否有适合机型的软件
+		frist: for (Software software : softwareInfo.getSoftwareList()) {// 判断是否有适合机型的软件
 			name = software.getDownloadPath();
 			name = name.substring(name.lastIndexOf("."));// 获取文件的后缀
-			// System.out.println("后缀1：" + name);
-			for (int i = 0; i < extension.size(); i++) {
-				// System.out.println("extension" + extension.get(i).getName());
-				if (extension.get(i).getName().toLowerCase().equals(
-						name.toLowerCase())) {
+			List<PhoneOs> osList = software.getPhoneOsList();
+			for (int i = 0; i < osList.size(); i++) {
+				int osId2 = osList.get(i).getId();
+				if (phoneOs != null && osId == osId2) {// 匹配操作系统
 					software_p = software;
 					flag = true;
-					// System.out.println("匹配成功！" + name);
 					request.setAttribute("name", name.substring(1));
-					break;
+					break frist;
 				}
-				// name = extension.get(i).getName();
 			}
-			if (flag) {
-				break;
+		}
+		if (!flag) {// 如果没有适合此操作系统的软件，则寻找支持的后缀
+			secend: for (Software software : softwareInfo.getSoftwareList()) {// 判断是否有适合机型的软件
+				name = software.getDownloadPath();
+				name = name.substring(name.lastIndexOf("."));// 获取文件的后缀
+				// System.out.println("extension：" + name);
+				for (int i = 0; i < extension.size(); i++) {
+					if (extension.get(i).getName().toLowerCase().equals(
+							name.toLowerCase())) {
+						software_p = software;
+						flag = true;
+						request.setAttribute("name", name.substring(1));
+						break secend;
+					}
+				}
 			}
 		}
 		// System.out.println("name:" + name);
