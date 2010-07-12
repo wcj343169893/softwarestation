@@ -105,6 +105,7 @@ public class SoftwareInfoAction extends BasicAction {
 	 * ≤È—Ø «∑Ò¬º»Î
 	 */
 	private Integer isac;
+	private int t = 0;
 
 	public String d() throws Exception {
 		softwareInfo = softwareInfoService.findById(id);
@@ -858,6 +859,14 @@ public class SoftwareInfoAction extends BasicAction {
 
 	public void setIsac(Integer isac) {
 		this.isac = isac;
+	}
+
+	public int getT() {
+		return t;
+	}
+
+	public void setT(int t) {
+		this.t = t;
 	}
 
 }

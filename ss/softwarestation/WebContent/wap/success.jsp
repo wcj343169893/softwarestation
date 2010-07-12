@@ -8,7 +8,7 @@
 <p>
 <jsp:include page="notices.jsp"></jsp:include>
 <c:choose>
-	<c:when test="${empty t}">
+	<c:when test="${t == 0}">
 		报错成功<a href="showsoftwareInfo.php?id=${sid}&amp;mid=${mid }">返回</a>
 		<br/>---------------<br />
 		<a href="index.php?mid=${mid }">首页</a>&gt;报错成功<br/>

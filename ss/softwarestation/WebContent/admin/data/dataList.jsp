@@ -70,10 +70,8 @@
 						</span>
 					</c:when>
 					<c:otherwise>
-						<span class="red_test">
 							<fmt:formatNumber value="${ac_al }" type="number" pattern="0.00"  var="ac_al_"/>
 							${ac_al_ }
-						</span>
 					</c:otherwise>
 				</c:choose>
 			</td>

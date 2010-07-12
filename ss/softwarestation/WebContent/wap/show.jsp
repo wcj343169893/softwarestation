@@ -34,7 +34,7 @@
 	<c:choose>
 		<c:when test="${!empty software_p}"></c:when>
 		<c:when test="${!empty software_java}"></c:when>
-		<c:otherwise>暂时没有您需要的软件，请<a href="report.php?sid=${softwareInfo.id }&amp;mid=${mid}">联系管理员</a><br/></c:otherwise>
+		<c:otherwise>暂时没有支持您手机的软件包，请<a href="report.php?sid=${softwareInfo.id }&amp;mid=${mid}">报告管理员</a><br/></c:otherwise>
 	</c:choose>
 	<fmt:formatDate value="${softwareInfo.createTime }" pattern="yyyy-MM-dd" var="cts"/>
 	[更新]${cts}<br/>
@@ -70,7 +70,7 @@
 	<c:choose>
 		<c:when test="${!empty software_p}"></c:when>
 		<c:when test="${!empty software_java}"></c:when>
-		<c:otherwise>暂时没有您需要的软件，请<a href="report.php?sid=${softwareInfo.id }&amp;mid=${mid}">联系管理员</a><br/></c:otherwise>
+		<c:otherwise>暂时没有支持您手机的软件包，请<a href="report.php?sid=${softwareInfo.id }&amp;mid=${mid}">报告管理员</a><br/></c:otherwise>
 	</c:choose>
 	[下载]${download};[分类]	<a href="showst.php?mid=${mid}&amp;id=${softwareInfo.softwareType.id}">${softwareInfo.softwareType.name }</a><br/>
 	<a href="dsoftwareInfo.php?id=${softwareInfo.id}&amp;mid=${mid}">顶一下!${softwareInfo.vote }</a>|<a href="listcommentary.php?sid=${softwareInfo.id }&amp;mid=${mid}">评论${fn:length(softwareInfo.commentaryList) }</a>|<a href="report.php?sid=${softwareInfo.id }&amp;mid=${mid}">报错</a>
