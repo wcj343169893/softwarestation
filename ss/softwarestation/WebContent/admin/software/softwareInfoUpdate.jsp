@@ -83,10 +83,10 @@
 			{
 				data += "<tr id='tr"+i+"'>";
 				data+="<td>新增软件:</td>";
-				data+="<td>";
+				data+="<td style='width: 10%'>";
 				data+="<input type='checkbox' id='all"+ids+"' class='clazz"+i+"' onclick=\"checks('clazz"+i+"',this,1)\"/><label for='all"+ids+"'>全选</label>";
 				data+="</td>";
-				data+="<td>";
+				data+="<td style='width: 40%'>";
 				var indexs=1;
 				for(var j=0;j<phoneOs_s2.length;j++){
 					if(j%2==0){
@@ -464,10 +464,10 @@ function ajaxFunction()
 								${software.id }
 								<input type="hidden" value="${status.index }_${software.id }" name="softwareForm.softwareId">
 							</td>
-							<td >
+							<td style="width: 10%">
 								<input type="checkbox" onclick="checks('old_${status.index }',this,2)" id="f${status.index }"><label for="f${status.index }">全选</label>
 							</td>
-							<td>
+							<td style="width: 40%">
 								<c:forEach items="${phoneOsList }" var="os" varStatus="s">
 								<c:set value="" var="isChecked"></c:set>
 									<c:forEach items="${software.phoneOsList}" var="myos">

@@ -26,6 +26,7 @@ public class ReportModelAction extends BasicAction {
 	private int mid;
 	private Integer deal;
 	private PageResult<ReportModel> pageResult;
+	private int t = 0;
 
 	public String delete() throws Exception {
 		if (id > 0) {
@@ -59,10 +60,11 @@ public class ReportModelAction extends BasicAction {
 				reportModel.setReportTime(new Date());
 				reportModel.setDeal(0);
 				reportModelService.add(reportModel);
+				t = 0;
 				return "rm";
 			}
 		} else {
-			request.setAttribute("t", 1);
+			t = 1;
 			request.setAttribute("error", "请输入正确的信息");
 			return "error";
 		}
@@ -91,6 +93,7 @@ public class ReportModelAction extends BasicAction {
 		reportModelService.update(reportModel);
 		return list();
 	}
+
 	public String list() throws Exception {
 		init();
 		pageResult = new PageResult<ReportModel>();
@@ -211,6 +214,14 @@ public class ReportModelAction extends BasicAction {
 
 	public void setDeal(Integer deal) {
 		this.deal = deal;
+	}
+
+	public int getT() {
+		return t;
+	}
+
+	public void setT(int t) {
+		this.t = t;
 	}
 
 }
