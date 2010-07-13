@@ -66,7 +66,7 @@
 				<tr>
 					<td class="list_data_number">${report.id }</td>
 					<td class="list_data_text"><a href="softwareInfo!detail.action?id=${report.softwareInfo.id }">${report.softwareInfo.name }</a></td>
-					<td class="list_data_text">${report.phoneModel.name }</td>
+					<td class="list_data_text">${report.phoneModel.phoneseries.brand.name } - ${report.phoneModel.name }</td>
 					<td class="list_data_text">${reports[report.rid]}</td>
 					<td class="list_data_text">${report.ps}</td>
 					<td class="list_data_text">

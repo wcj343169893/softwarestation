@@ -161,7 +161,8 @@
 		<property name="phoneSeriesService" ref="phoneSeriesService"></property>
 		<property name="phoneModelService" ref="phoneModelService"></property>
 	</bean>
-	<bean id="SoftwareTypeAction" class="cn.ss.action.SoftwareTypeAction">
+	<bean id="SoftwareTypeAction" class="cn.ss.action.SoftwareTypeAction"
+		scope="prototype">
 		<property name="softwareTypeService" ref="softwareTypeService"></property>
 		<property name="phoneModelService" ref="phoneModelService"></property>
 		<property name="softwareInfoService" ref="softwareInfoService"></property>
@@ -178,7 +179,8 @@
 		<property name="clickLogService" ref="clickLogService"></property>
 		<property name="reportService" ref="reportService"></property>
 	</bean>
-	<bean id="SoftwareAction" class="cn.ss.action.SoftwareAction">
+	<bean id="SoftwareAction" class="cn.ss.action.SoftwareAction"
+		scope="prototype">
 		<property name="softwareService" ref="softwareService"></property>
 		<property name="softwareInfoService" ref="softwareInfoService"></property>
 		<property name="downloadLogService" ref="downloadLogService"></property>
