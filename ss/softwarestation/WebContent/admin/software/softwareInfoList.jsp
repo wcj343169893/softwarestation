@@ -149,8 +149,8 @@
 		<th>分类</th>
 		<c:if test="${showData==0}">
 			<th><a href="javascript:xianrenzhang(3)">软件数量</a></th>
-			<th>开发商</th>
 		</c:if>
+		<th>开发商</th>
 		<th><a href="javascript:xianrenzhang(4)">点击</a></th>
 		<th><a href="javascript:xianrenzhang(5)">下载</a></th>
 		<th><a href="javascript:xianrenzhang(6)">激活</a></th>
@@ -196,8 +196,8 @@
 					<td class="list_data_text">${softwareInfo.softwareType.name}</td>
 					<c:if test="${showData==0}">
 						<td class="list_data_text">${softwareInfo.number}</td>
-						<td class="list_data_text">${fn:substring(softwareInfo.producer,0,8)}</td>
 					</c:if>
+					<td class="list_data_text">${fn:substring(softwareInfo.producer,0,8)}</td>
 					<c:set value="0" var="dowload"></c:set>
 					<c:set value="0" var="click"></c:set>
 					<!-- 下载数 -->
