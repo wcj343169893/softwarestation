@@ -202,7 +202,7 @@
 		scope="prototype">
 		<property name="extensionService" ref="extensionService"></property>
 	</bean>
-	<bean id="PhoneModelAction" class="cn.ss.action.PhoneModelAction">
+	<bean id="PhoneModelAction" class="cn.ss.action.PhoneModelAction" scope="prototype">
 		<property name="phoneBrandService" ref="phoneBrandService"></property>
 		<property name="phoneModelService" ref="phoneModelService"></property>
 		<property name="brandDTO" ref="brandDTO"></property>

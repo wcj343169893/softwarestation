@@ -18,19 +18,20 @@
 	</c:when>
 	<c:otherwise>
 		<c:forEach items="${pageResult.list}" var="model" varStatus="vs">
-		${vs.count }.<a href="suremodel.php?mid=${model.id }">${model.phoneseries.brand.name }${model.name }</a><br />
+		${vs.count }.<a href="suremodel.php?mid=${model.id }&amp;from=${from}">${model.phoneseries.brand.name }${model.name }</a><br />
 		</c:forEach>
 		<c:set var="page" value="${pageResult}"></c:set>
-			<c:if test="${page.pageNo!=1}"><a href="searchmodel.php?keyword=${keyword }&amp;p=${page.pageNo-1 }&amp;mid=${mid }">上页</a></c:if>
-			<c:if test="${page.pageNo<page.pageTotal}"><a href="searchmodel.php?keyword=${keyword }&amp;p=${page.pageNo+1 }&amp;mid=${mid }">下页</a></c:if> 
-			<c:if test="${page.pageNo!=1}"><a href="searchmodel.php?keyword=${keyword }&amp;p=1&amp;mid=${mid }">首页</a></c:if>
-			<c:if test="${page.pageNo<page.pageTotal}"><a href="searchmodel.php?keyword=${keyword }&amp;p=${page.pageTotal}&amp;mid=${mid }">尾页</a></c:if>
+			<c:if test="${page.pageNo!=1}"><a href="searchmodel.php?keyword=${keyword }&amp;p=${page.pageNo-1 }&amp;mid=${mid }&amp;from=${from}">上页</a></c:if>
+			<c:if test="${page.pageNo<page.pageTotal}"><a href="searchmodel.php?keyword=${keyword }&amp;p=${page.pageNo+1 }&amp;mid=${mid }&amp;from=${from}">下页</a></c:if> 
+			<c:if test="${page.pageNo!=1}"><a href="searchmodel.php?keyword=${keyword }&amp;p=1&amp;mid=${mid }&amp;from=${from}">首页</a></c:if>
+			<c:if test="${page.pageNo<page.pageTotal}"><a href="searchmodel.php?keyword=${keyword }&amp;p=${page.pageTotal}&amp;mid=${mid }&amp;from=${from}">尾页</a></c:if>
 			共${page.recTotal}个 
 				<br/>${page.pageNo}/${page.pageTotal}页,至<input name="pageno" maxlength="2" size="2" format="*N" value="${page.pageNo}"/>页 <anchor>
 				<go href="searchmodel.php">
 					<postfield name="p" value="$(pageno)" />
 					<postfield name="keyword" value="${keyword }" />
 					<postfield name="mid" value="${mid }" />
+					<postfield name="from" value="${from }" />
 				</go>跳页</anchor><br/>
 	</c:otherwise>
 </c:choose>
@@ -42,13 +43,14 @@
 		<go href="searchmodel.php" method="post">
 			<postfield name="keyword" value="$(xh)" />
 			<postfield name="mid" value="${mid }" />
+			<postfield name="from" value="${from }" />
 		</go>搜索机型
 	</anchor> <br />
 (如诺基亚N73,输入N73或73)<br />
 2.本站暂未收录您的机型,请您将手机品牌及型号<a href="reportModel.php?mid=${mid}">报告给我们</a>,同时建议您可返回设置机型页尝试设置手机平台 下载适合您手机的软件.<br />
 3.建议您设置完机型或平台后将本站收藏(存为书签),方便您下次访问无需再次设置机型,还能节省您宝贵的流量.<br />
 --------------------<br />
-<a href="index.php?mid=${mid }">首页</a>&gt;<a href="setmodel.php?mid=${mid }">设置机型</a>&gt;机型搜索<br />
+<a href="index.php?mid=${mid }">首页</a>&gt;<a href="setmodel.php?mid=${mid }&amp;from=${from}">设置机型</a>&gt;机型搜索<br />
 <jsp:include page="detail.jsp"></jsp:include>
 </p>
 </card>
