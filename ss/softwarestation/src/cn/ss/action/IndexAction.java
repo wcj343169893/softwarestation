@@ -1,6 +1,7 @@
 package cn.ss.action;
 
 import java.io.PrintWriter;
+import java.net.URLDecoder;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
@@ -70,8 +71,9 @@ public class IndexAction extends BasicAction {
 		PrintWriter out = response.getWriter();
 		if (index_str != null && !"".equals(index_str.trim())) {
 			try {
-				index_str = new String(index_str.getBytes("ISO-8859-1"),
-						"GB2312");
+				//index_str = new String(index_str.getBytes("ISO-8859-1"),
+					//	"GB2312");
+				index_str=URLDecoder.decode(index_str,"UTF-8");
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

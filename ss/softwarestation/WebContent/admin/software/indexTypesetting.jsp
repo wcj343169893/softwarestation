@@ -45,7 +45,11 @@ function ajaxFunction(url){
       }
     }
  	if(xmlHttp){ 
- 	 	//alert(url);
+ 	 	// alert(url);
+ 	 	 url=encodeURI(url);
+ 	 	// alert(url);
+ 	 	 url=encodeURI(url);
+ 	 	// alert(url);
 		 xmlHttp.open("POST",url, true);
 		 xmlHttp.setRequestHeader("Content-Type","text/html;charset=UTF-8");
 		 xmlHttp.onreadystatechange = complete; 

@@ -11,8 +11,8 @@
 <jsp:include page="notices.jsp"></jsp:include>
 类别：${softwareType.name }
 <c:choose>
-	<c:when test="${isJava == 1}"><a href="showst.php?p=1&amp;isJava=0&amp;mid=${mid }">显示通用版</a></c:when>
-	<c:when test="${isJava == 0}"><a href="showst.php?p=1&amp;isJava=1&amp;mid=${mid }">过滤通用版</a></c:when>
+	<c:when test="${isJava == 1}"><a href="showst.php?p=1&amp;isJava=0&amp;mid=${mid }&amp;id=${id}">显示通用版</a></c:when>
+	<c:when test="${isJava == 0}"><a href="showst.php?p=1&amp;isJava=1&amp;mid=${mid }&amp;id=${id}">过滤通用版</a></c:when>
 	<c:otherwise></c:otherwise>
 </c:choose><br />
 <c:choose>
