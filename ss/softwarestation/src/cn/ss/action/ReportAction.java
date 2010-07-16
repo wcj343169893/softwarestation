@@ -30,6 +30,7 @@ public class ReportAction extends BasicAction {
 	private String ps;
 	private SoftwareInfo softwareInfo;
 	private Map<Integer, String> reports;
+	private int t = 0;
 
 	public String delete() throws Exception {
 		if (id > 0) {
@@ -221,6 +222,14 @@ public class ReportAction extends BasicAction {
 
 	public void setPs(String ps) {
 		this.ps = ps;
+	}
+
+	public int getT() {
+		return t;
+	}
+
+	public void setT(int t) {
+		this.t = t;
 	}
 
 }
